@@ -9,6 +9,9 @@ TIMESTEP = 1;
 hitstop = 0;
 nexttimestep = 1;
 
+debugoverlay = true;
+show_debug_overlay(debugoverlay);
+
 draw_set_font(fnt_main);
 
 room_goto_next();

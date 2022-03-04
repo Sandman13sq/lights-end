@@ -15,5 +15,7 @@ z = 0;
 autodepth = true;
 depthoffset = 0;
 
+color = c_yellow;
+
 event_user(0);
 

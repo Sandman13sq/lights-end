@@ -8,14 +8,20 @@ function Update(ts)
 	var xlev = LevKeyHeld(vk_right, vk_left);
 	var ylev = LevKeyHeld(vk_down, vk_up);
 	
+	aimlock = keyboard_check( ord("Z") );
 	infocus = keyboard_check( ord("Z") );
 	
 	if (xlev != 0 || ylev != 0)
 	{
-		aimdirection = Modulo(darctan2(-ylev, xlev), 360);
-	
-		xspeed = movespeed * dcos(aimdirection);
-		yspeed = movespeed * -dsin(aimdirection);
+		movedirection = Modulo(darctan2(-ylev, xlev), 360);
+		
+		if (aimlock)
+		{
+			aimdirection = movedirection;
+		}
+		
+		xspeed = movespeed * dcos(movedirection) * (infocus == 0);
+		yspeed = movespeed * -dsin(movedirection) * (infocus == 0);
 		
 		// Set sprite from direction
 		if (aimdirection < 45-27.5) {image_index = 0;}	// Right
@@ -33,8 +39,8 @@ function Update(ts)
 		yspeed = 0;
 	}
 	
-	x += xspeed * ts * (infocus == 0);
-	y += yspeed * ts * (infocus == 0);
+	x += xspeed * ts;
+	y += yspeed * ts;
 	
 	// Fire button
 	if (keyboard_check(ord("X")))
@@ -68,7 +74,7 @@ function Draw()
 	
 	// Aim Arrow Direction
 	draw_sprite_ext(
-		spr_aimarrow, infocus, 
+		spr_aimarrow, aimlock, 
 		x + lengthdir_x(ARROWDISTANCE, aimdirection), 
 		y + lengthdir_y(ARROWDISTANCE, aimdirection) - 16,
 		1, 1, aimdirection, c_yellow, 1

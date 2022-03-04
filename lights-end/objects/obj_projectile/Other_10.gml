@@ -10,6 +10,16 @@ function Update(ts)
 	else
 	{
 		instance_destroy();	
+		return;
+	}
+	
+	// Deal Damage
+	var inst = instance_place(x, y, obj_enemy);
+	if (inst)
+	{
+		instance_destroy(inst);	
+		instance_destroy();
+		return;
 	}
 }
 

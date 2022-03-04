@@ -6,12 +6,14 @@ event_inherited();
 
 direction = 0;
 aimdirection = 0;
+movedirection = 0;
 
-movespeed = 2;
+movespeed = 3;
 
 infocus = 0;
+aimlock = 0;
 
-refiretime = 5;
+refiretime = 8;
 refiredelay = 0;
 
 firebuffer = 0;

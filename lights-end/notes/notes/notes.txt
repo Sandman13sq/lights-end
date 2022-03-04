@@ -1,0 +1,8 @@
+== CONTROLS ==
+
+LEFT, RIGHT, UP, DOWN - Player Movement
+SHOOT - Fires weapon in direction
+FOCUS - Locks movement in place for precise aiming. Pans screen to aim direction.
+
+- Lightly tapping the stick will aim, but not move. Equivalent to holding FOCUS.
+

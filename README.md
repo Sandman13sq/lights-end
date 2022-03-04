@@ -1,2 +1,3 @@
 # lights-end
- An arcade-shooter where players fight against the darkness that has cosumned the world
+An arcade-shooter where players fight against the darkness that has cosumes the world overnight!  
+Submission for the #NoticeMe GXC Game Jam in March 2022.

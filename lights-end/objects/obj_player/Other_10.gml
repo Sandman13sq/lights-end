@@ -9,13 +9,13 @@ function Update(ts)
 	var ylev = LevKeyHeld(vk_down, vk_up);
 	
 	aimlock = keyboard_check( ord("Z") );
-	infocus = keyboard_check( ord("Z") );
+	//infocus = keyboard_check( ord("Z") );
 	
 	if (xlev != 0 || ylev != 0)
 	{
 		movedirection = Modulo(darctan2(-ylev, xlev), 360);
 		
-		if (aimlock)
+		if (!aimlock)
 		{
 			aimdirection = movedirection;
 		}

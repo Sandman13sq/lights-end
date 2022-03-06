@@ -4,7 +4,7 @@ damage = 0;
 hostile = false;
 flags = 0;
 
-projspeed = 8;
+projspeed = 12;
 projdirection = 0;
 
 lifemax = 16;

@@ -2,7 +2,7 @@
 
 event_inherited();
 
-#macro ARROWDISTANCE 48
+#macro ARROWDISTANCE 64
 
 direction = 0;
 aimdirection = 0;

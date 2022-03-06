@@ -73,10 +73,10 @@ function Update(ts)
 		var e = instance_place(x, y, obj_enemy);
 		if (e)
 		{
-			if (e.damage > 0)
+			if (e.GetDamage() > 0 && e.HasFlag(FL_Entity.hostile))
 			{
 				iframes = iframestime;
-				healthpoints = max(0, healthpoints-1);
+				healthpoints = max(0, healthpoints-e.GetDamage());
 				SetHitstop(5);
 			}
 		}
@@ -95,7 +95,7 @@ function Draw()
 	draw_sprite_ext(
 		spr_aimarrow, aimlock, 
 		x + lengthdir_x(ARROWDISTANCE, aimdirection), 
-		y + lengthdir_y(ARROWDISTANCE, aimdirection) - 16,
+		y + lengthdir_y(ARROWDISTANCE, aimdirection) - 40,
 		1, 1, aimdirection, c_yellow, 1
 	);
 }

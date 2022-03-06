@@ -1,6 +1,6 @@
 /// @desc
 
-damage = 0;
+damage = 3;
 hostile = false;
 flags = 0;
 

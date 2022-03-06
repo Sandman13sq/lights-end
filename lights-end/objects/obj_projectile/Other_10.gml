@@ -17,9 +17,13 @@ function Update(ts)
 	var inst = instance_place(x, y, obj_enemy);
 	if (inst)
 	{
-		instance_destroy(inst);	
-		instance_destroy();
-		return;
+		if (inst.HasFlag(FL_Entity.shootable))
+		{
+			inst.DoDamage(damage);
+			instance_destroy();
+			return;
+		}
+		
 	}
 }
 

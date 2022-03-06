@@ -65,12 +65,31 @@ function Update(ts)
 	
 	if (firebuffer > 0) {firebuffer = Approach(firebuffer, 0, 1);}
 	
+	// Progress invicibility frames
+	if (iframes > 0) {iframes = Approach(iframes, 0, ts);}
+	// Take damage from enemies
+	else
+	{
+		var e = instance_place(x, y, obj_enemy);
+		if (e)
+		{
+			if (e.damage > 0)
+			{
+				iframes = iframestime;
+				healthpoints = max(0, healthpoints-1);
+				SetHitstop(5);
+			}
+		}
+	}
 }
 
 function Draw()
 {
 	// Draw sprite
-	draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_white, 1);
+	if (BoolStep(iframes, 10) == 0)
+	{
+		draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_white, 1);
+	}
 	
 	// Aim Arrow Direction
 	draw_sprite_ext(

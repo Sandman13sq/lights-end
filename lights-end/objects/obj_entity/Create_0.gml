@@ -6,7 +6,9 @@ entityflag = 0;
 tag = [];
 
 healthmax = 0;
-health = 0;
+healthpoints = 0;
+
+damage = 0;
 
 xshake = 0;
 
@@ -21,3 +23,6 @@ z = 0;
 
 autodepth = true;
 depthoffset = 0;
+
+hitlist = ds_list_create();
+

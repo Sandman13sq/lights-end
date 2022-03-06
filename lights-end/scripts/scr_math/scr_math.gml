@@ -32,5 +32,5 @@ function Modulo(x, y)
 
 function BoolStep(x, step)
 {
-	return (x mod step*2) < step;
+	return (x mod step*2) > step;
 }

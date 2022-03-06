@@ -79,6 +79,7 @@ function Update(ts)
 				// Destroy
 				else
 				{
+					PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
 					instance_destroy();
 				}
 				return;
@@ -131,6 +132,7 @@ function OnDefeat()
 {
 	if (state == ST_Ghost.down)
 	{
+		PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
 		instance_destroy();
 	}
 	else

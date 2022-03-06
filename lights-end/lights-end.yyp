@@ -12,6 +12,7 @@
     {"id":{"name":"spr_hp_heart","path":"sprites/spr_hp_heart/spr_hp_heart.yy",},"order":0,},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":0,},
     {"id":{"name":"scr_random","path":"scripts/scr_random/scr_random.yy",},"order":4,},
+    {"id":{"name":"scr_particles","path":"scripts/scr_particles/scr_particles.yy",},"order":5,},
     {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},"order":1,},
     {"id":{"name":"obj_gfx","path":"objects/obj_gfx/obj_gfx.yy",},"order":0,},
     {"id":{"name":"spr_ghostM_down","path":"sprites/spr_ghostM_down/spr_ghostM_down.yy",},"order":2,},

@@ -27,16 +27,19 @@ function Update(ts)
 function Draw()
 {
 	draw_primitive_begin(pr_trianglelist);
+	
+	var xx = x, yy = y-z;
+	
 	var r = 10;
 	var pts = [
-		x + lengthdir_x(r, projdirection-90),
-		y + lengthdir_y(r, projdirection-90),
-		x + lengthdir_x(r, projdirection),
-		y + lengthdir_y(r, projdirection),
-		x + lengthdir_x(r, projdirection+90),
-		y + lengthdir_y(r, projdirection+90),
-		x + lengthdir_x(r*2, projdirection+180),
-		y + lengthdir_y(r*2, projdirection+180),
+		xx + lengthdir_x(r, projdirection-90),
+		yy + lengthdir_y(r, projdirection-90),
+		xx + lengthdir_x(r, projdirection),
+		yy + lengthdir_y(r, projdirection),
+		xx + lengthdir_x(r, projdirection+90),
+		yy + lengthdir_y(r, projdirection+90),
+		xx + lengthdir_x(r*2, projdirection+180),
+		yy + lengthdir_y(r*2, projdirection+180),
 	];
 	
 	draw_vertex_color(pts[0], pts[1], color, 1);

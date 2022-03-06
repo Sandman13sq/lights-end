@@ -2,7 +2,7 @@
 
 event_inherited();
 
-#macro ARROWDISTANCE 32
+#macro ARROWDISTANCE 48
 
 direction = 0;
 aimdirection = 0;
@@ -19,3 +19,5 @@ refiredelay = 0;
 firebuffer = 0;
 firebuffertime = 5;
 
+sprite_index = choose(spr_playerM_idle, spr_playerF_idle);
+image_speed = 0;

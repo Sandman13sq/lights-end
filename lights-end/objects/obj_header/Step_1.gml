@@ -18,6 +18,16 @@ if (keyboard_check_pressed(vk_escape))
 	window_set_fullscreen(false);
 }
 
+// Restart
+if (keyboard_check(vk_tab))
+{
+	if (keyboard_check_pressed(ord("R")))
+	{
+		game_restart();
+		return;
+	}
+}
+
 // Progress hitstop
 if (hitstop > 0)
 {

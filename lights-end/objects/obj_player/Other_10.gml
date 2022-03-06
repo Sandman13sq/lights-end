@@ -29,9 +29,9 @@ function Update(ts)
 		else if (aimdirection < 45*3-27.5 ) {image_index = 2;}	// Up
 		else if (aimdirection < 45*4-27.5 ) {image_index = 3;}	// UpLeft
 		else if (aimdirection < 45*5-27.5 ) {image_index = 4;}	// Left
-		else if (aimdirection < 45*6-27.5 ) {image_index = 4;}	// DownLeft
-		else if (aimdirection < 45*7-27.5 ) {image_index = 5;}	// Down
-		else if (aimdirection < 45*8-27.5 ) {image_index = 0;}	// DownRight
+		else if (aimdirection < 45*6-27.5 ) {image_index = 5;}	// DownLeft
+		else if (aimdirection < 45*7-27.5 ) {image_index = 6;}	// Down
+		else if (aimdirection < 45*8-27.5 ) {image_index = 7;}	// DownRight
 	}
 	else
 	{

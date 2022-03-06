@@ -1,6 +1,7 @@
 {
   "resources": [
     {"id":{"name":"obj_entity","path":"objects/obj_entity/obj_entity.yy",},"order":1,},
+    {"id":{"name":"spr_playerF_idle","path":"sprites/spr_playerF_idle/spr_playerF_idle.yy",},"order":1,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":0,},
     {"id":{"name":"scr_draw","path":"scripts/scr_draw/scr_draw.yy",},"order":1,},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":0,},
@@ -8,6 +9,7 @@
     {"id":{"name":"obj_gfx","path":"objects/obj_gfx/obj_gfx.yy",},"order":0,},
     {"id":{"name":"scr_math","path":"scripts/scr_math/scr_math.yy",},"order":0,},
     {"id":{"name":"obj_projectile","path":"objects/obj_projectile/obj_projectile.yy",},"order":3,},
+    {"id":{"name":"spr_playerM_idle","path":"sprites/spr_playerM_idle/spr_playerM_idle.yy",},"order":0,},
     {"id":{"name":"spr_mask16","path":"sprites/spr_mask16/spr_mask16.yy",},"order":2,},
     {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},"order":1,},
     {"id":{"name":"notes","path":"notes/notes/notes.yy",},"order":0,},
@@ -54,6 +56,7 @@
     {"folderPath":"folders/Objects/Entities/Player.yy","order":3,"resourceVersion":"1.0","name":"Player","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Objects/Entities/Enemies.yy","order":4,"resourceVersion":"1.0","name":"Enemies","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Objects/GFX.yy","order":7,"resourceVersion":"1.0","name":"GFX","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Sprites/Player.yy","order":5,"resourceVersion":"1.0","name":"Player","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},

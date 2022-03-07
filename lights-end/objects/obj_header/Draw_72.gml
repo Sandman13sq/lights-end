@@ -5,7 +5,7 @@ draw_clear_alpha(0, 0);
 // Store state
 gpu_push_state();
 	
-var mats = [
+roommats = [
 	matrix_get(matrix_projection),
 	matrix_get(matrix_view),
 	matrix_get(matrix_world)
@@ -17,9 +17,15 @@ shader_set(shd_3d);
 gpu_set_cullmode(cull_clockwise);
 gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
-gpu_set_alphatestenable(true);
+//gpu_set_alphatestenable(true);
 
-matproj = matrix_build_projection_perspective_fov(30, window_get_width()/window_get_height(), 10, 10000);
+if (instance_exists(obj_player))
+{
+	camerapos[0] = obj_player.x;	
+	camerapos[1] = obj_player.y;	
+}
+
+matproj = matrix_build_projection_perspective_fov(40, window_get_width()/window_get_height(), 10, 20000);
 matview = matrix_build_lookat(
 	camerapos[0] + cameralookfrom[0],
 	camerapos[1] - cameralookfrom[1],
@@ -29,12 +35,6 @@ matview = matrix_build_lookat(
 	camerapos[2],
 	0, 0, 1
 	);
-matbillboard = [
-	matview[ 0], matview[ 4], matview[ 8], 0,
-	-matview[ 1], -matview[ 5], -matview[ 9], 0,
-	matview[ 2], matview[ 6], matview[10], 0,
-	0, 0, 0, 1
-];
 
 matbillboard = [
 	matview[ 0], matview[ 4], matview[ 8], 0,
@@ -42,6 +42,10 @@ matbillboard = [
 	matview[ 2], matview[ 6], matview[10], 0,
 	0, 0, 0, 1
 ];
+
+// Without these, objects wouldn't be drawn outside a limited range
+camera_set_view_pos(view_camera, camerapos[0], camerapos[1]);
+camera_set_proj_mat(view_camera, matproj);
 
 matrix_set(matrix_projection, matproj);
 matrix_set(matrix_view, matview);
@@ -56,6 +60,7 @@ with obj_worldvb
 	}
 }
 
+gpu_set_cullmode(cull_noculling);
 with obj_entity
 {
 	if (visible)
@@ -64,11 +69,3 @@ with obj_entity
 	}
 }
 
-// Restore state
-shader_reset();
-
-matrix_set(matrix_projection, mats[0]);
-matrix_set(matrix_view, mats[1]);
-matrix_set(matrix_world, mats[2]);
-	
-gpu_pop_state();

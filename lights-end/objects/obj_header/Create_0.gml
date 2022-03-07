@@ -19,11 +19,19 @@ PARTSYS = part_system_create();
 part_system_depth(PARTSYS, -1000);
 
 camerapos = [0, 0, 0];
-cameralookfrom = [0, -22, 21.7];
+//cameralookfrom = [0, -22, 21.7];
+cameralookfrom = [0, -500, 1000];
+//cameralookfrom = [0, 22, 21.7];
 
 matproj = matrix_build_identity();
 matview = matrix_build_identity();
 matbillboard = matrix_build_identity();
+
+roommats = [
+	matrix_get(matrix_projection),
+	matrix_get(matrix_view),
+	matrix_get(matrix_world)
+];
 
 shd_3d_uvbounds = shader_get_uniform(shd_3d, "u_uvbounds");
 

@@ -33,6 +33,11 @@ function Draw()
 
 function Draw3D()
 {
+	draw_sprite_billboard(spr_shadow, 0, x, y, 0, LightsEndColor.dark);
+	draw_sprite_billboard(sprite_index, image_index, x, y, z);
+	
+	return;
+	
 	matrix_set(matrix_world, Mat4Sprite(sprite_index, image_index, x, y, z));
 	
 	U_SetUVBounds(UVSSPRITE[sprite_index][image_index]);

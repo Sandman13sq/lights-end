@@ -27,8 +27,8 @@ void main()
 	
 	float p = 64.0;
 	
-	gl_FragColor += vec4(pow(v_vTexcoord.x, p) + pow(v_vTexcoord.y, p));
-	gl_FragColor += vec4(pow(1.0-v_vTexcoord.x, p) + pow(1.0-v_vTexcoord.y, p));
+	//gl_FragColor += vec4(pow(v_vTexcoord.x, p) + pow(v_vTexcoord.y, p));
+	//gl_FragColor += vec4(pow(1.0-v_vTexcoord.x, p) + pow(1.0-v_vTexcoord.y, p));
 	
 	if (gl_FragColor.a <= 0.01) {discard;}
 }

@@ -13,7 +13,9 @@ varying vec2 v_vTexcoord;
 
 void main()
 {
-    vec4 object_space_pos = vec4( in_Position.x, in_Position.y, in_Position.z, 1.0);
+    vec4 object_space_pos = vec4(in_Position, 1.0);
+	object_space_pos.y -= object_space_pos.z; // Skew y-coordinate
+	
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
     
 	v_vPosition = in_Position.xyz;

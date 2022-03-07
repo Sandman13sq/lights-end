@@ -11,7 +11,7 @@ VBF3D = vertex_format_end();
 
 function LoadVB(path)
 {
-	var b = buffer_load(path);
+	var b = buffer_load(filename_change_ext(path, ".vb"));
 	
 	if (b == -1)
 	{

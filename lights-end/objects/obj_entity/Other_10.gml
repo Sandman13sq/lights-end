@@ -33,8 +33,20 @@ function Draw()
 
 function Draw3D()
 {
-	matrix_set(matrix_world, matrix_build(x, y, 1, 0, 0, 0, 1, 1, 1));
-	//vertex_submit(vb_circle, pr_trianglelist, 1);
+	matrix_set(matrix_world, Mat4Sprite(sprite_index, image_index, x, y, z));
+	
+	U_SetUVBounds(UVSSPRITE[sprite_index][image_index]);
+	//matrix_set(matrix_world, obj_header.matbillboard);
+	vertex_submit(vb_sprite, pr_trianglelist, sprite_get_texture(sprite_index, image_index));
+	
+	U_SetUVBounds();
+	matrix_set(matrix_world, 
+		matrix_multiply(
+			obj_header.matbillboard,	// Transform panel to sprite size
+			matrix_build(x*DRAWSCALE3D, y*DRAWSCALE3D, z*DRAWSCALE3D, 0, 0, 0, 1, 1, 1),	// Move model
+			)
+		);
+	vertex_submit(vb_axis, pr_trianglelist, -1);
 }
 
 function SetState(_state)

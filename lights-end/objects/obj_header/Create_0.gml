@@ -23,6 +23,9 @@ cameralookfrom = [0, -22, 21.7];
 
 matproj = matrix_build_identity();
 matview = matrix_build_identity();
+matbillboard = matrix_build_identity();
+
+shd_3d_uvbounds = shader_get_uniform(shd_3d, "u_uvbounds");
 
 room_goto_next();
 

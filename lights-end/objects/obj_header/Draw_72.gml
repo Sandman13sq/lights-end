@@ -17,6 +17,7 @@ shader_set(shd_3d);
 gpu_set_cullmode(cull_clockwise);
 gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
+gpu_set_alphatestenable(true);
 
 matproj = matrix_build_projection_perspective_fov(30, window_get_width()/window_get_height(), 10, 10000);
 matview = matrix_build_lookat(
@@ -28,6 +29,19 @@ matview = matrix_build_lookat(
 	camerapos[2],
 	0, 0, 1
 	);
+matbillboard = [
+	matview[ 0], matview[ 4], matview[ 8], 0,
+	-matview[ 1], -matview[ 5], -matview[ 9], 0,
+	matview[ 2], matview[ 6], matview[10], 0,
+	0, 0, 0, 1
+];
+
+matbillboard = [
+	matview[ 0], matview[ 4], matview[ 8], 0,
+	-matview[ 1], -matview[ 5], -matview[ 9], 0,
+	matview[ 2], matview[ 6], matview[10], 0,
+	0, 0, 0, 1
+];
 
 matrix_set(matrix_projection, matproj);
 matrix_set(matrix_view, matview);

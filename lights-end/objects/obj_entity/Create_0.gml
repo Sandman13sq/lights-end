@@ -10,6 +10,8 @@ enum FL_Entity
 }
 
 vb_circle = LoadVB("unit_circle.vb");
+vb_axis = LoadVB("unit_axis.vb");
+vb_sprite = LoadVB("unit_sprite.vb");
 
 entityindex = 0;
 entityflag = 0;

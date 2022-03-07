@@ -12,6 +12,54 @@
 	]
 */
 
+// Generate sprite matrices
+#macro DRAWSCALE3D 0.04
+#macro MAT4SPRITE global.g_mat4sprite
+#macro UVSSPRITE global.g_uvsprite
+var spr = 0, n;
+var imagemats, uvbounds;
+var s = DRAWSCALE3D;
+
+MAT4SPRITE = array_create(128);
+UVSSPRITE = array_create(128);
+
+while (sprite_exists(spr))
+{
+	n = sprite_get_number(spr);
+	imagemats = array_create(n);
+	uvbounds = array_create(n);
+	
+	var xx, yy, ww, hh, uvs;
+	
+	xx = -sprite_get_xoffset(spr);
+	yy = -sprite_get_yoffset(spr);
+	ww = sprite_get_width(spr);
+	hh = sprite_get_height(spr);
+	
+	//print([sprite_get_name(spr), xx, yy, ww, hh])
+	
+	for (var i = 0; i < n; i++)
+	{
+		//xx = 0;
+		//yy = 0;
+		
+		uvs = sprite_get_uvs(spr, i);
+		
+		imagemats[i] = [
+			(ww)*s, 0, 0, 0,
+			0, (hh)*s, 0, 0,
+			0, 0,  1, 0,
+			(xx+20)*s, (yy+40)*s, 0, 1
+			];
+		
+		uvbounds[i] = [0,0,1,1];
+	}
+	
+	MAT4SPRITE[spr] = imagemats;
+	UVSSPRITE[spr] = uvbounds;
+	spr++;	
+}
+
 //*
 function WorldToScreen(x, y, z, screenw, screenh, view_mat, proj_mat, outvec2 = [0,0])
 {	
@@ -25,6 +73,26 @@ function WorldToScreen(x, y, z, screenw, screenh, view_mat, proj_mat, outvec2 = 
 	outvec2[@ 0] = (0.5 + 0.5 * cx) * screenw;
 	outvec2[@ 1] = (0.5 - 0.5 * cy) * screenh;
 	return outvec2;
+}
+
+/*
+	Sprite Transform
+	Billboard
+	Location
+*/
+
+function Mat4Sprite(sprite_index, image_index, x, y, z)
+{
+	var spritemat = sprite_index >= 0? MAT4SPRITE[sprite_index][image_index]: matrix_build_identity();
+	var s = DRAWSCALE3D;
+	
+	return matrix_multiply(
+		matrix_multiply(
+			spritemat, // Transform panel to sprite size
+			obj_header.matbillboard,	// Rotate towards Camera
+			),	
+		matrix_build(x*s, y*s, z*s, 0, 0, 0, 1, 1, 1),	// Move model
+		);
 }
 
 //*/
@@ -41,6 +109,11 @@ function WorldToScreen(x, y, z, w, h, matview, matproj)
 	];
 }
 //*/
+
+function U_SetUVBounds(uvs = [0,0,1,1])
+{
+	shader_set_uniform_f_array(obj_header.shd_3d_uvbounds, uvs);
+}
 
 function WorldToScreenXY(x, y, z)
 {
@@ -59,3 +132,11 @@ function DrawShapeRectWH(x, y, w, h, color, alpha)
 {
 	draw_sprite_stretched_ext(spr_pixel, 0, x, y, w, h, color, alpha);
 }
+
+function Mat4Translate(x, y, z) {return matrix_build(x, y, z, 0,0,0, 1,1,1);}
+function Mat4Scale(scale) {return matrix_build(0,0,0, 0,0,0, scale,scale,scale);}
+function Mat4ScaleXYZ(xscale, yscale, zscale) {return matrix_build(0,0,0, 0,0,0, xscale,yscale,zscale);}
+function Mat4TranslateScale(x, y, z, scale) {return matrix_build(x,y,z, 0,0,0, scale, scale, scale);}
+function Mat4TranslateScaleXYZ(x, y, z, xscale, yscale, zscale) {return matrix_build(x,y,z, 0,0,0, xscale,yscale,zscale);}
+function Mat4RotZ(zrot) {return matrix_build(0,0,0, 0,0,zrot, 1,1,1);}
+

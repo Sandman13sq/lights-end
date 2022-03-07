@@ -5,11 +5,13 @@
     {"id":{"name":"spr_ghostM_defeat","path":"sprites/spr_ghostM_defeat/spr_ghostM_defeat.yy",},"order":1,},
     {"id":{"name":"obj_entity","path":"objects/obj_entity/obj_entity.yy",},"order":1,},
     {"id":{"name":"spr_playerF_idle","path":"sprites/spr_playerF_idle/spr_playerF_idle.yy",},"order":1,},
+    {"id":{"name":"shd_3d","path":"shaders/shd_3d/shd_3d.yy",},"order":0,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":0,},
     {"id":{"name":"scr_draw","path":"scripts/scr_draw/scr_draw.yy",},"order":1,},
     {"id":{"name":"spr_pixel","path":"sprites/spr_pixel/spr_pixel.yy",},"order":7,},
     {"id":{"name":"obj_enemy_ghostM","path":"objects/obj_enemy_ghostM/obj_enemy_ghostM.yy",},"order":0,},
     {"id":{"name":"spr_hp_heart","path":"sprites/spr_hp_heart/spr_hp_heart.yy",},"order":0,},
+    {"id":{"name":"scr_vb","path":"scripts/scr_vb/scr_vb.yy",},"order":6,},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":0,},
     {"id":{"name":"scr_random","path":"scripts/scr_random/scr_random.yy",},"order":4,},
     {"id":{"name":"scr_particles","path":"scripts/scr_particles/scr_particles.yy",},"order":5,},
@@ -19,6 +21,7 @@
     {"id":{"name":"scr_math","path":"scripts/scr_math/scr_math.yy",},"order":0,},
     {"id":{"name":"obj_projectile","path":"objects/obj_projectile/obj_projectile.yy",},"order":3,},
     {"id":{"name":"spr_ghostM","path":"sprites/spr_ghostM/spr_ghostM.yy",},"order":0,},
+    {"id":{"name":"obj_worldvb","path":"objects/obj_worldvb/obj_worldvb.yy",},"order":0,},
     {"id":{"name":"spr_playerM_idle","path":"sprites/spr_playerM_idle/spr_playerM_idle.yy",},"order":0,},
     {"id":{"name":"spr_mask16","path":"sprites/spr_mask16/spr_mask16.yy",},"order":2,},
     {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},"order":1,},
@@ -73,6 +76,7 @@
     {"folderPath":"folders/Sprites/Player.yy","order":5,"resourceVersion":"1.0","name":"Player","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sprites/GUI.yy","order":6,"resourceVersion":"1.0","name":"GUI","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sprites/Enemies.yy","order":9,"resourceVersion":"1.0","name":"Enemies","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Objects/World.yy","order":8,"resourceVersion":"1.0","name":"World","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},
@@ -80,7 +84,12 @@
   "TextureGroups": [
     {"isScaled":true,"autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,"resourceVersion":"1.3","name":"Default","resourceType":"GMTextureGroup",},
   ],
-  "IncludedFiles": [],
+  "IncludedFiles": [
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"model.vb","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"model.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"unit_circle.vb","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"unit_circle.json","resourceType":"GMIncludedFile",},
+  ],
   "MetaData": {
     "IDEVersion": "2022.2.0.614",
   },

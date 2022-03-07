@@ -85,18 +85,23 @@ function Update(ts)
 
 function Draw()
 {
+	var w2s = WorldToScreenXY(x, y, z), xx = w2s[0], yy = w2s[1];
+	
 	// Draw sprite
 	if (BoolStep(iframes, 10) == 0)
 	{
-		draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, 0, c_white, 1);
+		draw_sprite_ext(sprite_index, image_index, xx, yy, 1, 1, 0, c_white, 1);
 	}
 	
 	// Aim Arrow Direction
 	draw_sprite_ext(
 		spr_aimarrow, aimlock, 
-		x + lengthdir_x(ARROWDISTANCE, aimdirection), 
-		y + lengthdir_y(ARROWDISTANCE, aimdirection) - 40,
+		xx + lengthdir_x(ARROWDISTANCE, aimdirection), 
+		yy + lengthdir_y(ARROWDISTANCE, aimdirection) - 40,
 		1, 1, aimdirection, c_yellow, 1
 	);
+	
+	draw_text(16, 200, w2s);
+	draw_text(16, 230, [x, y]);
 }
 

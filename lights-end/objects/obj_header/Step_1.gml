@@ -41,3 +41,7 @@ else
 
 CURRENT_FRAME++;
 
+// Camera
+camerapos[0] += LevKeyHeld(ord("D"), ord("A"));
+camerapos[1] += LevKeyHeld(ord("W"), ord("S"));
+

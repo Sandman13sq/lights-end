@@ -7,6 +7,5 @@
 function ORandom()
 {
 	var r = irandom(ORANDOMMAX+1);
-	print(r);
 	return r;
 }

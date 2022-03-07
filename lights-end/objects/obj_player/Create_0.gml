@@ -31,4 +31,3 @@ sprite_index = choose(spr_playerM_idle, spr_playerF_idle);
 random_set_seed(s);
 
 image_speed = 0;
-

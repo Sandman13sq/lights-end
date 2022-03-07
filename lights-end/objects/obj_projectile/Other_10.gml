@@ -32,7 +32,7 @@ function Draw()
 {
 	draw_primitive_begin(pr_trianglelist);
 	
-	var xx = x, yy = y-z;
+	var w2s = WorldToScreenXY(x, y, z), xx = w2s[0], yy = w2s[1];
 	
 	var r = 10;
 	var pts = [

@@ -15,8 +15,7 @@ function Draw()
 {
 	if (sprite_exists(sprite_index))
 	{
-		var xx = x;
-		var yy = y-z;
+		var xy = WorldToScreenXY(x, y, z), xx = xy[0], yy = xy[1];
 		
 		if (xshake > 0)
 		{
@@ -30,6 +29,12 @@ function Draw()
 			0, c_white, 1
 		);	
 	}
+}
+
+function Draw3D()
+{
+	matrix_set(matrix_world, matrix_build(x, y, 1, 0, 0, 0, 1, 1, 1));
+	//vertex_submit(vb_circle, pr_trianglelist, 1);
 }
 
 function SetState(_state)
@@ -46,7 +51,8 @@ function PopStateStart()
 
 function DrawShadow()
 {
-	draw_sprite_ext(spr_shadow, 0, x, y, 1, 1, 0, LightsEndColor.dark, 1);
+	var xy = WorldToScreenXY(x, y, 0), xx = xy[0], yy = xy[1];
+	draw_sprite_ext(spr_shadow, 0, xx, yy, 1, 1, 0, LightsEndColor.dark, 1);
 }
 
 // Decrements health from entity
@@ -81,3 +87,4 @@ function HasFlag(f) {return (entityflag & f) != 0;}
 
 function GetHealth() {return healthpoints;}
 function GetDamage() {return damage;}
+

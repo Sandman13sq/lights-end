@@ -9,6 +9,8 @@ enum FL_Entity
 	hostile = 1<<2,
 }
 
+vb_circle = LoadVB("unit_circle.vb");
+
 entityindex = 0;
 entityflag = 0;
 

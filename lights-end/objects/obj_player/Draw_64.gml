@@ -12,5 +12,5 @@ for (var i = healthmax-1; i >= 0; i--)
 	}
 }
 
-draw_text(16, 16, healthpoints);
+draw_text(16, 16, [x, y]);
 

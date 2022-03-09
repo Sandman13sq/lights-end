@@ -81,6 +81,9 @@ function Update(ts)
 			}
 		}
 	}
+	
+	EvaluateLineCollision();
+	
 }
 
 function Draw()

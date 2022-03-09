@@ -105,3 +105,47 @@ function HasFlag(f) {return (entityflag & f) != 0;}
 function GetHealth() {return healthpoints;}
 function GetDamage() {return damage;}
 
+function EvaluateLineCollision()
+{
+	// Check lines
+	ds_list_clear(hitlist);
+	var intersect = [0, 0], dir;
+	var n = collision_circle_list(x, y, 128, obj_lvl_line, false, true, hitlist, false);
+	var e;
+	
+	for (var i = 0; i < n; i++)
+	{
+		e = hitlist[| i];
+		
+		// Line
+		if ( CircleOnLine(x, y, radius, e.x1, e.y1, e.x2, e.y2, intersect)	)
+		{
+			if (DotAngle(point_direction(intersect[0], intersect[1], x, y), e.normal) < 0)
+			{
+				x = intersect[0] + lengthdir_x(radius+1, e.normal+180);
+				y = intersect[1] + lengthdir_y(radius+1, e.normal+180);
+			}
+			else
+			{
+				x = intersect[0] + lengthdir_x(radius+1, e.normal);
+				y = intersect[1] + lengthdir_y(radius+1, e.normal);
+			}
+		}
+		
+		// Endpoints
+		if ( point_distance(e.x1, e.y1, x, y) <= radius )
+		{
+			dir = point_direction(e.x1, e.y1, x, y);
+			x = e.x1 + lengthdir_x(radius+1, dir);
+			y = e.y1 + lengthdir_y(radius+1, dir);
+		}
+		
+		if ( point_distance(e.x2, e.y2, x, y) <= radius )
+		{
+			dir = point_direction(e.x2, e.y2, x, y);
+			x = e.x2 + lengthdir_x(radius+1, dir);
+			y = e.y2 + lengthdir_y(radius+1, dir);
+		}
+	}
+	
+}

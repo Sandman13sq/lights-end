@@ -31,6 +31,8 @@ xspeed = 0;
 yspeed = 0;
 zspeed = 0;
 
+radius = 64;
+
 state = 0;
 statestart = 0;
 statestep = 0;

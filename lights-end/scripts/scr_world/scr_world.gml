@@ -7,7 +7,11 @@ function EntityFromTag(entry)
 	switch(entry.entity)
 	{
 		// Internals
-		case("player1"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1); break;
+		case("player1"): 
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1); 
+			
+			instance_create_depth(x, y+100, 0, obj_lvl_line).SetLine(entry.x-100, entry.y-100, entry.x+100, entry.y-100);
+			break;
 		//case("player2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn2); break;
 		
 		// World
@@ -48,4 +52,6 @@ function LoadLevel(jsonpath)
 		}
 	}
 }
+
+
 

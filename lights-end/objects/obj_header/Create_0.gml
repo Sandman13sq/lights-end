@@ -46,7 +46,7 @@ roommats = [
 	matrix_get(matrix_world)
 ];
 
-shd_3d_uvbounds = shader_get_uniform(shd_3d, "u_uvbounds");
+shd_3d_campos = shader_get_uniform(shd_3d, "u_campos");
 
 room_goto_next();
 

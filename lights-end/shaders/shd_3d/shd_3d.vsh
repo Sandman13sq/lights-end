@@ -11,15 +11,18 @@ varying vec3 v_vNormal;
 varying vec4 v_vColour;
 varying vec2 v_vTexcoord;
 
+uniform vec3 u_campos;
+
 void main()
 {
-    vec4 object_space_pos = vec4(in_Position, 1.0);
-	object_space_pos.y -= object_space_pos.z; // Skew y-coordinate
+    vec4 vertexposition = vec4(in_Position, 1.0);
+    vec4 vertexnormal = vec4(in_Normal, 0.0);
+	vertexposition.y -= vertexposition.z; // Skew y-coordinate
 	
-    gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
+    gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vertexposition;
     
-	v_vPosition = in_Position.xyz;
-	v_vNormal = in_Normal.xyz;
+	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz;
+	v_vNormal = (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz;
     v_vColour = in_Colour;
     v_vTexcoord = in_TextureCoord;
 }

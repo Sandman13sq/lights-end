@@ -4,7 +4,7 @@
     "path": "sprites/spr_pixel/spr_pixel.yy",
   },
   "solid": false,
-  "visible": true,
+  "visible": false,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
@@ -30,8 +30,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "World",
-    "path": "folders/Objects/World.yy",
+    "name": "Control",
+    "path": "folders/Objects/World/Control.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_lvl_trigger",

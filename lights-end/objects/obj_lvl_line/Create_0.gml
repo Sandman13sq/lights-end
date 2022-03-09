@@ -17,7 +17,7 @@ function SetLine(_x1, _y1, _x2, _y2)
 	
 	normal = point_direction(x1, y1, x2, y2) + 90;
 	
-	print([x1,y1,x2,y2])
+	return self;
 }
 
 x1 = bbox_left;

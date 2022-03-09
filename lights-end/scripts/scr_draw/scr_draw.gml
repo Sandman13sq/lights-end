@@ -120,11 +120,20 @@ function Mat4TranslateScale(x, y, z, scale) {return matrix_build(x,y,z, 0,0,0, s
 function Mat4TranslateScaleXYZ(x, y, z, xscale, yscale, zscale) {return matrix_build(x,y,z, 0,0,0, xscale,yscale,zscale);}
 function Mat4RotZ(zrot) {return matrix_build(0,0,0, 0,0,zrot, 1,1,1);}
 
-function draw_sprite_billboard(sprite, subimage, xx, yy, zz, color=c_white, alpha=1) 
+function DrawBillboard(sprite, subimage, xx, yy, zz, color=c_white, alpha=1) 
 {
     shader_set(shd_billboard);
     matrix_set(matrix_world, matrix_build(xx, yy-zz, zz, 0, 0, 0, 1, 1, 1));
     draw_sprite_ext(sprite, subimage, 0, 0, 1, 1, 0, color, alpha);
+    matrix_set(matrix_world, matrix_build_identity());
+    shader_reset();
+}
+
+function DrawBillboardExt(sprite, subimage, xx, yy, zz, xscale, yscale, rot=0, color=c_white, alpha=1) 
+{
+    shader_set(shd_billboard);
+    matrix_set(matrix_world, matrix_build(xx, yy-zz, zz, 0, 0, 0, 1, 1, 1));
+    draw_sprite_ext(sprite, subimage, 0, 0, xscale, yscale, rot, color, alpha);
     matrix_set(matrix_world, matrix_build_identity());
     shader_reset();
 }

@@ -63,14 +63,10 @@ with obj_worldvb
 gpu_set_cullmode(cull_noculling);
 with obj_entity
 {
-	if (visible)
+	if (visible && active)
 	{
 		Draw3D();
 	}
-	
-	
-	
-	
 }
 
 if (DEBUG >= 1)
@@ -89,6 +85,17 @@ if (DEBUG >= 1)
 	{
 		draw_vertex_color(x1, y1, c_lime, 1);
 		draw_vertex_color(x2, y2, c_lime, 1);
+	}
+	draw_primitive_end();
+	
+	// Draw triggers
+	draw_primitive_begin(pr_linelist);
+	with obj_lvl_trigger
+	{
+		draw_vertex_color(bbox_left, bbox_top, c_fuchsia, 1);
+		draw_vertex_color(bbox_right, bbox_top, c_fuchsia, 1);
+		draw_vertex_color(bbox_right, bbox_bottom, c_fuchsia, 1);
+		draw_vertex_color(bbox_left, bbox_bottom, c_fuchsia, 1);
 	}
 	draw_primitive_end();
 

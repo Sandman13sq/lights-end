@@ -16,7 +16,9 @@ vb_sprite = LoadVB("unit_sprite.vb");
 entityindex = 0;
 entityflag = 0;
 
-tag = [];
+tag = "";
+trigger = "<no-trigger>";
+active = true;
 
 healthmax = 0;
 healthpoints = 0;

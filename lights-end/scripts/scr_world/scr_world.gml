@@ -14,11 +14,8 @@ function EntityFromTag(entry)
 		
 		// World
 		case("trigger"): 
-			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger); 
-			inst.image_xscale = entry.xradius;
-			inst.image_yscale = entry.yradius;
-			inst.x -= inst.sprite_width/2;
-			inst.y -= inst.sprite_height/2;
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)
+				.SetBounds(entry.bounds[0], -entry.bounds[1], entry.bounds[2], -entry.bounds[3]);
 			break;
 		
 		// Enemies
@@ -26,9 +23,20 @@ function EntityFromTag(entry)
 		
 	}
 	
+	print(entry.entity)
+	if (inst)
+	{
+		inst.tag = entry.tag;
+		inst.SetTrigger(entry.trigger);
+	}
+	
 	return inst;
 }
 
+function DefineLine(x1, y1, x2, y2)
+{
+	return instance_create_depth(0,0,0, obj_lvl_line).SetLine(x1, y1, x2, y2);
+}
 
 function LoadLevel(jsonpath)
 {
@@ -49,8 +57,7 @@ function LoadLevel(jsonpath)
 		for (var i = 0; i < n; i++)
 		{
 			e = linejson[i];
-			instance_create_depth(x, y, depth, obj_lvl_line).SetLine(
-				e.x1, -e.y1, e.x2, -e.y2);
+			DefineLine(e.x1, -e.y1, e.x2, -e.y2);
 		}
 		
 		// Elements
@@ -65,5 +72,10 @@ function LoadLevel(jsonpath)
 	}
 }
 
+function LevelAnswerPoll(triggertag)
+{
+	with obj_lvlElement {AnswerPoll(triggertag);}
+	with obj_entity {AnswerPoll(triggertag);}
+}
 
 

@@ -1,5 +1,7 @@
 /// @desc
 
+if (!active) {return;}
+
 Update(TIMESTEP);
 
 if (xshake > 0)

@@ -14,3 +14,12 @@ function AnswerPoll(triggertag)
 		instance_destroy();
 	}
 }
+
+function SetTrigger(triggertag)
+{
+	trigger = triggertag;
+	if (trigger != "")
+	{
+		active = false;
+	}
+}

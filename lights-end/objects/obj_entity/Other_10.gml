@@ -33,25 +33,15 @@ function Draw()
 
 function Draw3D()
 {
-	draw_sprite_billboard(spr_shadow, 0, x, y, 0, LightsEndColor.dark);
-	draw_sprite_billboard(sprite_index, image_index, x, y, z);
+	var xx = x, yy = y;
 	
-	return;
+	if (xshake > 0)
+	{
+		xx += 3 * Polarize(BoolStep(xshake, 4));
+	}
 	
-	matrix_set(matrix_world, Mat4Sprite(sprite_index, image_index, x, y, z));
-	
-	U_SetUVBounds(UVSSPRITE[sprite_index][image_index]);
-	//matrix_set(matrix_world, obj_header.matbillboard);
-	vertex_submit(vb_sprite, pr_trianglelist, sprite_get_texture(sprite_index, image_index));
-	
-	U_SetUVBounds();
-	matrix_set(matrix_world, 
-		matrix_multiply(
-			obj_header.matbillboard,	// Transform panel to sprite size
-			matrix_build(x*DRAWSCALE3D, y*DRAWSCALE3D, z*DRAWSCALE3D, 0, 0, 0, 1, 1, 1),	// Move model
-			)
-		);
-	vertex_submit(vb_axis, pr_trianglelist, -1);
+	DrawBillboard(spr_shadow, 0, xx, yy, 0, LightsEndColor.dark);
+	DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
 }
 
 function SetState(_state)
@@ -64,12 +54,6 @@ function PopStateStart()
 {
 	if (statestart) {statestart = 0; return true;}
 	return false;
-}
-
-function DrawShadow()
-{
-	var xy = WorldToScreenXY(x, y, 0), xx = xy[0], yy = xy[1];
-	draw_sprite_ext(spr_shadow, 0, xx, yy, 1, 1, 0, LightsEndColor.dark, 1);
 }
 
 // Decrements health from entity
@@ -104,6 +88,29 @@ function HasFlag(f) {return (entityflag & f) != 0;}
 
 function GetHealth() {return healthpoints;}
 function GetDamage() {return damage;}
+
+function SetTrigger(triggertag)
+{
+	trigger = triggertag;
+	if (trigger != "")
+	{
+		active = false;
+	}
+}
+
+function AnswerPoll(triggertag)
+{
+	if (trigger != "" && trigger == triggertag)
+	{
+		active = true;
+		OnAnswer();
+	}
+}
+
+function OnAnswer()
+{
+	
+}
 
 function EvaluateLineCollision()
 {

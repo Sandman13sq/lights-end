@@ -4,7 +4,10 @@
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_lvlElement",
+    "path": "objects/obj_lvlElement/obj_lvlElement.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -23,8 +26,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "World",
-    "path": "folders/Objects/World.yy",
+    "name": "Control",
+    "path": "folders/Objects/World/Control.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_lvl_playerspawn1",

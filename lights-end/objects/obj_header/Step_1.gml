@@ -7,6 +7,11 @@ if (keyboard_check_pressed(ord("0")))
 	show_debug_overlay(debugoverlay);
 }
 
+if (keyboard_check_pressed(ord("9")))
+{
+	DEBUG ^= 1;
+}
+
 // Toggle Fullscreen
 if (keyboard_check_pressed(vk_f4))
 {

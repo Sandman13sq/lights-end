@@ -10,8 +10,8 @@ movedirection = 0;
 
 movespeed = 6;
 
-infocus = 0;
-aimlock = 0;
+infocus = false;
+aimlock = false;
 
 refiretime = 8;
 refiredelay = 0;
@@ -24,6 +24,10 @@ iframestime = 180;
 
 healthmax = 3;
 healthpoints = healthmax;
+
+cankick = false;
+movingstep = 0;
+movingsteptime = 30;
 
 var s = random_get_seed();
 randomize();

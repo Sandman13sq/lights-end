@@ -12,5 +12,6 @@ for (var i = healthmax-1; i >= 0; i--)
 	}
 }
 
-draw_text(16, 16, [x, y]);
+draw_text(16, 100, [x, y]);
+draw_text(16, 120, cankick);
 

@@ -20,8 +20,8 @@ function Update(ts)
 			aimdirection = movedirection;
 		}
 		
-		xspeed = movespeed * dcos(movedirection) * (infocus == 0);
-		yspeed = movespeed * -dsin(movedirection) * (infocus == 0);
+		xspeed = (movespeed+cankick) * dcos(movedirection) * (infocus == 0);
+		yspeed = (movespeed+cankick) * -dsin(movedirection) * (infocus == 0);
 		
 		// Set sprite from direction
 		if (aimdirection < 45-27.5) {image_index = 0;}	// Right
@@ -80,6 +80,14 @@ function Update(ts)
 				SetHitstop(5);
 			}
 		}
+	}
+	
+	// Running
+	cankick = movingstep == 0 && !aimlock;
+	if (aimlock || (xlev==0 && ylev==0)) {movingstep = movingsteptime;}
+	else
+	{
+		movingstep = Approach(movingstep, 0, ts);	
 	}
 	
 	EvaluateLineCollision();

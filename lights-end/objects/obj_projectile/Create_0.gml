@@ -1,10 +1,12 @@
 /// @desc
 
+event_inherited();
+
 damage = 3;
 hostile = false;
 flags = 0;
 
-projspeed = 12;
+projspeed = 20;
 projdirection = 0;
 
 lifemax = 16;

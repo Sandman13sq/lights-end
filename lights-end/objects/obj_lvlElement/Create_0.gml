@@ -13,9 +13,11 @@ function AnswerPoll(triggertag)
 	}
 }
 
-function SetTrigger(triggertag)
+function SetTags(_tag="", _trigger="")
 {
-	trigger = triggertag;
+	tag = _tag;
+	trigger = _trigger;
+	
 	if (trigger != "")
 	{
 		active = false;

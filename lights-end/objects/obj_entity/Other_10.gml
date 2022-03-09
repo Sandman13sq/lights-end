@@ -89,9 +89,11 @@ function HasFlag(f) {return (entityflag & f) != 0;}
 function GetHealth() {return healthpoints;}
 function GetDamage() {return damage;}
 
-function SetTrigger(triggertag)
+function SetTags(_tag="", _trigger="")
 {
-	trigger = triggertag;
+	tag = _tag;
+	trigger = _trigger;
+	
 	if (trigger != "")
 	{
 		active = false;
@@ -123,6 +125,7 @@ function EvaluateLineCollision()
 	for (var i = 0; i < n; i++)
 	{
 		e = hitlist[| i];
+		if (!e.active) {return;}
 		
 		// Line
 		if ( CircleOnLine(x, y, radius, e.x1, e.y1, e.x2, e.y2, intersect)	)

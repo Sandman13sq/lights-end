@@ -13,11 +13,14 @@ function EntityFromTag(entry)
 		// Controls
 		case("camerax"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowX); break;
 		case("cameray"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowY); break;
+		case("camerafocus"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafocus); break;
+		
 		case("trigger"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)
 				.SetBounds(entry.bounds[0], -entry.bounds[1], entry.bounds[2], -entry.bounds[3]);
 			break;
 		
+		case("linedestroy"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_linedestroy); break;
 		case("enemydefeat"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_enemydefeated); break;
 		
 		// Enemies
@@ -28,8 +31,7 @@ function EntityFromTag(entry)
 	print(entry.entity)
 	if (inst)
 	{
-		inst.tag = entry.tag;
-		inst.SetTrigger(entry.trigger);
+		inst.SetTags(entry.tag, entry.trigger);
 	}
 	
 	return inst;
@@ -59,7 +61,7 @@ function LoadLevel(jsonpath)
 		for (var i = 0; i < n; i++)
 		{
 			e = linejson[i];
-			DefineLine(e.x1, -e.y1, e.x2, -e.y2);
+			DefineLine(e.x1, -e.y1, e.x2, -e.y2).SetTags(e.tag, e.trigger);
 		}
 		
 		// Elements

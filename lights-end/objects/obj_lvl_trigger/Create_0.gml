@@ -3,16 +3,6 @@
 // Inherit the parent event
 event_inherited();
 
-active = true;
-
-function AnswerPoll(triggertag)
-{
-	if (triggertag == trigger)
-	{
-		active = true;
-	}
-}
-
 function SetBounds(x1, y1, x2, y2)
 {
 	x = x1;

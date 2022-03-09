@@ -29,6 +29,7 @@
     {"id":{"name":"obj_projectile","path":"objects/obj_projectile/obj_projectile.yy",},"order":3,},
     {"id":{"name":"spr_ghostM","path":"sprites/spr_ghostM/spr_ghostM.yy",},"order":0,},
     {"id":{"name":"obj_worldvb","path":"objects/obj_worldvb/obj_worldvb.yy",},"order":0,},
+    {"id":{"name":"obj_lvl_linedestroy","path":"objects/obj_lvl_linedestroy/obj_lvl_linedestroy.yy",},"order":6,},
     {"id":{"name":"spr_playerM_idle","path":"sprites/spr_playerM_idle/spr_playerM_idle.yy",},"order":0,},
     {"id":{"name":"shd_billboard","path":"shaders/shd_billboard/shd_billboard.yy",},"order":1,},
     {"id":{"name":"spr_mask16","path":"sprites/spr_mask16/spr_mask16.yy",},"order":2,},

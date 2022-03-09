@@ -125,7 +125,8 @@ function EvaluateLineCollision()
 	for (var i = 0; i < n; i++)
 	{
 		e = hitlist[| i];
-		if (!e.active) {return;}
+		if (!e.active) {continue;}
+		if ( (e.collisionfilter & collisionfilter) == 0) {continue;}
 		
 		// Line
 		if ( CircleOnLine(x, y, radius, e.x1, e.y1, e.x2, e.y2, intersect)	)

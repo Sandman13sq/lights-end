@@ -14,6 +14,8 @@ function EntityFromTag(entry)
 		case("camerax"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowX); break;
 		case("cameray"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowY); break;
 		case("camerafocus"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafocus); break;
+		case("cameraright"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowRight); break;
+		case("cameraup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowUp); break;
 		
 		case("trigger"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)

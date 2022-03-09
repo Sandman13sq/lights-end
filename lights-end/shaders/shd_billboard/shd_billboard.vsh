@@ -27,6 +27,8 @@ void main()
 	
 	gl_Position = gm_Matrices[MATRIX_PROJECTION] * (matWorldView * object_space_pos);
 	gl_Position.z -= 0.1;
+	
+	gl_Position.y *= -1.0;
     
     //gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
     

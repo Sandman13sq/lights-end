@@ -9,6 +9,12 @@ enum FL_Entity
 	hostile = 1<<2,
 }
 
+enum FL_Collision
+{
+	player = 1<<0,
+	enemy = 1<<1,
+}
+
 vb_circle = LoadVB("unit_circle.vb");
 vb_axis = LoadVB("unit_axis.vb");
 vb_sprite = LoadVB("unit_sprite.vb");
@@ -42,6 +48,8 @@ z = 0;
 
 autodepth = true;
 depthoffset = 0;
+collisionfilter = 0;
 
 hitlist = ds_list_create();
+
 

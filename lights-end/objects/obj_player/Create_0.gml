@@ -29,6 +29,8 @@ cankick = false;
 movingstep = 0;
 movingsteptime = 30;
 
+collisionfilter |= FL_CollisionFilter.player;
+
 var s = random_get_seed();
 randomize();
 sprite_index = choose(spr_playerM_idle, spr_playerF_idle);

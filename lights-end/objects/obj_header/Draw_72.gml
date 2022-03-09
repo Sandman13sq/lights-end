@@ -77,10 +77,13 @@ if (DEBUG >= 1)
 	
 	// Draw collision lines
 	draw_primitive_begin(pr_linelist);
+	var c;
 	with obj_lvl_line
 	{
-		draw_vertex_color(x1, y1, active? c_lime: c_green, 1);
-		draw_vertex_color(x2, y2, active? c_lime: c_green, 1);
+		if (active) {c = (collisionfilter & FL_Collision.enemy)? c_lime: c_yellow;}
+		else {c = c_green;}
+		draw_vertex_color(x1, y1, c, 1);
+		draw_vertex_color(x2, y2, c, 1);
 	}
 	draw_primitive_end();
 	

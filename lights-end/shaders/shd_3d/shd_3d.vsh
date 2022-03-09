@@ -17,9 +17,11 @@ void main()
 {
     vec4 vertexposition = vec4(in_Position, 1.0);
     vec4 vertexnormal = vec4(in_Normal, 0.0);
+	
 	vertexposition.y -= vertexposition.z; // Skew y-coordinate
 	
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vertexposition;
+	gl_Position.y *= -1.0;
     
 	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz;
 	v_vNormal = (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz;

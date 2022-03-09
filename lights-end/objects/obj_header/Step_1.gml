@@ -47,6 +47,13 @@ else
 CURRENT_FRAME++;
 
 // Camera
-camerapos[0] += LevKeyHeld(ord("D"), ord("A"));
-camerapos[1] += LevKeyHeld(ord("W"), ord("S"));
+camerafocus[0] += LevKeyHeld(ord("D"), ord("A"));
+camerafocus[1] += LevKeyHeld(ord("W"), ord("S"));
+
+var cx = camerapos[0], cy = camerapos[1];
+var ww = playerboundsdimensions[0], hh = playerboundsdimensions[1];
+playerbounds[0].SetLine(cx-ww, cy-hh, cx+ww, cy-hh);
+playerbounds[1].SetLine(cx+ww, cy-hh, cx+ww, cy+hh);
+playerbounds[2].SetLine(cx+ww, cy+hh, cx-ww, cy+hh);
+playerbounds[3].SetLine(cx-ww, cy+hh, cx-ww, cy-hh);
 

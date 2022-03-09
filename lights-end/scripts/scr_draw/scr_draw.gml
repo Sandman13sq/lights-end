@@ -126,7 +126,7 @@ function DrawBillboard(sprite, subimage, xx, yy, zz, color=c_white, alpha=1)
     matrix_set(matrix_world, matrix_build(xx, yy-zz, zz, 0, 0, 0, 1, 1, 1));
     draw_sprite_ext(sprite, subimage, 0, 0, 1, 1, 0, color, alpha);
     matrix_set(matrix_world, matrix_build_identity());
-    shader_reset();
+    shader_set(shd_default);
 }
 
 function DrawBillboardExt(sprite, subimage, xx, yy, zz, xscale, yscale, rot=0, color=c_white, alpha=1) 
@@ -135,7 +135,7 @@ function DrawBillboardExt(sprite, subimage, xx, yy, zz, xscale, yscale, rot=0, c
     matrix_set(matrix_world, matrix_build(xx, yy-zz, zz, 0, 0, 0, 1, 1, 1));
     draw_sprite_ext(sprite, subimage, 0, 0, xscale, yscale, rot, color, alpha);
     matrix_set(matrix_world, matrix_build_identity());
-    shader_reset();
+    shader_set(shd_default);
 }
 
 function DrawPrimitiveCircle(x, y, radius, color=c_white, alpha=1)

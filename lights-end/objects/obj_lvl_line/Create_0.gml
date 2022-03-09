@@ -2,6 +2,14 @@
 
 event_inherited();
 
+enum FL_CollisionFilter
+{
+	player = 1<<0,
+	enemy = 1<<1
+}
+
+collisionfilter = ~0;
+
 function SetLine(_x1, _y1, _x2, _y2)
 {
 	x1 = _x1;

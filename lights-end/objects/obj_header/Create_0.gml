@@ -28,7 +28,12 @@ enum ST_Camera
 	player,
 	followX,
 	followY,
-	focus
+	focus,
+	
+	followRight,
+	followUp,
+	followLeft,
+	followDown,
 }
 
 camerapos = [0, 0, 0];
@@ -47,6 +52,9 @@ roommats = [
 ];
 
 shd_3d_campos = shader_get_uniform(shd_3d, "u_campos");
+
+firstcamerasync = true;
+playerboundsdimensions = [600, 300];
 
 room_goto_next();
 

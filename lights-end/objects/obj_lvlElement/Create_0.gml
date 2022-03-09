@@ -2,16 +2,14 @@
 
 tag = "";
 trigger = "";
+active = true;
 
 function AnswerPoll(triggertag)
 {
 	if (trigger == triggertag)
 	{
-		var inst = EntityFromTag(triggertag);
-		inst.x = x;
-		inst.y = y;
-		
-		instance_destroy();
+		// Do something
+		active = true;
 	}
 }
 

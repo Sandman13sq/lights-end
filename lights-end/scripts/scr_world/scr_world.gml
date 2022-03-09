@@ -12,11 +12,13 @@ function EntityFromTag(entry)
 			break;
 		//case("player2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn2); break;
 		
-		// World
+		// Controls
 		case("trigger"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)
 				.SetBounds(entry.bounds[0], -entry.bounds[1], entry.bounds[2], -entry.bounds[3]);
 			break;
+		
+		case("enemydefeat"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_enemydefeated); break;
 		
 		// Enemies
 		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_ghostM); break;

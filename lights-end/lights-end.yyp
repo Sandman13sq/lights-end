@@ -31,6 +31,7 @@
     {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},"order":1,},
     {"id":{"name":"spr_hp_case","path":"sprites/spr_hp_case/spr_hp_case.yy",},"order":1,},
     {"id":{"name":"spr_explosion","path":"sprites/spr_explosion/spr_explosion.yy",},"order":11,},
+    {"id":{"name":"obj_lvl_enemydefeated","path":"objects/obj_lvl_enemydefeated/obj_lvl_enemydefeated.yy",},"order":2,},
     {"id":{"name":"spr_mask_player","path":"sprites/spr_mask_player/spr_mask_player.yy",},"order":8,},
     {"id":{"name":"scr_world","path":"scripts/scr_world/scr_world.yy",},"order":7,},
     {"id":{"name":"obj_lvl_trigger","path":"objects/obj_lvl_trigger/obj_lvl_trigger.yy",},"order":0,},

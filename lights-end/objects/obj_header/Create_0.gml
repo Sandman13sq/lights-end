@@ -2,9 +2,12 @@
 
 #macro CURRENT_FRAME global.g_currentframe
 #macro TIMESTEP global.g_timestep
+#macro PARTSYS global.g_partsys
+#macro DEBUG global.g_debug
 
 CURRENT_FRAME = 0;
 TIMESTEP = 1;
+DEBUG = 1;
 
 hitstop = 0;
 nexttimestep = 1;
@@ -14,7 +17,7 @@ show_debug_overlay(debugoverlay);
 
 draw_set_font(fnt_main);
 
-#macro PARTSYS global.g_partsys
+
 PARTSYS = part_system_create();
 part_system_depth(PARTSYS, -1000);
 

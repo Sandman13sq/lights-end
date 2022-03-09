@@ -67,5 +67,31 @@ with obj_entity
 	{
 		Draw3D();
 	}
+	
+	
+	
+	
+}
+
+if (DEBUG >= 1)
+{
+	gpu_set_ztestenable(false); //  Draw All
+	
+	// Draw entity radii
+	with obj_entity
+	{
+		DrawPrimitiveCircle(x, y, radius, c_orange);
+	}
+	
+	// Draw collision lines
+	draw_primitive_begin(pr_linelist);
+	with obj_lvl_line
+	{
+		draw_vertex_color(x1, y1, c_lime, 1);
+		draw_vertex_color(x2, y2, c_lime, 1);
+	}
+	draw_primitive_end();
+
+	gpu_set_ztestenable(true);
 }
 

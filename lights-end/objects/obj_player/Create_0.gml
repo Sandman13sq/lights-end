@@ -8,7 +8,7 @@ direction = 0;
 aimdirection = 0;
 movedirection = 0;
 
-movespeed = 4;
+movespeed = 6;
 
 infocus = 0;
 aimlock = 0;

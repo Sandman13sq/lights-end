@@ -8,9 +8,7 @@ function EntityFromTag(entry)
 	{
 		// Internals
 		case("player1"): 
-			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1); 
-			
-			instance_create_depth(x, y+100, 0, obj_lvl_line).SetLine(entry.x-100, entry.y-100, entry.x+100, entry.y-100);
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1);
 			break;
 		//case("player2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn2); break;
 		
@@ -42,14 +40,28 @@ function LoadLevel(jsonpath)
 		buffer_delete(b);
 		
 		var e;
-		var n = array_length(outjson);
+		var n;
+		
+		// Lines
+		var linejson = outjson.lines;
+		n = array_length(linejson);
+		
 		for (var i = 0; i < n; i++)
 		{
-			e = outjson[i];
-			print(e);
-			
+			e = linejson[i];
+			instance_create_depth(x, y, depth, obj_lvl_line).SetLine(
+				e.x1, -e.y1, e.x2, -e.y2);
+		}
+		
+		// Elements
+		var elementjson = outjson.elements;
+		n = array_length(elementjson);
+		for (var i = 0; i < n; i++)
+		{
+			e = elementjson[i];
 			EntityFromTag(e);
 		}
+		
 	}
 }
 

@@ -128,3 +128,25 @@ function draw_sprite_billboard(sprite, subimage, xx, yy, zz, color=c_white, alph
     matrix_set(matrix_world, matrix_build_identity());
     shader_reset();
 }
+
+function DrawPrimitiveCircle(x, y, radius, color=c_white, alpha=1)
+{
+	draw_primitive_begin(pr_linelist);
+	
+	var angle = 0;
+	for (var i = 0; i < 20; i++)
+	{
+		draw_vertex_color(
+			x + lengthdir_x(radius, angle), 
+			y + lengthdir_y(radius, angle), 
+			color, alpha);
+		
+		angle += 360/20;
+		draw_vertex_color(
+			x + lengthdir_x(radius, angle), 
+			y + lengthdir_y(radius, angle), 
+			color, alpha);
+	}
+
+	draw_primitive_end();
+}

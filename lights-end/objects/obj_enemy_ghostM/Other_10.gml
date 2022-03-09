@@ -126,6 +126,8 @@ function Update(ts)
 			e.y += lengthdir_y(1, d);
 		}
 	}
+	
+	EvaluateLineCollision();
 }
 
 function OnDefeat()

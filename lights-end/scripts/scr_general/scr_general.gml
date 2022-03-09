@@ -28,3 +28,9 @@ function msg()
 	
 	show_message(s);
 }
+
+function SetCameraState(state, focus=obj_header.camerafocus)
+{
+	obj_header.camerastate = state;
+	obj_header.camerafocus = focus;
+}

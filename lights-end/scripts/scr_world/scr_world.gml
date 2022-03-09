@@ -7,12 +7,12 @@ function EntityFromTag(entry)
 	switch(entry.entity)
 	{
 		// Internals
-		case("player1"): 
-			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1);
-			break;
+		case("player1"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1); break;
 		//case("player2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn2); break;
 		
 		// Controls
+		case("camerax"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowX); break;
+		case("cameray"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowY); break;
 		case("trigger"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)
 				.SetBounds(entry.bounds[0], -entry.bounds[1], entry.bounds[2], -entry.bounds[3]);

@@ -21,10 +21,20 @@ draw_set_font(fnt_main);
 PARTSYS = part_system_create();
 part_system_depth(PARTSYS, -1000);
 
+
+enum ST_Camera
+{
+	free = 0,
+	player,
+	followX,
+	followY,
+	focus
+}
+
 camerapos = [0, 0, 0];
-//cameralookfrom = [0, -22, 21.7];
 cameralookfrom = [0, -500, 1000];
-//cameralookfrom = [0, 22, 21.7];
+camerafocus = [0, 0, 0];
+camerastate = ST_Camera.player;
 
 matproj = matrix_build_identity();
 matview = matrix_build_identity();

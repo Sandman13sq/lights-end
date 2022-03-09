@@ -2,6 +2,7 @@
   "resources": [
     {"id":{"name":"obj_lvl_line","path":"objects/obj_lvl_line/obj_lvl_line.yy",},"order":4,},
     {"id":{"name":"scr_constants","path":"scripts/scr_constants/scr_constants.yy",},"order":3,},
+    {"id":{"name":"obj_lvl_camerafollowY","path":"objects/obj_lvl_camerafollowY/obj_lvl_camerafollowY.yy",},"order":5,},
     {"id":{"name":"spr_shadow","path":"sprites/spr_shadow/spr_shadow.yy",},"order":10,},
     {"id":{"name":"obj_lvlElement","path":"objects/obj_lvlElement/obj_lvlElement.yy",},"order":2,},
     {"id":{"name":"spr_ghostM_defeat","path":"sprites/spr_ghostM_defeat/spr_ghostM_defeat.yy",},"order":1,},
@@ -15,6 +16,9 @@
     {"id":{"name":"spr_hp_heart","path":"sprites/spr_hp_heart/spr_hp_heart.yy",},"order":0,},
     {"id":{"name":"scr_vb","path":"scripts/scr_vb/scr_vb.yy",},"order":6,},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":0,},
+    {"id":{"name":"spr_projectile","path":"sprites/spr_projectile/spr_projectile.yy",},"order":2,},
+    {"id":{"name":"obj_lvl_camerafocus","path":"objects/obj_lvl_camerafocus/obj_lvl_camerafocus.yy",},"order":3,},
+    {"id":{"name":"obj_lvl_camerafollowX","path":"objects/obj_lvl_camerafollowX/obj_lvl_camerafollowX.yy",},"order":4,},
     {"id":{"name":"scr_random","path":"scripts/scr_random/scr_random.yy",},"order":4,},
     {"id":{"name":"scr_particles","path":"scripts/scr_particles/scr_particles.yy",},"order":5,},
     {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},"order":1,},

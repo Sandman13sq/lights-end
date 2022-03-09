@@ -19,12 +19,6 @@ gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
 //gpu_set_alphatestenable(true);
 
-if (instance_exists(obj_player))
-{
-	camerapos[0] = obj_player.x;	
-	camerapos[1] = obj_player.y;	
-}
-
 matproj = matrix_build_projection_perspective_fov(40, window_get_width()/window_get_height(), 10, 20000);
 matview = matrix_build_lookat(
 	camerapos[0] + cameralookfrom[0],

@@ -10,7 +10,7 @@ varying vec2 v_vTexcoord;
 uniform vec3 u_campos;
 
 //[0.216667, -0.666667, 0.713170]
-const vec3 u_lightdir = vec3(0.2, 0.6, 0.7);
+const vec3 u_lightdir = vec3(0.2, -0.6, 0.7);
 
 // [0.600000, 0.300000, 1.000000, 1.000000]
 const vec3 BURNCOLOR = vec3(0.6, 0.3, 1.0);
@@ -40,6 +40,7 @@ void main()
 	
 	gl_FragColor.rgb = clamp(gl_FragColor.rgb, vec3(0.0), vec3(1.0));
 	
-	
+	//gl_FragColor.rgb = v_vNormal;
+	//gl_FragColor.rgb = vec3(dot(v_vNormal, normalize(u_lightdir)));
 	
 }

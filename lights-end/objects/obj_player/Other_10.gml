@@ -94,25 +94,37 @@ function Update(ts)
 	
 }
 
+function Draw3D()
+{
+	var xx = x, yy = y;
+	
+	
+}
+
 function Draw()
 {
-	var w2s = WorldToScreenXY(x, y, z), xx = w2s[0], yy = w2s[1];
+	var xx = x, yy = y;
 	
-	// Draw sprite
+	if (xshake > 0)
+	{
+		xx += 3 * Polarize(BoolStep(xshake, 4));
+	}
+	
 	if (BoolStep(iframes, 10) == 0)
 	{
-		draw_sprite_ext(sprite_index, image_index, xx, yy, 1, 1, 0, c_white, 1);
+		DrawBillboard(spr_shadow, 0, xx, yy, 0, LightsEndColor.dark);
+		DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
 	}
 	
 	// Aim Arrow Direction
+	ShaderSet(shd_default);
+	matrix_set(matrix_world, Mat4Translate(xx, yy, 4));
+	
 	draw_sprite_ext(
 		spr_aimarrow, aimlock, 
-		xx + lengthdir_x(ARROWDISTANCE, aimdirection), 
-		yy + lengthdir_y(ARROWDISTANCE, aimdirection) - 40,
+		lengthdir_x(ARROWDISTANCE, aimdirection), 
+		lengthdir_y(ARROWDISTANCE, aimdirection),
 		1, 1, aimdirection, c_yellow, 1
 	);
-	
-	draw_text(16, 200, w2s);
-	draw_text(16, 230, [x, y]);
 }
 

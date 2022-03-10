@@ -17,7 +17,6 @@ show_debug_overlay(debugoverlay);
 
 draw_set_font(fnt_main);
 
-
 PARTSYS = part_system_create();
 part_system_depth(PARTSYS, -1000);
 

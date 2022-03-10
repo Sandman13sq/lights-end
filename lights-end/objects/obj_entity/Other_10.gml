@@ -13,26 +13,6 @@ function Update(ts=1)
 
 function Draw()
 {
-	if (sprite_exists(sprite_index))
-	{
-		var xy = WorldToScreenXY(x, y, z), xx = xy[0], yy = xy[1];
-		
-		if (xshake > 0)
-		{
-			xx += 3 * Polarize(BoolStep(xshake, 4));
-		}
-		
-		draw_sprite_ext(
-			sprite_index, image_index,
-			xx, yy,
-			image_xscale, image_yscale,
-			0, c_white, 1
-		);	
-	}
-}
-
-function Draw3D()
-{
 	var xx = x, yy = y;
 	
 	if (xshake > 0)
@@ -42,6 +22,11 @@ function Draw3D()
 	
 	DrawBillboard(spr_shadow, 0, xx, yy, 0, LightsEndColor.dark);
 	DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
+}
+
+function Draw3D()
+{
+	
 }
 
 function SetState(_state)

@@ -1,4 +1,7 @@
 {
+  "ConfigValues": {
+    "OPERAGX": {"option_operagx_game_name":"lights-end",},
+  },
   "option_operagx_version": "1.0.0.0",
   "option_operagx_next_version": "1.0.0.0",
   "option_operagx_game_name": "lights-end",

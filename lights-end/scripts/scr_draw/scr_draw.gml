@@ -105,37 +105,43 @@ function WorldToScreenXY(x, y, z)
 
 function DrawShapeRectXY(x1, y1, x2, y2, color, alpha)
 {
+	gml_pragma("forceinline"); 
 	draw_sprite_stretched_ext(spr_pixel, 0, x1, y1, x2-x1, y2-y1, color, alpha);
 }
 
 function DrawShapeRectWH(x, y, w, h, color, alpha)
 {
+	gml_pragma("forceinline"); 
 	draw_sprite_stretched_ext(spr_pixel, 0, x, y, w, h, color, alpha);
 }
 
-function Mat4Translate(x, y, z) {return matrix_build(x, y, z, 0,0,0, 1,1,1);}
-function Mat4Scale(scale) {return matrix_build(0,0,0, 0,0,0, scale,scale,scale);}
-function Mat4ScaleXYZ(xscale, yscale, zscale) {return matrix_build(0,0,0, 0,0,0, xscale,yscale,zscale);}
-function Mat4TranslateScale(x, y, z, scale) {return matrix_build(x,y,z, 0,0,0, scale, scale, scale);}
-function Mat4TranslateScaleXYZ(x, y, z, xscale, yscale, zscale) {return matrix_build(x,y,z, 0,0,0, xscale,yscale,zscale);}
-function Mat4RotZ(zrot) {return matrix_build(0,0,0, 0,0,zrot, 1,1,1);}
+function Mat4() 
+	{gml_pragma("forceinline"); return matrix_build_identity();}
+function Mat4Translate(x, y, z) 
+	{gml_pragma("forceinline"); return matrix_build(x, y, z, 0,0,0, 1,1,1);}
+function Mat4Scale(scale) 
+	{gml_pragma("forceinline"); return matrix_build(0,0,0, 0,0,0, scale,scale,scale);}
+function Mat4ScaleXYZ(xscale, yscale, zscale) 
+	{gml_pragma("forceinline"); return matrix_build(0,0,0, 0,0,0, xscale,yscale,zscale);}
+function Mat4TranslateScale(x, y, z, scale) 
+	{gml_pragma("forceinline"); return matrix_build(x,y,z, 0,0,0, scale, scale, scale);}
+function Mat4TranslateScaleXYZ(x, y, z, xscale, yscale, zscale) 
+	{gml_pragma("forceinline"); return matrix_build(x,y,z, 0,0,0, xscale,yscale,zscale);}
+function Mat4RotZ(zrot) 
+	{gml_pragma("forceinline"); return matrix_build(0,0,0, 0,0,zrot, 1,1,1);}
 
 function DrawBillboard(sprite, subimage, xx, yy, zz, color=c_white, alpha=1) 
 {
-    shader_set(shd_billboard);
+    ShaderSet(shd_billboard);
     matrix_set(matrix_world, matrix_build(xx, yy-zz, zz, 0, 0, 0, 1, 1, 1));
     draw_sprite_ext(sprite, subimage, 0, 0, 1, 1, 0, color, alpha);
-    matrix_set(matrix_world, matrix_build_identity());
-    shader_set(shd_default);
 }
 
 function DrawBillboardExt(sprite, subimage, xx, yy, zz, xscale, yscale, rot=0, color=c_white, alpha=1) 
 {
-    shader_set(shd_billboard);
+    ShaderSet(shd_billboard);
     matrix_set(matrix_world, matrix_build(xx, yy-zz, zz, 0, 0, 0, 1, 1, 1));
     draw_sprite_ext(sprite, subimage, 0, 0, xscale, yscale, rot, color, alpha);
-    matrix_set(matrix_world, matrix_build_identity());
-    shader_set(shd_default);
 }
 
 function DrawPrimitiveCircle(x, y, radius, color=c_white, alpha=1)
@@ -159,3 +165,12 @@ function DrawPrimitiveCircle(x, y, radius, color=c_white, alpha=1)
 
 	draw_primitive_end();
 }
+
+function ShaderSet(shd)
+{
+	gml_pragma("forceinline");
+	if (shader_current() != shd) {shader_set(shd);}
+}
+
+
+

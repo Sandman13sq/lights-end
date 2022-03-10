@@ -21,10 +21,11 @@ void main()
 	vertexposition.y -= vertexposition.z; // Skew y-coordinate
 	
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vertexposition;
-	gl_Position.y *= -1.0;
     
 	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz;
 	v_vNormal = (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz;
     v_vColour = in_Colour;
     v_vTexcoord = in_TextureCoord;
+	
+	//v_vNormal[1] *= -1.0;
 }

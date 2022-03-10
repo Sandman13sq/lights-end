@@ -12,7 +12,7 @@ roommats = [
 ];
 
 // Setup Drawing
-shader_set(shd_3d);
+ShaderSet(shd_3d);
 
 gpu_set_cullmode(cull_clockwise);
 gpu_set_ztestenable(true);
@@ -37,6 +37,11 @@ matbillboard = [
 	0, 0, 0, 1
 ];
 
+if (os_type == os_operagx)
+{
+	matproj = matrix_multiply(Mat4ScaleXYZ(1,-1,1), matproj);
+}
+
 // Without these, objects wouldn't be drawn outside a limited range
 camera_set_view_pos(view_camera, camerapos[0], camerapos[1]);
 camera_set_proj_mat(view_camera, matproj);
@@ -56,7 +61,7 @@ with obj_worldvb
 	}
 }
 
-gpu_set_cullmode(cull_noculling);
+// Draw Entities
 with obj_entity
 {
 	if (visible && active)
@@ -65,18 +70,47 @@ with obj_entity
 	}
 }
 
+// Draw Billboards
+gpu_set_cullmode(cull_noculling);
+ShaderSet(shd_default);
+gpu_set_ztestenable(false); //  Draw All
+with obj_entity
+{
+	if (visible && active)
+	{
+		Draw();
+	}
+}
+
 if (DEBUG >= 1)
 {
+	ShaderSet(shd_default);
 	gpu_set_ztestenable(false); //  Draw All
+	matrix_set(matrix_world, Mat4());
 	
 	// Draw entity radii
+	var angle = 0;
+	draw_primitive_begin(pr_linelist);
 	with obj_entity
 	{
-		DrawPrimitiveCircle(x, y, radius, c_orange);
+		repeat(12)
+		{
+			draw_vertex_color(
+				x + lengthdir_x(radius, angle), 
+				y + lengthdir_y(radius, angle), 
+				c_orange, 1);
+		
+			angle += 360/12;
+			draw_vertex_color(
+				x + lengthdir_x(radius, angle), 
+				y + lengthdir_y(radius, angle), 
+				c_orange, 1);
+		}
 	}
+	//draw_primitive_end();
 	
 	// Draw collision lines
-	draw_primitive_begin(pr_linelist);
+	//draw_primitive_begin(pr_linelist);
 	var c;
 	with obj_lvl_line
 	{
@@ -85,10 +119,10 @@ if (DEBUG >= 1)
 		draw_vertex_color(x1, y1, c, 1);
 		draw_vertex_color(x2, y2, c, 1);
 	}
-	draw_primitive_end();
+	//draw_primitive_end();
 	
 	// Draw triggers
-	draw_primitive_begin(pr_linelist);
+	//draw_primitive_begin(pr_linelist);
 	with obj_lvl_trigger
 	{
 		draw_vertex_color(bbox_left, bbox_top, c_fuchsia, 1);

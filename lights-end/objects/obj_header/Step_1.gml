@@ -47,8 +47,10 @@ else
 CURRENT_FRAME++;
 
 // Camera
-camerafocus[0] += LevKeyHeld(ord("D"), ord("A"));
-camerafocus[1] += LevKeyHeld(ord("W"), ord("S"));
+camerafocus[0] += 10*LevKeyHeld(ord("D"), ord("A"));
+camerapos[0] += 10*LevKeyHeld(ord("D"), ord("A"));
+camerafocus[1] -= 10*LevKeyHeld(ord("W"), ord("S"));
+camerapos[1] -= 10*LevKeyHeld(ord("W"), ord("S"));
 
 var cx = camerapos[0], cy = camerapos[1];
 var ww = playerboundsdimensions[0], hh = playerboundsdimensions[1];

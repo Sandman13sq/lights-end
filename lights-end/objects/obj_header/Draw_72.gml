@@ -19,14 +19,16 @@ gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
 //gpu_set_alphatestenable(true);
 
+var yshake = 4 * sqrt(screenshake) * sin(screenshake);
+
 matproj = matrix_build_projection_perspective_fov(40, window_get_width()/window_get_height(), 10, 20000);
 matview = matrix_build_lookat(
 	camerapos[0] + cameralookfrom[0],
 	camerapos[1] - cameralookfrom[1],
-	camerapos[2] + cameralookfrom[2],
+	camerapos[2] + cameralookfrom[2] + yshake,
 	camerapos[0],
 	camerapos[1],
-	camerapos[2],
+	camerapos[2] + yshake,
 	0, 0, 1
 	);
 
@@ -73,7 +75,6 @@ with obj_entity
 // Draw Billboards
 gpu_set_cullmode(cull_noculling);
 ShaderSet(shd_default);
-gpu_set_ztestenable(false); //  Draw All
 with obj_entity
 {
 	if (visible && active)

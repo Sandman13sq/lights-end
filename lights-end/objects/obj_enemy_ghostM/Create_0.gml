@@ -6,7 +6,9 @@ event_inherited();
 enum ST_Ghost
 {
 	walk = 1,
+	knockback,
 	defeat,
+	kicked,
 	down,
 	grab
 }
@@ -18,4 +20,5 @@ walktime = 100;
 movespeed = 1 + ORandom()/512;
 
 SetHealthMax(10);
+
 

@@ -55,5 +55,7 @@ shd_3d_campos = shader_get_uniform(shd_3d, "u_campos");
 firstcamerasync = true;
 playerboundsdimensions = [600, 300];
 
+screenshake = 0;
+
 room_goto_next();
 

@@ -29,7 +29,7 @@ function Update(ts)
 		
 				xspeed = lengthdir_x(movespeed, dirtoplayer);
 				yspeed = lengthdir_y(movespeed, dirtoplayer);
-		
+				
 				// Face player
 				if abs( dcos(dirtoplayer) ) > 0.1
 				{
@@ -44,7 +44,32 @@ function Update(ts)
 			break;
 		
 		// ===========================================================
-		case(ST_Ghost.defeat):
+		case(ST_Ghost.kicked):
+			if (PopStateStart())
+			{
+				zspeed = 16;
+				
+				sprite_index = spr_ghostM_defeat;
+				
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				break;
+			}
+			
+			zspeed += -0.5;
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+			z += zspeed * ts;
+			
+			if (z <= 0 && zspeed < 0)
+			{
+				OnDefeat();
+				return;
+			}
+			break;
+			
+		case(ST_Ghost.knockback):
 			if (PopStateStart())
 			{
 				statestep = 0;
@@ -56,7 +81,8 @@ function Update(ts)
 				
 				sprite_index = spr_ghostM_defeat;
 				
-				ClearFlag(FL_Entity.shootable | FL_Entity.hostile);
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				SetFlag(FL_Entity.wallbounce);
 				break;
 			}
 			
@@ -67,22 +93,16 @@ function Update(ts)
 			y += yspeed * ts;
 			z += zspeed * ts;
 			
-			if (z <= 0)
+			if (z <= 0 && zspeed < 0)
 			{
-				z = 0;
+				if (state == ST_Ghost.kicked)
+				{
+					OnDefeat();
+					return;
+				}
 				
-				// Change to go to footgrab state
-				if ( ORandom() <= 64 ) 
-				{
-					SetState(ST_Ghost.down);
-				}
-				// Destroy
-				else
-				{
-					PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
-					instance_destroy();
-				}
-				return;
+				SetCameraShake(7);
+				SetState(ST_Ghost.down);
 			}
 			break;
 		
@@ -92,10 +112,11 @@ function Update(ts)
 			{
 				statestep = 0;
 				zspeed = 0;
+				z = 0;
 				sprite_index = spr_ghostM_down;
 				
 				SetHealthMax( max(healthmax/2, 1) );
-				SetFlag(FL_Entity.shootable);
+				SetFlag(FL_Entity.shootable | FL_Entity.kickable);
 				break;
 			}
 			
@@ -130,16 +151,24 @@ function Update(ts)
 	EvaluateLineCollision();
 }
 
+function OnKick(angle)
+{
+	xspeed = lengthdir_x(10, angle);
+	yspeed = lengthdir_y(10, angle);
+	SetState(ST_Ghost.kicked);	
+}
+
+function OnDamage(damage)
+{
+	if (healthpoints > 0 && state != ST_Ghost.down && ORandom(2) == 0)
+	{
+		SetState(ST_Ghost.knockback);	
+	}
+}
+
 function OnDefeat()
 {
-	if (state == ST_Ghost.down)
-	{
-		PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
-		instance_destroy();
-	}
-	else
-	{
-		SetState(ST_Ghost.defeat);
-	}
+	PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
+	instance_destroy();
 }
 

@@ -1,11 +1,6 @@
 /*
 */
 
-function SetHitstop(frames)
-{
-	obj_header.hitstop = max(obj_header.hitstop, frames);
-}
-
 function print()
 {
 	var s = "";
@@ -29,8 +24,18 @@ function msg()
 	show_message(s);
 }
 
+function SetHitstop(frames)
+{
+	obj_header.hitstop = max(obj_header.hitstop, frames);
+}
+
 function SetCameraState(state, focus=obj_header.camerafocus)
 {
 	obj_header.camerastate = state;
 	obj_header.camerafocus = focus;
+}
+
+function SetCameraShake(frames)
+{
+	obj_header.screenshake = frames;
 }

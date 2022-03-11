@@ -13,5 +13,6 @@ for (var i = healthmax-1; i >= 0; i--)
 }
 
 draw_text(16, 100, [x, y]);
-draw_text(16, 120, cankick);
+draw_text(16, 120, image_index);
+draw_text(16, 140, [cankick, movingstep]);
 

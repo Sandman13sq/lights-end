@@ -83,3 +83,20 @@ function DotAngle(angle1, angle2)
 	return dot_product(dcos(angle1), dsin(angle1), dcos(angle2), dsin(angle2));
 }
 
+// Reflects angle using normal
+function NormalReflect(incomingAngle, normalAngle)
+{
+	var _n0 = dcos(normalAngle), _n1 = -dsin(normalAngle),
+		_d0 = dcos(incomingAngle), _d1 = -dsin(incomingAngle),
+		_2dot = 2 * dot_product(_n0, _n1, _d0, _d1);
+		
+	return darctan2(
+		_d1 - _2dot * _n1, 
+		_d0 - _2dot * _n0);
+		
+	var _angle = angle_difference(normalAngle, incomingAngle);
+	if _angle == 0 {return normalAngle + 180;}
+	var _incidence = (180 - abs(_angle)) * -sign(_angle);
+		
+	return (normalAngle + _incidence);
+}

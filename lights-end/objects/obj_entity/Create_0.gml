@@ -1,12 +1,15 @@
 /// @desc Initialize Vars
 
 #macro XSHAKETIME 16
+#macro KICKFRAMES 10
 
 enum FL_Entity
 {
 	shootable = 1 << 0,
 	solid = 1<<1,
 	hostile = 1<<2,
+	kickable = 1<<3,
+	wallbounce = 1<<4,
 }
 
 enum FL_Collision
@@ -15,11 +18,6 @@ enum FL_Collision
 	enemy = 1<<1,
 }
 
-vb_circle = LoadVB("unit_circle.vb");
-vb_axis = LoadVB("unit_axis.vb");
-vb_sprite = LoadVB("unit_sprite.vb");
-
-entityindex = 0;
 entityflag = 0;
 
 tag = "";

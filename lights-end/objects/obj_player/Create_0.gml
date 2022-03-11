@@ -4,11 +4,44 @@ event_inherited();
 
 #macro ARROWDISTANCE 64
 
+enum ST_Player
+{
+	control,
+	hurt, 
+	
+	defeat0,	// Fall1
+	defeat1,	// Bounce1
+	defeat2,	// Fall2
+	defeat3,	// Bounce2
+}
+
+spriteset = {
+	idle : spr_playerM_idle,
+	shoot : spr_playerM_shoot,
+	hurt : spr_playerM_hurt,
+	kick : spr_playerM_kick,
+	knockdown : spr_playerM_knockdown,
+}
+
+var s = random_get_seed();
+randomize();
+if choose(0, 1)
+spriteset = {
+	idle : spr_playerF_idle,
+	shoot : spr_playerF_shoot,
+	hurt : spr_playerF_hurt,
+	kick : spr_playerF_kick,
+	knockdown : spr_playerF_knockdown,
+}
+random_set_seed(s);
+
 direction = 0;
 aimdirection = 0;
 movedirection = 0;
+aimdirindex = 0;
 
 movespeed = 6;
+timesinceshot = 0;
 
 infocus = false;
 aimlock = false;
@@ -26,15 +59,13 @@ healthmax = 3;
 healthpoints = healthmax;
 
 cankick = false;
+kickstep = 0;
+kicksteptime = 40;
+
 movingstep = 0;
-movingsteptime = 30;
+movingsteptime = 40;
 
 collisionfilter |= FL_CollisionFilter.player;
-
-var s = random_get_seed();
-randomize();
-sprite_index = choose(spr_playerM_idle, spr_playerF_idle);
-random_set_seed(s);
 
 image_speed = 0;
 

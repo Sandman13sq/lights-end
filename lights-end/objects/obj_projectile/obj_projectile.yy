@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_mask16",
-    "path": "sprites/spr_mask16/spr_mask16.yy",
+    "name": "spr_projectile",
+    "path": "sprites/spr_projectile/spr_projectile.yy",
   },
   "solid": false,
   "visible": true,

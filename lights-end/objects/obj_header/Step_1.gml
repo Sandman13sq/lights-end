@@ -59,3 +59,4 @@ playerbounds[1].SetLine(cx+ww, cy-hh, cx+ww, cy+hh);
 playerbounds[2].SetLine(cx+ww, cy+hh, cx-ww, cy+hh);
 playerbounds[3].SetLine(cx-ww, cy+hh, cx-ww, cy-hh);
 
+screenshake = Approach(screenshake, 0, nexttimestep);

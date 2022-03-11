@@ -53,6 +53,18 @@ function DoDamage(value)
 	}
 }
 
+function DoKick(angle)
+{
+	SetHitstop(KICKFRAMES);
+	SetCameraShake(KICKFRAMES + 5);
+	OnKick(angle);
+}
+
+function OnKick(angle)
+{
+	
+}
+
 function OnDamage(damage)
 {
 	if (damage > 0)
@@ -107,6 +119,10 @@ function EvaluateLineCollision()
 	var n = collision_circle_list(x, y, 128, obj_lvl_line, false, true, hitlist, false);
 	var e;
 	
+	var movedir = darctan2(xspeed, yspeed);
+	var movespd = point_distance(0,0, xspeed, yspeed);
+	var hit = false;
+	
 	for (var i = 0; i < n; i++)
 	{
 		e = hitlist[| i];
@@ -118,13 +134,19 @@ function EvaluateLineCollision()
 		{
 			if (DotAngle(point_direction(intersect[0], intersect[1], x, y), e.normal) < 0)
 			{
-				x = intersect[0] + lengthdir_x(radius+1, e.normal+180);
-				y = intersect[1] + lengthdir_y(radius+1, e.normal+180);
+				dir = e.normal+180;
+				x = intersect[0] + lengthdir_x(radius+1, dir);
+				y = intersect[1] + lengthdir_y(radius+1, dir);
+				movedir = NormalReflect(movedir, dir);
+				hit = true;
 			}
 			else
 			{
-				x = intersect[0] + lengthdir_x(radius+1, e.normal);
-				y = intersect[1] + lengthdir_y(radius+1, e.normal);
+				dir = e.normal;
+				x = intersect[0] + lengthdir_x(radius+1, dir);
+				y = intersect[1] + lengthdir_y(radius+1, dir);
+				movedir = NormalReflect(movedir, dir);
+				hit = true;
 			}
 		}
 		
@@ -134,6 +156,8 @@ function EvaluateLineCollision()
 			dir = point_direction(e.x1, e.y1, x, y);
 			x = e.x1 + lengthdir_x(radius+1, dir);
 			y = e.y1 + lengthdir_y(radius+1, dir);
+			movedir = NormalReflect(movedir, dir);
+			hit = true;
 		}
 		
 		if ( point_distance(e.x2, e.y2, x, y) <= radius )
@@ -141,7 +165,16 @@ function EvaluateLineCollision()
 			dir = point_direction(e.x2, e.y2, x, y);
 			x = e.x2 + lengthdir_x(radius+1, dir);
 			y = e.y2 + lengthdir_y(radius+1, dir);
+			movedir = NormalReflect(movedir, dir);
+			hit = true;
 		}
+	}
+	
+	// Bounce
+	if (hit && HasFlag(FL_Entity.wallbounce))
+	{
+		xspeed = lengthdir_x(movespd, movedir);	
+		yspeed = lengthdir_y(movespd, movedir);	
 	}
 	
 }

@@ -15,8 +15,10 @@ function Update(ts)
 		// =============================================================================
 		case(ST_Player.control):
 			zspeed = 0;
-			image_xscale = 1;
 			
+			grabenemyinst = noone;
+			
+			// Movement
 			if (xlev != 0 || ylev != 0)
 			{
 				movedirection = Modulo(darctan2(-ylev, xlev), 360);
@@ -25,9 +27,9 @@ function Update(ts)
 				{
 					aimdirection = movedirection;
 				}
-		
-				xspeed = (movespeed+cankick) * dcos(movedirection) * (infocus == 0);
-				yspeed = (movespeed+cankick) * -dsin(movedirection) * (infocus == 0);
+				
+				xspeed = Approach(xspeed, (movespeed+cankick) * dcos(movedirection), ts);
+				yspeed = Approach(yspeed, (movespeed+cankick) * -dsin(movedirection), ts);
 		
 				// Set sprite from direction
 				if (aimdirection < 45-27.5) {aimdirindex = 0;}	// Right
@@ -42,8 +44,8 @@ function Update(ts)
 			}
 			else
 			{
-				xspeed = 0;
-				yspeed = 0;
+				xspeed = Approach(xspeed, 0, ts);
+				yspeed = Approach(yspeed, 0, ts);
 			}
 			
 			// Schut
@@ -76,22 +78,85 @@ function Update(ts)
 			}
 			timesinceshot += ts;
 			
+			// Kick sprite
 			if (kickstep > 0)
 			{
 				kickstep = Approach(kickstep, 0, ts);
 				
-				sprite_index = spriteset.kick;
-				image_index = kickstep >= kicksteptime - 4;
-				image_index = kickstep <= 10? 2: image_index;
-				image_xscale = Polarize(xspeed > 0);
+				if (kickstep > 0)
+				{
+					sprite_index = spriteset.kick;
+					image_index = kickstep >= kicksteptime - 4;
+					image_index = kickstep <= 10? 2: image_index;
+				}
+				else
+				{
+					image_xscale = 1;
+				}
+			}
+			
+			if (pressuremeter > 0)
+			{
+				pressuremeter = Approach(pressuremeter, 0, ts*0.1);	
 			}
 			
 			break;
 		
 		// =============================================================================
+		case(ST_Player.grab_ghost):
+			if (mashstep >= mashstepmax)
+			{
+				grabenemyinst.DoKick(movedirection);
+				grabenemyinst = noone;
+				
+				kickstep = kicksteptime;
+				mashstep = 0;
+				SetState(ST_Player.control);
+				break;
+			}
+			else
+			{
+				var _mash = (
+					keyboard_check_pressed(vk_right) ||
+					keyboard_check_pressed(vk_left) ||
+					keyboard_check_pressed(vk_up) ||
+					keyboard_check_pressed(vk_down)
+					);
+				mashstep += _mash? 13: -1;
+				image_index += _mash;
+			}
+			
+			if (pressuremeter < pressuremetermax)
+			{
+				sprite_index = spriteset.grab_ghost;
+				image_index = Modulo(image_index + (pressuremeter/pressuremetermax)/3, 2);
+				pressuremeter = Approach(pressuremeter, pressuremetermax, ts);
+			}
+			else
+			{
+				sprite_index = spriteset.grab_ghost;
+				image_index = 2;
+				
+				DoDamage(2);
+			}
+			
+			xspeed = Approach(xspeed, 0, 0.3);
+			yspeed = Approach(yspeed, 0, 0.3);
+			break;
+		
+		// =============================================================================
 		case(ST_Player.hurt):
-			sprite_index = spriteset.hurt;
-			if (iframes < iframestime) {state = ST_Player.control;}
+			if (GetHitstop() == 0)
+			{
+				if (grabenemyinst)
+				{
+					grabenemyinst.NextState();
+					grabenemyinst = noone;
+				}
+				
+				if (iframes < iframestime) {state = ST_Player.control;}
+			}
+			
 			break;
 		
 		// =============================================================================
@@ -159,26 +224,13 @@ function Update(ts)
 			{
 				e.DoKick(movedirection);
 				kickstep = kicksteptime;
+				image_xscale = Polarize(e.x-x);
 			}
 			// Take Damage
-			else if (e.GetDamage() > 0 && e.HasFlag(FL_Entity.hostile))
+			else if (kickstep == 0 && e.GetDamage() > 0 && e.HasFlag(FL_Entity.hostile))
 			{
 				sprite_index = spriteset.hurt;
-				healthpoints = max(0, healthpoints-e.GetDamage());
-				SetHitstop(15);
-				
-				if healthpoints > 0
-				{
-					state = ST_Player.hurt;
-					iframes = iframestime;
-				}
-				else
-				{
-					state = ST_Player.defeat0;
-					zspeed = 7;
-					xspeed = -lengthdir_x(4, movedirection);
-					yspeed = -lengthdir_y(4, movedirection);
-				}
+				DoDamage(e.GetDamage());
 			}
 		}
 	}
@@ -194,11 +246,37 @@ function Update(ts)
 	EvaluateLineCollision();
 }
 
+function OnDamage(damage, angle, knockback)
+{
+	SetHitstop(20);
+	
+	mashstep = 0;
+	pressuremeter = 0;
+	
+	if healthpoints > 0
+	{
+		SetState(ST_Player.hurt);
+		iframes = iframestime;
+		xspeed = lengthdir_x(knockback, angle);
+		yspeed = lengthdir_y(knockback, angle);
+	}
+	else
+	{
+		
+	}	
+}
+
+function OnDefeat()
+{
+	SetState(ST_Player.defeat0);
+	zspeed = 7;
+	xspeed = -lengthdir_x(4, movedirection);
+	yspeed = -lengthdir_y(4, movedirection);
+}
+
 function Draw3D()
 {
 	var xx = x, yy = y;
-	
-	
 }
 
 function Draw()
@@ -210,10 +288,20 @@ function Draw()
 		xx += 3 * Polarize(BoolStep(xshake, 4));
 	}
 	
-	if (BoolStep(iframes, 10) == 0)
+	// Skip draw on iframes
+	if (GetHitstop() > 0 || BoolStep(iframes, 10) == 0)
 	{
 		DrawBillboard(spr_shadow, 0, xx, yy, 0, LightsEndColor.dark);
 		DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
+	}
+	
+	// Draw Mash Stick
+	if (state == ST_Player.grab_ghost)
+	{
+		gpu_set_ztestenable(false);
+		DrawBillboard(spr_mashstick, Modulo(pressuremeter/6, 4), 
+			x-Polarize(x-obj_header.cameraposition[0])*140, y-20, 0);
+		gpu_set_ztestenable(true);
 	}
 	
 	// Aim Arrow Direction
@@ -228,3 +316,12 @@ function Draw()
 	);
 }
 
+function SetGrabInst(inst)
+{
+	grabenemyinst = inst;
+}
+
+function CanGrab()
+{
+	return iframes == 0 && healthpoints > 0 && grabenemyinst == noone && kickstep == 0;	
+}

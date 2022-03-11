@@ -10,15 +10,21 @@ enum ST_Ghost
 	defeat,
 	kicked,
 	down,
-	grab
+	
+	grab,
+	grab_release,
+	
+	chase,
 }
 
 SetFlag(FL_Entity.hostile | FL_Entity.shootable);
-SetState(ST_Ghost.walk);
+SetState(choose(ST_Ghost.walk, ST_Ghost.chase));
 
 walktime = 100;
 movespeed = 1 + ORandom()/512;
+chasespeed = 3 + ORandom()/512;
+movedirection = 0;
 
-SetHealthMax(10);
+SetHealthMax(20);
 
 

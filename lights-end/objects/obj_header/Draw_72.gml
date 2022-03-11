@@ -19,18 +19,23 @@ gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
 //gpu_set_alphatestenable(true);
 
-var yshake = 4 * sqrt(screenshake) * sin(screenshake);
-
-matproj = matrix_build_projection_perspective_fov(40, window_get_width()/window_get_height(), 10, 20000);
+// Set up matrices
+matproj = matrix_build_projection_perspective_fov(
+	40, window_get_width()/window_get_height(), 10, 20000);
 matview = matrix_build_lookat(
-	camerapos[0] + cameralookfrom[0],
-	camerapos[1] - cameralookfrom[1],
-	camerapos[2] + cameralookfrom[2] + yshake,
-	camerapos[0],
-	camerapos[1],
-	camerapos[2] + yshake,
+	cameraposition[0] + cameralookfrom[0],
+	cameraposition[1] - cameralookfrom[1],
+	cameraposition[2] + cameralookfrom[2],
+	cameraposition[0],
+	cameraposition[1],
+	cameraposition[2],
 	0, 0, 1
 	);
+
+// Screen shake using up vector
+var yshake = 2 * sqrt(screenshake) * sin(screenshake);
+matview = matrix_multiply(
+	Mat4Translate(yshake*matview[1], yshake*matview[5], yshake*matview[9]), matview);
 
 matbillboard = [
 	matview[ 0], matview[ 4], matview[ 8], 0,
@@ -39,20 +44,21 @@ matbillboard = [
 	0, 0, 0, 1
 ];
 
+// Flip y-coordinate if on OperaGX
 if (os_type == os_operagx)
 {
 	matproj = matrix_multiply(Mat4ScaleXYZ(1,-1,1), matproj);
 }
 
 // Without these, objects wouldn't be drawn outside a limited range
-camera_set_view_pos(view_camera, camerapos[0], camerapos[1]);
+camera_set_view_pos(view_camera, cameraposition[0], cameraposition[1]);
 camera_set_proj_mat(view_camera, matproj);
 
 matrix_set(matrix_projection, matproj);
 matrix_set(matrix_view, matview);
 matrix_set(matrix_world, matrix_build_identity());
 
-shader_set_uniform_f_array(shd_3d_campos, camerapos);
+shader_set_uniform_f_array(shd_3d_campos, cameraposition);
 
 // Draw all world vbs
 with obj_worldvb

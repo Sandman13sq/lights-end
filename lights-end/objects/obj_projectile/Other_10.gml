@@ -21,7 +21,7 @@ function Update(ts)
 	{
 		if (inst.HasFlag(FL_Entity.shootable))
 		{
-			inst.DoDamage(damage);
+			inst.DoDamage(damage, point_direction(x, y, inst.x, inst.y), 1);
 			instance_destroy();
 			return;
 		}

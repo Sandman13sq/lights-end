@@ -9,6 +9,8 @@ enum ST_Player
 	control,
 	hurt, 
 	
+	grab_ghost,
+	
 	defeat0,	// Fall1
 	defeat1,	// Bounce1
 	defeat2,	// Fall2
@@ -21,9 +23,10 @@ spriteset = {
 	hurt : spr_playerM_hurt,
 	kick : spr_playerM_kick,
 	knockdown : spr_playerM_knockdown,
+	
+	grab_ghost : spr_playerM_grab_ghost,
 }
 
-var s = random_get_seed();
 randomize();
 if choose(0, 1)
 spriteset = {
@@ -32,8 +35,9 @@ spriteset = {
 	hurt : spr_playerF_hurt,
 	kick : spr_playerF_kick,
 	knockdown : spr_playerF_knockdown,
+	
+	grab_ghost : spr_playerF_grab_ghost,
 }
-random_set_seed(s);
 
 direction = 0;
 aimdirection = 0;
@@ -70,6 +74,12 @@ collisionfilter |= FL_CollisionFilter.player;
 image_speed = 0;
 
 x = 0; y = 0; z = 0;
+
+pressuremeter = 0;
+pressuremetermax = 160;
+mashstep = 0;
+mashstepmax = 100;
+grabenemyinst = noone;
 
 LoadLevel("street");
 

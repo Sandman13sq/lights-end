@@ -20,7 +20,6 @@ draw_set_font(fnt_main);
 PARTSYS = part_system_create();
 part_system_depth(PARTSYS, -1000);
 
-
 enum ST_Camera
 {
 	free = 0,
@@ -35,7 +34,7 @@ enum ST_Camera
 	followDown,
 }
 
-camerapos = [0, 0, 0];
+cameraposition = [0, 0, 0];
 cameralookfrom = [0, -500, 1000];
 camerafocus = [0, 0, 0];
 camerastate = ST_Camera.player;

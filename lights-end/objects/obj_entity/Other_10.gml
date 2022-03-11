@@ -42,10 +42,14 @@ function PopStateStart()
 }
 
 // Decrements health from entity
-function DoDamage(value)
+function DoDamage(value, angle=0, knockback=0)
 {
 	healthpoints = max(0, healthpoints-value);
-	OnDamage(value);
+	lastdamageparams[0] = value;
+	lastdamageparams[1] = angle;
+	lastdamageparams[2] = knockback;
+	
+	OnDamage(value, angle, knockback);
 	
 	if (healthpoints == 0)
 	{
@@ -65,7 +69,7 @@ function OnKick(angle)
 	
 }
 
-function OnDamage(damage)
+function OnDamage(damage, angle, knockback)
 {
 	if (damage > 0)
 	{
@@ -115,6 +119,7 @@ function EvaluateLineCollision()
 {
 	// Check lines
 	ds_list_clear(hitlist);
+	
 	var intersect = [0, 0], dir;
 	var n = collision_circle_list(x, y, 128, obj_lvl_line, false, true, hitlist, false);
 	var e;
@@ -177,4 +182,9 @@ function EvaluateLineCollision()
 		yspeed = lengthdir_y(movespd, movedir);	
 	}
 	
+}
+
+function NextState()
+{
+	SetState(state+1);	
 }

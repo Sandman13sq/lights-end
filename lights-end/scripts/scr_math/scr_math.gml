@@ -100,3 +100,11 @@ function NormalReflect(incomingAngle, normalAngle)
 		
 	return (normalAngle + _incidence);
 }
+
+function FlipDirection(angle)
+{
+	return point_direction(0,0,
+		lengthdir_x(-1, angle),
+		lengthdir_y(-1, angle)
+		)	
+}

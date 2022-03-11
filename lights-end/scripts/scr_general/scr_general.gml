@@ -29,6 +29,11 @@ function SetHitstop(frames)
 	obj_header.hitstop = max(obj_header.hitstop, frames);
 }
 
+function GetHitstop()
+{
+	return obj_header.hitstop;
+}
+
 function SetCameraState(state, focus=obj_header.camerafocus)
 {
 	obj_header.camerastate = state;

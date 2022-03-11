@@ -18,6 +18,8 @@ enum FL_Collision
 	enemy = 1<<1,
 }
 
+image_speed = 0;
+
 entityflag = 0;
 
 tag = "";
@@ -49,5 +51,7 @@ depthoffset = 0;
 collisionfilter = 0;
 
 hitlist = ds_list_create();
+
+lastdamageparams = [0, 0, 0];
 
 

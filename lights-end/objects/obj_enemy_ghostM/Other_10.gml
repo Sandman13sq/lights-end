@@ -3,6 +3,8 @@
 // Inherit the parent event
 event_inherited();
 
+visible = true;
+
 function Update(ts)
 {
 	var p = instance_nearest(x, y, obj_player);
@@ -13,7 +15,12 @@ function Update(ts)
 		case(ST_Ghost.walk):
 			if (PopStateStart())
 			{
+				visible = true;
+				sprite_index = spr_ghostM;
 				statestep = 0;
+				
+				SetFlag(FL_Entity.hostile);
+				
 				break;
 			}
 			
@@ -24,18 +31,18 @@ function Update(ts)
 				statestep = walktime * (0.5 + ORandom() / ORANDOMMAX);
 		
 				// Add random shift to walk angle
-				var dirtoplayer = point_direction(x, y, p.x, p.y);
-				dirtoplayer += random_range(-15, 15);
-		
-				xspeed = lengthdir_x(movespeed, dirtoplayer);
-				yspeed = lengthdir_y(movespeed, dirtoplayer);
+				movedirection = point_direction(x, y, p.x, p.y);
+				movedirection += random_range(-15, 15);
 				
 				// Face player
-				if abs( dcos(dirtoplayer) ) > 0.1
+				if abs( dcos(movedirection) ) > 0.1
 				{
-					image_xscale = sign( dcos(dirtoplayer) );
+					image_xscale = sign( dcos(movedirection) );
 				}
 			}
+			
+			xspeed = Approach(xspeed, lengthdir_x(movespeed, movedirection), 0.5);
+			yspeed = Approach(yspeed, lengthdir_y(movespeed, movedirection), 0.5);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -50,6 +57,7 @@ function Update(ts)
 				zspeed = 16;
 				
 				sprite_index = spr_ghostM_defeat;
+				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
 				break;
@@ -75,11 +83,12 @@ function Update(ts)
 				statestep = 0;
 				
 				var dir = darctan2(yspeed, xspeed);
-				xspeed = lengthdir_x(-3, dir);
-				yspeed = -lengthdir_y(-3, dir);
+				xspeed = lengthdir_x(4, lastdamageparams[1]);
+				yspeed = lengthdir_y(4, lastdamageparams[1]);
 				zspeed = 10;
 				
 				sprite_index = spr_ghostM_defeat;
+				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
 				SetFlag(FL_Entity.wallbounce);
@@ -110,7 +119,7 @@ function Update(ts)
 		case(ST_Ghost.down):
 			if (PopStateStart())
 			{
-				statestep = 0;
+				statestep = 300;
 				zspeed = 0;
 				z = 0;
 				sprite_index = spr_ghostM_down;
@@ -120,12 +129,87 @@ function Update(ts)
 				break;
 			}
 			
+			if (xshake == 0 && (statestep == 150 || statestep < 40))
+			{
+				xshake = 40;	
+			}
+			
+			// Stand back up
+			if (statestep > 0) {statestep = Approach(statestep, 0, ts);}
+			else
+			{
+				SetState(ST_Ghost.walk);
+				break;
+			}
+			
 			xspeed *= 0.9;
 			yspeed *= 0.9;
 			
 			// Add movement
 			x += xspeed * ts;
 			y += yspeed * ts;
+			
+			break;
+		
+		// ===========================================================
+		case(ST_Ghost.chase):
+			if (PopStateStart())
+			{
+				sprite_index = spr_ghostMD_chase;
+				statestep = 0;
+				ClearFlag(FL_Entity.hostile);
+				break;
+			}
+			
+			// Wait to change walk direction
+			if (p)
+			{
+				// Add random shift to walk angle
+				movedirection = point_direction(x, y, p.x, p.y);
+				movedirection += random_range(-15, 15);
+				
+				// Face player
+				if abs( dcos(movedirection) ) > 0.5
+				{
+					image_xscale = sign( dcos(movedirection) );
+				}
+				
+				// Grab Player
+				if (p.CanGrab() && point_in_circle(p.x, p.y, x, y, radius))
+				{
+					p.SetState(ST_Player.grab_ghost);
+					p.SetGrabInst(self);
+					SetState(ST_Ghost.grab);
+					p.xspeed = xspeed;
+					p.yspeed = yspeed;
+				}
+			}
+			
+			xspeed = Approach(xspeed, lengthdir_x(chasespeed, movedirection), 0.1);
+			yspeed = Approach(yspeed, lengthdir_y(chasespeed, movedirection), 0.1);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+			
+			image_index = Modulo(image_index+ts/4, image_number);
+			
+			break;
+		
+		// ===============================================================
+		case(ST_Ghost.grab):
+			visible = false;
+			x = p.x;
+			y = p.y;
+			break;
+		
+		case(ST_Ghost.grab_release):
+			if (GetHitstop() == 0)
+			{
+				visible = true;
+				lastdamageparams[1] = FlipDirection(movedirection);
+				SetState(ST_Ghost.knockback);
+			}
 			
 			break;
 	}
@@ -155,14 +239,19 @@ function OnKick(angle)
 {
 	xspeed = lengthdir_x(10, angle);
 	yspeed = lengthdir_y(10, angle);
-	SetState(ST_Ghost.kicked);	
+	SetState(ST_Ghost.kicked);
 }
 
-function OnDamage(damage)
+function OnDamage(damage, angle, knockback)
 {
 	if (healthpoints > 0 && state != ST_Ghost.down && ORandom(2) == 0)
 	{
 		SetState(ST_Ghost.knockback);	
+	}
+	else
+	{
+		xspeed = lengthdir_x(knockback, angle);
+		yspeed = lengthdir_y(knockback, angle);
 	}
 }
 

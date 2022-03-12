@@ -66,4 +66,7 @@ function ShowScore(x, y, value, usebonusmultiplier=false)
 	}
 }
 
-
+function GetAbsoluteTimestep()
+{
+	return obj_header.nexttimestep;
+}

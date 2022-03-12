@@ -62,6 +62,7 @@ function DoKick(angle)
 	SetHitstop(KICKFRAMES);
 	SetCameraShake(KICKFRAMES + 5);
 	
+	GFX_Kickpop(x, y, z);
 	OnKick(angle);
 }
 

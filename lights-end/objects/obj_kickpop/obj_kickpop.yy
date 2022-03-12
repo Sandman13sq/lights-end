@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_bloodspray",
-    "path": "sprites/spr_bloodspray/spr_bloodspray.yy",
+    "name": "spr_pixel",
+    "path": "sprites/spr_pixel/spr_pixel.yy",
   },
   "solid": false,
   "visible": true,
@@ -34,7 +34,7 @@
     "path": "folders/Objects/Entities/GFX.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_bloodspray",
+  "name": "obj_kickpop",
   "tags": [],
   "resourceType": "GMObject",
 }

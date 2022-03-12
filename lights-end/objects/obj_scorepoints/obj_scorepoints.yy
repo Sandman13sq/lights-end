@@ -27,8 +27,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Entities",
-    "path": "folders/Objects/Entities.yy",
+    "name": "GFX",
+    "path": "folders/Objects/Entities/GFX.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_scorepoints",

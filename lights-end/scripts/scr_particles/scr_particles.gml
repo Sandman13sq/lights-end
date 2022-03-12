@@ -48,3 +48,20 @@ function GFX_Onyxplode(xx, yy, zz)
 		z = zz;
 	}
 }
+
+function GFX_Kickpop(xx, yy, zz)
+{
+	with instance_create_depth(xx, yy, 0, obj_kickpop)
+	{
+		z = zz;
+	}
+}
+
+function GFX_Rundust(xx, yy, zz, dir)
+{
+	with instance_create_depth(xx, yy, 0, obj_rundust)
+	{
+		z = zz;
+		movedirection = dir + random_range(-10, 10);
+	}
+}

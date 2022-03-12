@@ -3,7 +3,7 @@
 // Inherit the parent event
 event_inherited();
 
-life = 400;
+life = 120;
 
 circcount = 16;
 circs = array_create(circcount);

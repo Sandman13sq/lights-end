@@ -12,7 +12,7 @@
 
 CURRENT_FRAME = 0;
 TIMESTEP = 1;
-DEBUG = 1;
+DEBUG = 0;
 
 hitstop = 0;
 nexttimestep = 1;

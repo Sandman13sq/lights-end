@@ -30,8 +30,13 @@ function Update(ts)
 					aimdirection = movedirection;
 				}
 				
-				xspeed = Approach(xspeed, (movespeed+cankick) * dcos(movedirection), ts);
-				yspeed = Approach(yspeed, (movespeed+cankick) * -dsin(movedirection), ts);
+				xspeed = Approach(xspeed, (movespeed+cankick*2) * dcos(movedirection), ts);
+				yspeed = Approach(yspeed, (movespeed+cankick*2) * -dsin(movedirection), ts);
+				
+				if (cankick && (CURRENT_FRAME mod 6) == 0)
+				{
+					GFX_Rundust(x, y, z, FlipDirection(movedirection));
+				}
 		
 				// Set sprite from direction
 				if (aimdirection < 45-27.5) {aimdirindex = 0;}	// Right
@@ -67,7 +72,12 @@ function Update(ts)
 				inst.SetDirection(aimdirection);
 			}
 			
-			// Sprite
+			// Aim Sprite
+			if (aimlock)
+			{
+				timesinceshot = min(timesinceshot, 60);
+			}
+			
 			if (timesinceshot <= 60) 
 			{
 				sprite_index = spriteset.shoot;
@@ -226,10 +236,12 @@ function Update(ts)
 	// Take damage from enemies
 	if (healthpoints > 0)
 	{
-		var e = instance_place(x, y, obj_enemy);
+		var e;
+		
+		// Kick
+		e = collision_circle(x, y, radius, obj_enemy, false, true);
 		if (e)
 		{
-			// Kick
 			if (cankick && e.HasFlag(FL_Entity.kickable))
 			{
 				e.DoKick(movedirection);
@@ -237,8 +249,18 @@ function Update(ts)
 				image_xscale = Polarize(e.x-x);
 				sprite_index = spriteset.kick;
 			}
-			// Take Damage
-			else if (iframes == 0 && kickstep == 0 && e.GetDamage() > 0 && e.HasFlag(FL_Entity.hostile))
+		}
+		
+		// Take Damage
+		e = collision_circle(x, y, radius/2, obj_enemy, false, true);
+		if (e)
+		{
+			if (
+				iframes == 0 && 
+				kickstep == 0 && 
+				e.GetDamage() > 0 && 
+				e.HasFlag(FL_Entity.hostile)
+				)
 			{
 				sprite_index = spriteset.hurt;
 				DoDamage(e.GetDamage());

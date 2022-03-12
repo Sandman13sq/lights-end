@@ -5,6 +5,11 @@
 #macro PARTSYS global.g_partsys
 #macro DEBUG global.g_debug
 
+#macro SCREEN_W window_get_width()
+#macro SCREEN_H window_get_height()
+#macro GUI_W display_get_gui_width()
+#macro GUI_H display_get_gui_height()
+
 CURRENT_FRAME = 0;
 TIMESTEP = 1;
 DEBUG = 1;
@@ -55,6 +60,14 @@ firstcamerasync = true;
 playerboundsdimensions = [600, 300];
 
 screenshake = 0;
+
+lastscreensize = [1, 1];
+display_set_gui_size(960, 540);
+
+score = 0;
+
+bonusstep = 0;
+bonussteptime = 100;
 
 room_goto_next();
 

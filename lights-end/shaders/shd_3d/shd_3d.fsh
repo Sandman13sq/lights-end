@@ -10,7 +10,7 @@ varying vec2 v_vTexcoord;
 uniform vec3 u_campos;
 
 //[0.216667, -0.666667, 0.713170]
-const vec3 u_lightdir = vec3(0.2, -0.6, 0.7);
+const vec3 u_lightdir = vec3(-0.5, 0.6, 0.7);
 
 // [0.600000, 0.300000, 1.000000, 1.000000]
 const vec3 BURNCOLOR = vec3(0.6, 0.3, 1.0);
@@ -30,15 +30,14 @@ void main()
 	
 	float dp = dot(v_vNormal, normalize(u_lightdir));
 	//dp *= pow(mix(0.7, 1.0, distance(u_campos, vec3(v_vPosition.xy, 0.0))/2000.0), 2.0);
-	dp = float(int(dp*16.0))/16.0;
+	//dp = float(int(dp*16.0))/16.0;
+	dp = max(dp, 0.0);
 	
-	gl_FragColor.rgb = mix(
-		gl_FragColor.rgb,
-		ColorBurn(gl_FragColor.rgb, BURNCOLOR, 1.0) * 0.5,
-		dp
-		);
+	//gl_FragColor.rgb = mix(gl_FragColor.rgb, ColorBurn(gl_FragColor.rgb, BURNCOLOR, 1.0) * 0.5, dp);
 	
-	gl_FragColor.rgb = clamp(gl_FragColor.rgb, vec3(0.0), vec3(1.0));
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, gl_FragColor.rgb * vec3(0.3, 0.1, 0.5), dp);
+	
+	//gl_FragColor.rgb = clamp(gl_FragColor.rgb, vec3(0.0), vec3(1.0));
 	
 	//gl_FragColor.rgb = v_vNormal;
 	//gl_FragColor.rgb = vec3(dot(v_vNormal, normalize(u_lightdir)));

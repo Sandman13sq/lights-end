@@ -57,3 +57,10 @@ if (!firstcamerasync)
 	cameraposition[1] = camerafocus[1];
 	cameraposition[2] = camerafocus[2];
 }
+
+bonusstep = Approach(bonusstep, 0, ts);
+if (bonusstep == 0)
+{
+	bonusmultiplier = 0;	
+}
+

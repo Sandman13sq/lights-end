@@ -17,8 +17,6 @@ function Draw()
 	}
 }
 
-Load("model.vb");
-
 x = 0;
 y = 0;
 z = 0;

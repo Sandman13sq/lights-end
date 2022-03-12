@@ -172,5 +172,9 @@ function ShaderSet(shd)
 	if (shader_current() != shd) {shader_set(shd);}
 }
 
-
+function DrawSetAlign(halign, valign)
+{
+	draw_set_halign(halign);
+	draw_set_valign(valign);
+}
 

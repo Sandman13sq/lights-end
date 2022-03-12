@@ -39,6 +39,8 @@ spriteset = {
 	grab_ghost : spr_playerF_grab_ghost,
 }
 
+radius = 64;
+
 direction = 0;
 aimdirection = 0;
 movedirection = 0;
@@ -47,7 +49,6 @@ aimdirindex = 0;
 movespeed = 6;
 timesinceshot = 0;
 
-infocus = false;
 aimlock = false;
 
 refiretime = 8;
@@ -67,7 +68,7 @@ kickstep = 0;
 kicksteptime = 40;
 
 movingstep = 0;
-movingsteptime = 40;
+movingsteptime = 30;
 
 collisionfilter |= FL_CollisionFilter.player;
 
@@ -81,6 +82,8 @@ mashstep = 0;
 mashstepmax = 100;
 grabenemyinst = noone;
 
-LoadLevel("street");
+grabbed = false;
+
+LoadLevel("floor1");
 
 

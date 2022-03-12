@@ -20,6 +20,7 @@ function Update(ts)
 				statestep = 0;
 				
 				SetFlag(FL_Entity.hostile);
+				ClearFlag(FL_Entity.kickable);
 				
 				break;
 			}
@@ -47,6 +48,8 @@ function Update(ts)
 			// Add movement
 			x += xspeed * ts;
 			y += yspeed * ts;
+			
+			image_index += random(2)*ts/13;
 	
 			break;
 		
@@ -60,6 +63,8 @@ function Update(ts)
 				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				
+				ShowScore(x, y, 200, true);
 				break;
 			}
 			
@@ -182,6 +187,7 @@ function Update(ts)
 					SetState(ST_Ghost.grab);
 					p.xspeed = xspeed;
 					p.yspeed = yspeed;
+					p.image_xscale = Polarize(xspeed);
 				}
 			}
 			
@@ -192,7 +198,7 @@ function Update(ts)
 			x += xspeed * ts;
 			y += yspeed * ts;
 			
-			image_index = Modulo(image_index+ts/4, image_number);
+			image_index = Modulo(image_index+random(2)*ts/4, image_number);
 			
 			break;
 		
@@ -253,11 +259,17 @@ function OnDamage(damage, angle, knockback)
 		xspeed = lengthdir_x(knockback, angle);
 		yspeed = lengthdir_y(knockback, angle);
 	}
+	
+	if (healthpoints == 0)
+	{
+		ShowScore(x, y, 100);	
+	}
 }
 
 function OnDefeat()
 {
-	PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
+	//PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
+	GFX_Onyxplode(x, y, 0);
 	instance_destroy();
 }
 

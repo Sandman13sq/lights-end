@@ -60,3 +60,10 @@ playerbounds[2].SetLine(cx+ww, cy+hh, cx-ww, cy+hh);
 playerbounds[3].SetLine(cx-ww, cy+hh, cx-ww, cy-hh);
 
 screenshake = Approach(screenshake, 0, nexttimestep);
+
+if (SCREEN_W != lastscreensize[0] || SCREEN_H != lastscreensize[1])
+{
+	lastscreensize[0] = SCREEN_W;
+	lastscreensize[1] = SCREEN_H;
+	surface_resize(application_surface, SCREEN_W, SCREEN_H);	
+}

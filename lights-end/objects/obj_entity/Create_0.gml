@@ -28,8 +28,8 @@ active = true;
 
 healthmax = 0;
 healthpoints = 0;
-
 damage = 0;
+scorevalue = 0;
 
 xshake = 0;
 
@@ -39,7 +39,7 @@ xspeed = 0;
 yspeed = 0;
 zspeed = 0;
 
-radius = 64;
+radius = 1;
 
 state = 0;
 statestart = 0;

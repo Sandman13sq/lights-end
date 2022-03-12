@@ -10,6 +10,8 @@ function Update(ts)
 	
 	aimlock = keyboard_check( ord("Z") );
 	
+	grabbed = false;
+	
 	switch(state)
 	{
 		// =============================================================================
@@ -50,7 +52,7 @@ function Update(ts)
 			
 			// Schut
 			if (refiredelay > 0) {refiredelay = Approach(refiredelay, 0, ts);}
-			else if ( firebuffer > 0 )
+			else if ( firebuffer > 0 && kickstep == 0 )
 			{
 				firebuffer = 0;
 				refiredelay = refiretime;
@@ -89,12 +91,13 @@ function Update(ts)
 					image_index = kickstep >= kicksteptime - 4;
 					image_index = kickstep <= 10? 2: image_index;
 				}
-				else
-				{
-					image_xscale = 1;
-				}
+			}
+			else
+			{
+				image_xscale = 1;	
 			}
 			
+			// Fill pressure meter
 			if (pressuremeter > 0)
 			{
 				pressuremeter = Approach(pressuremeter, 0, ts*0.1);	
@@ -104,6 +107,8 @@ function Update(ts)
 		
 		// =============================================================================
 		case(ST_Player.grab_ghost):
+			grabbed = true;
+			
 			if (mashstep >= mashstepmax)
 			{
 				grabenemyinst.DoKick(movedirection);
@@ -126,18 +131,23 @@ function Update(ts)
 				image_index += _mash;
 			}
 			
+			// Wrestle
 			if (pressuremeter < pressuremetermax)
 			{
 				sprite_index = spriteset.grab_ghost;
 				image_index = Modulo(image_index + (pressuremeter/pressuremetermax)/3, 2);
 				pressuremeter = Approach(pressuremeter, pressuremetermax, ts);
 			}
+			// Bite
 			else
 			{
 				sprite_index = spriteset.grab_ghost;
 				image_index = 2;
 				
-				DoDamage(2);
+				xshake = 10;
+				
+				GFX_BloodSpray(x, y, 60, image_xscale);
+				DoDamage(1);
 			}
 			
 			xspeed = Approach(xspeed, 0, 0.3);
@@ -214,7 +224,7 @@ function Update(ts)
 	// Progress invicibility frames
 	if (iframes > 0) {iframes = Approach(iframes, 0, ts);}
 	// Take damage from enemies
-	else if (healthpoints > 0)
+	if (healthpoints > 0)
 	{
 		var e = instance_place(x, y, obj_enemy);
 		if (e)
@@ -225,9 +235,10 @@ function Update(ts)
 				e.DoKick(movedirection);
 				kickstep = kicksteptime;
 				image_xscale = Polarize(e.x-x);
+				sprite_index = spriteset.kick;
 			}
 			// Take Damage
-			else if (kickstep == 0 && e.GetDamage() > 0 && e.HasFlag(FL_Entity.hostile))
+			else if (iframes == 0 && kickstep == 0 && e.GetDamage() > 0 && e.HasFlag(FL_Entity.hostile))
 			{
 				sprite_index = spriteset.hurt;
 				DoDamage(e.GetDamage());

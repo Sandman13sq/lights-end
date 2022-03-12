@@ -15,6 +15,7 @@ function EntityFromTag(entry)
 		case("cameray"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowY); break;
 		case("camerafocus"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafocus); break;
 		case("cameraright"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowRight); break;
+		case("cameraleft"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowLeft); break;
 		case("cameraup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowUp); break;
 		
 		case("trigger"): 
@@ -44,9 +45,9 @@ function DefineLine(x1, y1, x2, y2)
 	return instance_create_depth(0,0,0, obj_lvl_line).SetLine(x1, y1, x2, y2);
 }
 
-function LoadLevel(jsonpath)
+function LoadLevel(fpath)
 {
-	var b = buffer_load(filename_change_ext(jsonpath, ".json"));
+	var b = buffer_load(filename_change_ext(fpath, ".json"));
 	
 	if (b >= 0)
 	{
@@ -72,7 +73,13 @@ function LoadLevel(jsonpath)
 		for (var i = 0; i < n; i++)
 		{
 			e = elementjson[i];
+			repeat(4)
 			EntityFromTag(e);
+		}
+		
+		with instance_create_depth(x, y, 0, obj_worldvb)
+		{
+			Load(filename_change_ext(fpath, ".vb"));	
 		}
 		
 	}

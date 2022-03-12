@@ -21,9 +21,11 @@ SetFlag(FL_Entity.hostile | FL_Entity.shootable);
 SetState(choose(ST_Ghost.walk, ST_Ghost.chase));
 
 walktime = 100;
-movespeed = 1 + ORandom()/512;
-chasespeed = 3 + ORandom()/512;
+movespeed = 2 + ORandom()/512;
+chasespeed = 4 + ORandom()/512;
 movedirection = 0;
+
+radius = 64;
 
 SetHealthMax(20);
 

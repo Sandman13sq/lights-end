@@ -44,3 +44,26 @@ function SetCameraShake(frames)
 {
 	obj_header.screenshake = frames;
 }
+
+function ShowScore(x, y, value, usebonusmultiplier=false)
+{
+	if (obj_header.bonusstep > 0)
+	{
+		obj_header.bonusmultiplier += 1;
+	}
+	else
+	{
+		obj_header.bonusmultiplier = 1;
+	}
+	obj_header.bonusstep = obj_header.bonussteptime;
+		
+	value *= obj_header.bonusmultiplier;
+	
+	score += value;
+	with instance_create_depth(x, y, 0, obj_scorepoints)
+	{
+		scorevalue = value;
+	}
+}
+
+

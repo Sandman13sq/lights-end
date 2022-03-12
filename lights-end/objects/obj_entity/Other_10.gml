@@ -61,6 +61,7 @@ function DoKick(angle)
 {
 	SetHitstop(KICKFRAMES);
 	SetCameraShake(KICKFRAMES + 5);
+	
 	OnKick(angle);
 }
 
@@ -140,19 +141,16 @@ function EvaluateLineCollision()
 			if (DotAngle(point_direction(intersect[0], intersect[1], x, y), e.normal) < 0)
 			{
 				dir = e.normal+180;
-				x = intersect[0] + lengthdir_x(radius+1, dir);
-				y = intersect[1] + lengthdir_y(radius+1, dir);
-				movedir = NormalReflect(movedir, dir);
-				hit = true;
 			}
 			else
 			{
 				dir = e.normal;
-				x = intersect[0] + lengthdir_x(radius+1, dir);
-				y = intersect[1] + lengthdir_y(radius+1, dir);
-				movedir = NormalReflect(movedir, dir);
-				hit = true;
 			}
+			
+			x = intersect[0] + lengthdir_x(radius+1, dir);
+			y = intersect[1] + lengthdir_y(radius+1, dir);
+			movedir = dir;
+			hit = true;
 		}
 		
 		// Endpoints
@@ -161,7 +159,7 @@ function EvaluateLineCollision()
 			dir = point_direction(e.x1, e.y1, x, y);
 			x = e.x1 + lengthdir_x(radius+1, dir);
 			y = e.y1 + lengthdir_y(radius+1, dir);
-			movedir = NormalReflect(movedir, dir);
+			movedir = dir;
 			hit = true;
 		}
 		
@@ -170,7 +168,7 @@ function EvaluateLineCollision()
 			dir = point_direction(e.x2, e.y2, x, y);
 			x = e.x2 + lengthdir_x(radius+1, dir);
 			y = e.y2 + lengthdir_y(radius+1, dir);
-			movedir = NormalReflect(movedir, dir);
+			movedir = dir;
 			hit = true;
 		}
 	}

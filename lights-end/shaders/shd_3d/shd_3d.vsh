@@ -18,16 +18,17 @@ void main()
     vec4 vertexposition = vec4(in_Position, 1.0);
     vec4 vertexnormal = vec4(in_Normal, 0.0);
 	
-	vertexnormal.z *= -1.0;
+	//vertexposition.y *= -1.0;
+	
+	//vertexnormal.z *= -1.0;
 	
 	vertexposition.y -= vertexposition.z*0.5; // Skew y-coordinate
 	
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vertexposition;
     
 	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz;
-	v_vNormal = normalize( (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz );
+	v_vNormal = (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz;
     v_vColour = in_Colour;
     v_vTexcoord = in_TextureCoord;
 	
-	//v_vNormal[1] *= -1.0;
 }

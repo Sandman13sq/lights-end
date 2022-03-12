@@ -14,7 +14,6 @@ roommats = [
 // Setup Drawing
 ShaderSet(shd_3d);
 
-gpu_set_cullmode(cull_clockwise);
 gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
 //gpu_set_alphatestenable(true);
@@ -61,6 +60,7 @@ matrix_set(matrix_world, matrix_build_identity());
 shader_set_uniform_f_array(shd_3d_campos, cameraposition);
 
 // Draw all world vbs
+gpu_set_cullmode(cull_clockwise);
 with obj_worldvb
 {
 	if (visible)

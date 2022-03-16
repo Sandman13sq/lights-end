@@ -70,12 +70,19 @@ function Update(ts)
 			if (PopStateStart())
 			{
 				sprite_index = spr_retina_aim;
+				image_xscale = 1.0;
 				statestep = 100;
 				
-				var dir = point_direction(x, y, p.x, p.y);
-				dir = floor( Modulo(dir-45/2, 360)*8/360 );
+				var dir = point_direction(x, y, 
+					p.x + p.xspeed*20, 
+					p.y + p.yspeed*20
+					);
+				dir = floor( Modulo(dir+45/2, 360)*8/360 );
 				
 				movedirection = dir*360/8;
+				print(
+					[point_direction(x, y, p.x, p.y), movedirection, dir]
+				);
 				image_index = (dir);
 				break;
 			}
@@ -121,7 +128,10 @@ function Update(ts)
 					statestep = 10;
 					walkcount++;
 					
-					instance_create_depth(x, y, depth, obj_enemy_retina_ball).SetDirection(movedirection);
+					instance_create_depth(
+						x + lengthdir_x(radius, movedirection), 
+						y + lengthdir_y(radius, movedirection), 
+						depth, obj_enemy_retina_ball).SetDirection(movedirection);
 				}
 				else
 				{
@@ -142,13 +152,13 @@ function Update(ts)
 		case(ST_Retina.kicked):
 			if (PopStateStart())
 			{
-				zspeed = 16;
+				zspeed = 13;
 				
 				sprite_index = spr_retina_kicked;
-				image_xscale = -Polarize(xspeed);
 				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				SetFlag(FL_Entity.wallbounce);
 				
 				ShowScore(x, y, 200, true);
 				break;
@@ -157,6 +167,7 @@ function Update(ts)
 			zspeed += -0.5*ts;
 			
 			image_index += ts/3;
+			image_xscale = -Polarize(xspeed);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -183,13 +194,15 @@ function Update(ts)
 				sprite_index = spr_retina_stagger;
 				visible = true;
 				
-				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.wallbounce | FL_Entity.kickable);
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				SetFlag(FL_Entity.wallbounce);
 				break;
 			}
 			
 			zspeed += -0.5;
 			
 			image_index += ts/4;
+			if (abs(xspeed) > 1) {image_xscale = Polarize(xspeed);}
 			
 			// Add movement
 			x += xspeed * ts;
@@ -227,6 +240,7 @@ function Update(ts)
 			}
 			
 			image_index += ts/4;
+			if (abs(xspeed) > 1) {image_xscale = Polarize(xspeed);}
 			
 			xspeed = Approach(xspeed, 0, 0.2*ts);
 			yspeed = Approach(yspeed, 0, 0.2*ts);

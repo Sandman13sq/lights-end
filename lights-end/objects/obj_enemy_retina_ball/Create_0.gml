@@ -10,8 +10,9 @@ movedirection = 0;
 
 radius = 10;
 
-z = 32;
+z = 40;
 
 SetHealthMax(1);
 
+shadowsprite = spr_shadow32;
 

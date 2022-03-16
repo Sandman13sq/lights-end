@@ -27,5 +27,3 @@ movedirection = 0;
 radius = 64;
 
 SetHealthMax(20);
-
-

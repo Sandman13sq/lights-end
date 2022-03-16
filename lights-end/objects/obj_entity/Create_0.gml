@@ -18,6 +18,8 @@ enum FL_Collision
 	enemy = 1<<1,
 }
 
+shadowsprite = spr_shadow64;
+
 image_speed = 0;
 
 entityflag = 0;

@@ -27,7 +27,10 @@ function EntityFromTag(entry)
 		case("enemydefeat"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_enemydefeated); break;
 		
 		// Enemies
-		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, choose(obj_enemy_ghostM, obj_enemy_retina)); break;
+		//case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_ghostM); break;
+		case("ghost"): 
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_retina); 
+			break;
 		
 	}
 	
@@ -73,7 +76,7 @@ function LoadLevel(fpath)
 		for (var i = 0; i < n; i++)
 		{
 			e = elementjson[i];
-			repeat(4)
+			repeat(1)
 			EntityFromTag(e);
 		}
 		

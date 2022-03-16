@@ -20,7 +20,11 @@ function Draw()
 		xx += 3 * Polarize(BoolStep(xshake, 4));
 	}
 	
-	DrawBillboard(spr_shadow, 0, xx, yy, 0, LightsEndColor.dark);
+	if (shadowsprite >= 0)
+	{
+		DrawBillboard(shadowsprite, 0, xx, yy, 0, LightsEndColor.dark);
+	}
+	
 	DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
 }
 

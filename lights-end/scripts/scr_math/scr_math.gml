@@ -6,6 +6,11 @@ function Approach(value, target, step)
 	return max(target, value-step);
 }
 
+function ApproachZero(value, step)
+{
+	return (value < 0)? min(0, value+step): max(0, value-step);
+}
+
 function Lev(positive, negative)
 {
 	return bool(positive) - bool(negative);
@@ -108,3 +113,16 @@ function FlipDirection(angle)
 		lengthdir_y(-1, angle)
 		)	
 }
+
+function FlipDirectionX(angle)
+{
+	return point_direction(0,0,
+		lengthdir_x(-1, angle),
+		lengthdir_y(1, angle)
+		)	
+}
+
+function Quantize(x, step) {return floor(x/step)*step;}
+function QuantizeCeil(x, step) {return ceil(x/step)*step;}
+function QuantizeRound(x, step) {return round(x/step)*step;}
+

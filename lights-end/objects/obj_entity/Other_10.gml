@@ -88,6 +88,11 @@ function OnDefeat()
 function SetFlag(f) {entityflag |= f;}
 function ClearFlag(f) {entityflag &= ~(f);}
 function HasFlag(f) {return (entityflag & f) != 0;}
+function UpdateFlags(activeflags, inertflags=0)
+{
+	entityflag |= activeflags;
+	entityflag &= ~inertflags;
+}
 
 function GetHealth() {return healthpoints;}
 function GetDamage() {return damage;}
@@ -180,6 +185,8 @@ function EvaluateLineCollision()
 		xspeed = lengthdir_x(movespd, movedir);	
 		yspeed = lengthdir_y(movespd, movedir);	
 	}
+	
+	return hit;
 	
 }
 

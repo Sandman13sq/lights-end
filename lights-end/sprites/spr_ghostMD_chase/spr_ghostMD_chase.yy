@@ -89,8 +89,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Enemies",
-    "path": "folders/Sprites/Enemies.yy",
+    "name": "Ghost",
+    "path": "folders/Sprites/Enemies/Ghost.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_ghostMD_chase",

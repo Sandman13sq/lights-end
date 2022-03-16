@@ -42,22 +42,26 @@ function SetCameraState(state, focus=obj_header.camerafocus)
 
 function SetCameraShake(frames)
 {
-	obj_header.screenshake = frames;
+	obj_header.screenshake = max(obj_header.screenshake, frames);
 }
 
-function ShowScore(x, y, value, usebonusmultiplier=false)
+function ShowScore(x, y, value, usebonusmultiplier=true)
 {
-	if (obj_header.bonusstep > 0)
+	if (usebonusmultiplier)
 	{
-		obj_header.bonusmultiplier += 1;
-	}
-	else
-	{
-		obj_header.bonusmultiplier = 1;
-	}
-	obj_header.bonusstep = obj_header.bonussteptime;
+		if (obj_header.bonusstep > 0)
+		{
+			obj_header.bonusmultiplier += 1;
+		}
+		else
+		{
+			obj_header.bonusmultiplier = 1;
+		}
 		
-	value *= obj_header.bonusmultiplier;
+		value *= obj_header.bonusmultiplier;
+	}
+	
+	obj_header.bonusstep = obj_header.bonussteptime;
 	
 	score += value;
 	with instance_create_depth(x, y, 0, obj_scorepoints)

@@ -11,7 +11,7 @@ for (var i = 0; i < circcount; i++)
 {
 	circ[i] = [
 		random_range(-30, 30),	// x
-		random_range(-30, 30),	// y
+		random_range(-30, 50),	// y
 		random_range(0, 12),	// z
 		random_range(40, 60),	// Size
 		

@@ -27,10 +27,8 @@ function EntityFromTag(entry)
 		case("enemydefeat"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_enemydefeated); break;
 		
 		// Enemies
-		//case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_ghostM); break;
-		case("ghost"): 
-			inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_retina); 
-			break;
+		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_ghostM); break;
+		case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_retina); break;
 		
 	}
 	

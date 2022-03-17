@@ -30,6 +30,13 @@ function Update(ts)
 			if (statestep > 0) {statestep = ApproachZero(statestep, ts);}
 			else if (p)
 			{
+				// Reset walk count if player is far away
+				if ( point_distance(x, y, p.x, p.y) >= 400 )
+				{
+					walkcount = 0;
+				}
+				
+				// Walk in another direction
 				if (walkcount < 3)
 				{
 					walkcount++;
@@ -38,7 +45,7 @@ function Update(ts)
 					
 					// Add random shift to walk angle
 					movedirection = point_direction(x, y, p.x, p.y);
-					movedirection += random_range(-50, 50);
+					movedirection += 100.0*(ORandom() / ORANDOMMAX - 0.5);
 				
 					// Face player
 					if abs( dcos(movedirection) ) > 0.1

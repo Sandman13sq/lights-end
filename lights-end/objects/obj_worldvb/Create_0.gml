@@ -3,6 +3,8 @@
 vb = -1;
 texture = -1;
 
+tag = "";
+
 function Load(path)
 {
 	vb = LoadVB(path);

@@ -12,8 +12,8 @@ void main()
 	
 	if (basecolor.a <= 0.1) {discard;}
 	
-	vec4 blendcolor = u_drawmatrix[1];
-	vec4 fillcolor = u_drawmatrix[2];
+	vec4 blendcolor = u_drawmatrix[0];
+	vec4 fillcolor = u_drawmatrix[1];
 	
 	gl_FragColor = basecolor;
 	

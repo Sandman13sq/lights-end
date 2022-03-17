@@ -27,3 +27,53 @@ function LoadVB(path)
 	
 	return vb;
 }
+
+function LoadVBA(path)
+{
+	var bcompressed = buffer_load(filename_change_ext(path, ".vba"));
+	
+	if (bcompressed == -1)
+	{
+		show_message("Error loading VBA from " + string(path));
+		return -1;
+	}
+	
+	var b = buffer_decompress(bcompressed);
+	buffer_delete(bcompressed);
+	
+	// Read Data
+	var n = buffer_read(b, buffer_u32);
+	var vbname, namesize, vbsize, vbbytesize, vb;
+	
+	var vba = {
+		vbs : array_create(n),
+		names : array_create(n),
+		count : n,
+	}
+	
+	for (var i = 0; i < n; i++)
+	{
+		vbname = "";
+		namesize = buffer_read(b, buffer_u8);
+		
+		repeat(namesize)
+		{
+			vbname += chr(buffer_read(b, buffer_u8));
+		}
+		vba.names[i] = vbname;
+		
+		vbsize = buffer_read(b, buffer_u32);
+		vbbytesize = buffer_read(b, buffer_u32);
+		
+		vb = vertex_create_buffer_from_buffer_ext(b, VBF3D, buffer_tell(b), vbsize);
+		
+		buffer_seek(b, buffer_seek_relative, vbbytesize);
+		
+		vba.vbs[i] = vb;
+		vba[$ vbname] = vb;
+	}
+	
+	buffer_delete(b);
+	
+	return vba;
+}

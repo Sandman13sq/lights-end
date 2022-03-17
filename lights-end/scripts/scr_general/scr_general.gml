@@ -40,6 +40,11 @@ function SetCameraState(state, focus=obj_header.camerafocus)
 	obj_header.camerafocus = focus;
 }
 
+function SetCameraBound(index, value)
+{
+	obj_header.camerabounds[index] = value;
+}
+
 function SetCameraShake(frames)
 {
 	obj_header.screenshake = max(obj_header.screenshake, frames);

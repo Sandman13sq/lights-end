@@ -13,10 +13,16 @@ function EntityFromTag(entry)
 		// Controls
 		case("camerax"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowX); break;
 		case("cameray"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowY); break;
+		
 		case("camerafocus"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafocus); break;
 		case("cameraright"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowRight); break;
 		case("cameraleft"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowLeft); break;
 		case("cameraup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowUp); break;
+		
+		case("cameraboundright"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundRight); break;
+		case("cameraboundup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundLeft); break;
+		case("cameraboundleft"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundLeft); break;
+		case("camerabounddown"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundLeft); break;
 		
 		case("trigger"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)
@@ -26,9 +32,16 @@ function EntityFromTag(entry)
 		case("linedestroy"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_linedestroy); break;
 		case("enemydefeat"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_enemydefeated); break;
 		
+		case("hideworld"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_hideworld); break;
+		
 		// Enemies
 		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_ghostM); break;
 		case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_retina); break;
+		
+		// Events
+		case("floor1flicker"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_floor1_flicker); break;
+		
+		case("darken"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_darken); break;
 		
 	}
 	
@@ -68,6 +81,21 @@ function LoadLevel(fpath)
 			DefineLine(e.x1, -e.y1, e.x2, -e.y2).SetTags(e.tag, e.trigger);
 		}
 		
+		// World
+		var vba = LoadVBA(filename_change_ext(fpath, ".vba"));
+		
+		if (vba != -1)
+		{
+			for (var i = 0; i < vba.count; i++)
+			{
+				with instance_create_depth(x, y, 0, obj_worldvb)
+				{
+					tag = vba.names[i];
+					vb = vba.vbs[i];
+				}
+			}
+		}
+		
 		// Elements
 		var elementjson = outjson.elements;
 		n = array_length(elementjson);
@@ -78,18 +106,18 @@ function LoadLevel(fpath)
 			EntityFromTag(e);
 		}
 		
-		with instance_create_depth(x, y, 0, obj_worldvb)
-		{
-			Load(filename_change_ext(fpath, ".vb"));	
-		}
-		
 	}
 }
 
-function LevelAnswerPoll(triggertag)
+function CallPoll(triggertag)
 {
 	with obj_lvlElement {AnswerPoll(triggertag);}
 	with obj_entity {AnswerPoll(triggertag);}
 }
 
-
+function GetWorldByTag(_tag)
+{
+	var out = noone;
+	with obj_worldvb {if tag == _tag {out = id;}}
+	return out;
+}

@@ -14,3 +14,5 @@ playerbounds[2].collisionfilter &= ~FL_Collision.enemy;
 playerbounds[3].collisionfilter &= ~FL_Collision.enemy;
 
 firstcamerasync = false;
+
+camerabounds = [-0xFFFF, -0xFFFF, 0xFFFF, 0xFFFF];

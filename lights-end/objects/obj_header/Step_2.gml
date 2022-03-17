@@ -58,6 +58,9 @@ if (!firstcamerasync)
 	cameraposition[2] = camerafocus[2];
 }
 
+cameraposition[0] = clamp(cameraposition[0], camerabounds[0], camerabounds[2]);
+cameraposition[1] = clamp(cameraposition[1], camerabounds[1], camerabounds[3]);
+
 bonusstep = Approach(bonusstep, 0, ts);
 if (bonusstep == 0)
 {

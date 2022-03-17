@@ -6,6 +6,7 @@ event_inherited();
 enum ST_Retina
 {
 	walk = 1,
+	
 	stagger_fall,
 	stagger,
 	defeat,

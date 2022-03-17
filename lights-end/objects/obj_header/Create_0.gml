@@ -43,6 +43,7 @@ cameraposition = [0, 0, 0];
 cameralookfrom = [0, -500, 1000];
 camerafocus = [0, 0, 0];
 camerastate = ST_Camera.player;
+camerabounds = [0, 0, 0, 0];
 
 matproj = matrix_build_identity();
 matview = matrix_build_identity();

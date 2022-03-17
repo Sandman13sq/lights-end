@@ -220,6 +220,36 @@ function Update(ts)
 			break;
 		
 		// ===========================================================
+		case(ST_Ghost.darken):
+			if (PopStateStart())
+			{
+				statestep = 200;
+				sprite_index = spr_ghostM_darken;
+				break;
+			}
+			
+			xshake = Wrap(xshake, 4, 10);
+			
+			image_index = BoolStep(statestep, 16);
+			
+			// Stand back up
+			if (statestep > 0) {statestep = ApproachZero(statestep, ts);}
+			else
+			{
+				SetState(ST_Ghost.chase);
+				break;
+			}
+			
+			xspeed = Approach(xspeed, 0, 0.1*ts);
+			yspeed = Approach(yspeed, 0, 0.1*ts);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+			
+			break;
+		
+		// ===========================================================
 		case(ST_Ghost.chase):
 			if (PopStateStart())
 			{
@@ -254,8 +284,8 @@ function Update(ts)
 				}
 			}
 			
-			xspeed = Approach(xspeed, lengthdir_x(chasespeed, movedirection), 0.1);
-			yspeed = Approach(yspeed, lengthdir_y(chasespeed, movedirection), 0.1);
+			xspeed = Approach(xspeed, lengthdir_x(chasespeed, movedirection), 0.3*ts);
+			yspeed = Approach(yspeed, lengthdir_y(chasespeed, movedirection), 0.3*ts);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -336,5 +366,13 @@ function OnDefeat()
 {
 	GFX_Onyxplode(x, y, 0);
 	instance_destroy();
+}
+
+function Darken()
+{
+	if (state == ST_Ghost.walk)
+	{
+		SetState(ST_Ghost.darken);
+	}
 }
 

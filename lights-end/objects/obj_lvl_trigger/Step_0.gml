@@ -4,7 +4,7 @@ if (active)
 {
 	if (instance_place(x, y, obj_player))
 	{
-		LevelAnswerPoll(tag);
+		CallPoll(tag);
 		instance_destroy();
 	}
 }

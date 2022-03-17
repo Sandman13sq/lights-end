@@ -7,3 +7,4 @@ damage = 0;
 
 collisionfilter |= FL_CollisionFilter.enemy;
 
+darkened = false;

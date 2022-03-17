@@ -26,8 +26,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Control",
-    "path": "folders/Objects/World/Control.yy",
+    "name": "Camera",
+    "path": "folders/Objects/Control/Camera.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_lvl_camerafollowUp",

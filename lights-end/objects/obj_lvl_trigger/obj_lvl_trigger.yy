@@ -31,7 +31,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Control",
-    "path": "folders/Objects/World/Control.yy",
+    "path": "folders/Objects/Control.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_lvl_trigger",

@@ -247,7 +247,5 @@ function U_DrawMatrix(drawmatrix)
 
 function U_DrawMatrixClear()
 {
-	shader_set_uniform_f(obj_header.shd_billboard_drawmatrix, 
-		0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
-		);	
+	shader_set_uniform_f_array(obj_header.shd_billboard_drawmatrix, array_create(16));	
 }

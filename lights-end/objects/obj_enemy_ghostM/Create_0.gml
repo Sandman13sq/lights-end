@@ -17,11 +17,12 @@ enum ST_Ghost
 	grab,
 	grab_release,
 	
+	darken,
 	chase,
 }
 
 SetFlag(FL_Entity.shootable | FL_Entity.solid);
-SetState(choose(ST_Ghost.walk, ST_Ghost.chase));
+SetState(ST_Ghost.walk);
 
 walktime = 100;
 movespeed = 2 + ORandom()/512;

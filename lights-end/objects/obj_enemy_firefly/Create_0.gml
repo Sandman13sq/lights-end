@@ -5,9 +5,12 @@ event_inherited();
 
 enum ST_Firefly
 {
-	walk = 1,
+	hover = 1,
 	
-	kicked,
+	defeat,
+	
+	aim,
+	aim_fire,
 }
 
 SetFlag(FL_Entity.hostile | FL_Entity.shootable);

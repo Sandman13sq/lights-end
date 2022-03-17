@@ -8,7 +8,7 @@ if (active)
 	if (n == 0)
 	{
 		print("Enemies Defeated!", [tag])
-		LevelAnswerPoll(tag);
+		CallPoll(tag);
 		instance_destroy();
 	}
 }

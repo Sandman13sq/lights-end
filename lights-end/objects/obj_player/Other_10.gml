@@ -344,18 +344,19 @@ function Draw()
 		xx += 3 * Polarize(BoolStep(xshake, 4));
 	}
 	
-	U_DrawMatrixClear();
-	
 	// Skip draw on iframes
 	if (GetHitstop() > 0 || BoolStep(iframes, 10) == 0)
 	{
+		U_DrawMatrixClear();
 		DrawBillboard(shadowsprite, 0, xx, yy, 0, LightsEndColor.dark);
+		U_DrawMatrix(drawmatrix);
 		DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
 	}
 	
 	// Draw Mash Stick
 	if (state == ST_Player.grab_ghost)
 	{
+		U_DrawMatrixClear();
 		gpu_set_ztestenable(false);
 		DrawBillboard(spr_mashstick, Modulo(pressuremeter/6, 4), 
 			x-Polarize(x-obj_header.cameraposition[0])*140, y-20, 0);

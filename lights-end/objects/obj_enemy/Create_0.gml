@@ -3,7 +3,7 @@
 // Inherit the parent event
 event_inherited();
 
-damage = 1;
-SetFlag(FL_Entity.hostile);
+damage = 0;
+
 collisionfilter |= FL_CollisionFilter.enemy;
 

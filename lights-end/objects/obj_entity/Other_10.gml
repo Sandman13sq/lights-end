@@ -194,6 +194,33 @@ function EvaluateLineCollision()
 	
 }
 
+function EvaluateRadius(r, obj = obj_entity)
+{
+	var hlist = hitlist;
+	ds_list_clear(hlist);
+	var n = 0;
+	var xx = x, yy = y;
+	
+	with obj
+	{
+		if ( point_distance(xx, yy, x, y) <= radius+r )
+		{
+			ds_list_add(hlist, id);
+			n += 1;	
+		}
+	}
+	
+	return n;
+}
+
+function DistanceTo(otherentity)
+{
+	return point_distance(x, y, otherentity.x, otherentity.y);	
+}
+
+function DirectionTo(otherentity) {return point_direction(x, y, otherentity.x, otherentity.y);}
+function DirectionFrom(otherentity) {return point_direction(otherentity.x, otherentity.y, x, y);}
+
 function NextState()
 {
 	SetState(state+1);	

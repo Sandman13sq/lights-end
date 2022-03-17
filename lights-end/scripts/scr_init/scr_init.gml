@@ -12,8 +12,8 @@ function scr_init()
 	INPUTP1.DefineKey(InputIndex.up, vk_up);
 	INPUTP1.DefineKey(InputIndex.left, vk_left);
 	INPUTP1.DefineKey(InputIndex.down, vk_down);
-	INPUTP1.DefineKey(InputIndex.fire, "Z", vk_space);
-	INPUTP1.DefineKey(InputIndex.focus, "X");
+	INPUTP1.DefineKey(InputIndex.fire, "X", vk_space);
+	INPUTP1.DefineKey(InputIndex.focus, "Z");
 	INPUTP1.DefineKey(InputIndex.credit, vk_enter);
 	
 	INPUTP1.DefinePad(InputIndex.right, gp_padr);

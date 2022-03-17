@@ -19,9 +19,8 @@ function Update(ts)
 				sprite_index = spr_ghostM;
 				statestep = 0;
 				
-				SetFlag(FL_Entity.hostile);
-				ClearFlag(FL_Entity.kickable);
-				
+				ClearFlag(FL_Entity.hostile | FL_Entity.kickable);
+				SetFlag(FL_Entity.shootable | FL_Entity.solid);
 				break;
 			}
 			
@@ -32,7 +31,7 @@ function Update(ts)
 				statestep = walktime * (0.5 + ORandom() / ORANDOMMAX);
 		
 				// Add random shift to walk angle
-				movedirection = point_direction(x, y, p.x, p.y);
+				movedirection = DirectionTo(p);
 				movedirection += random_range(-15, 15);
 				
 				// Face player
@@ -40,6 +39,12 @@ function Update(ts)
 				{
 					image_xscale = sign( dcos(movedirection) );
 				}
+			}
+			
+			if ( DistanceTo(p) <= 80)
+			{
+				SetState(ST_Ghost.swipe0);
+				break;
 			}
 			
 			xspeed = Approach(xspeed, lengthdir_x(movespeed, movedirection), 0.5);
@@ -54,6 +59,64 @@ function Update(ts)
 			break;
 		
 		// ===========================================================
+		case(ST_Ghost.swipe0):
+			if (PopStateStart())
+			{
+				visible = true;
+				sprite_index = spr_ghostM_swipe;
+				image_index = 0;
+				statestep = 50;
+				
+				ClearFlag(FL_Entity.hostile, FL_Entity.kickable);
+			}
+			
+			if (statestep > 0) {statestep = Approach(statestep, 0, ts);}
+			else
+			{
+				SetState(ST_Ghost.swipe1);
+				break;
+			}
+			
+			xspeed = Approach(xspeed, 0, 0.5);
+			yspeed = Approach(yspeed, 0, 0.5);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+	
+			break;
+		
+		// ===========================================================
+		case(ST_Ghost.swipe1):
+			if (PopStateStart())
+			{
+				visible = true;
+				sprite_index = spr_ghostM_swipe;
+				image_index = 1;
+				statestep = 70;
+				
+				instance_create_depth(x + 10 * image_xscale, y, 0, obj_enemy_swipe).image_xscale = image_xscale;
+				
+				ClearFlag(FL_Entity.hostile, FL_Entity.kickable);
+			}
+			
+			if (statestep > 0) {statestep = Approach(statestep, 0, ts);}
+			else
+			{
+				SetState(ST_Ghost.walk);
+				break;
+			}
+			
+			xspeed = Approach(xspeed, 0, 0.5);
+			yspeed = Approach(yspeed, 0, 0.5);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+	
+			break;
+		
+		// ===========================================================
 		case(ST_Ghost.kicked):
 			if (PopStateStart())
 			{
@@ -62,7 +125,7 @@ function Update(ts)
 				sprite_index = spr_ghostM_defeat;
 				visible = true;
 				
-				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				
 				ShowScore(x, y, 200, true);
 				break;
@@ -95,7 +158,7 @@ function Update(ts)
 				sprite_index = spr_ghostM_defeat;
 				visible = true;
 				
-				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				SetFlag(FL_Entity.wallbounce);
 				break;
 			}
@@ -162,7 +225,7 @@ function Update(ts)
 			{
 				sprite_index = spr_ghostMD_chase;
 				statestep = 0;
-				ClearFlag(FL_Entity.hostile);
+				ClearFlag(FL_Entity.hostile | FL_Entity.solid);
 				break;
 			}
 			
@@ -170,7 +233,7 @@ function Update(ts)
 			if (p)
 			{
 				// Add random shift to walk angle
-				movedirection = point_direction(x, y, p.x, p.y);
+				movedirection = DirectionTo(p);
 				movedirection += random_range(-15, 15);
 				
 				// Face player
@@ -221,15 +284,15 @@ function Update(ts)
 	}
 	
 	// Push away from other enemies
-	ds_list_clear(hitlist);
-	var n = instance_place_list(x, y, obj_enemy, hitlist, false);
 	var e;
+	var n = EvaluateRadius(radius, obj_enemy);
 	for (var i = 0; i < n; i++)
 	{
 		e = hitlist[| i];
-		if ( point_distance(x, y, e.x, e.y) < 40 )
+		
+		if ( e.HasFlag(FL_Entity.solid) )
 		{
-			var d = point_direction(x, y, e.x, e.y);
+			var d = DirectionTo(e);
 			
 			x -= lengthdir_x(1, d);
 			y -= lengthdir_y(1, d);
@@ -250,7 +313,7 @@ function OnKick(angle)
 
 function OnDamage(damage, angle, knockback)
 {
-	if (healthpoints > 0 && state != ST_Ghost.down && ORandom(2) == 0)
+	if (healthpoints > 0 && state != ST_Ghost.down && ORandom(3) == 0)
 	{
 		SetState(ST_Ghost.knockback);	
 	}
@@ -268,7 +331,6 @@ function OnDamage(damage, angle, knockback)
 
 function OnDefeat()
 {
-	//PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
 	GFX_Onyxplode(x, y, 0);
 	instance_destroy();
 }

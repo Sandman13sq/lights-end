@@ -31,7 +31,7 @@ function Update(ts)
 			else if (p)
 			{
 				// Reset walk count if player is far away
-				if ( point_distance(x, y, p.x, p.y) >= 400 )
+				if ( DistanceTo(p) >= 400 )
 				{
 					walkcount = 0;
 				}
@@ -44,7 +44,7 @@ function Update(ts)
 					statestep = walktime * (0.5 + ORandom() / ORANDOMMAX);
 					
 					// Add random shift to walk angle
-					movedirection = point_direction(x, y, p.x, p.y);
+					movedirection = DirectionTo(p);
 					movedirection += 100.0*(ORandom() / ORANDOMMAX - 0.5);
 				
 					// Face player
@@ -87,9 +87,6 @@ function Update(ts)
 				dir = floor( Modulo(dir+45/2, 360)*8/360 );
 				
 				movedirection = dir*360/8;
-				print(
-					[point_direction(x, y, p.x, p.y), movedirection, dir]
-				);
 				image_index = (dir);
 				break;
 			}
@@ -262,7 +259,7 @@ function Update(ts)
 	for (var i = 0; i < n; i++)
 	{
 		e = hitlist[| i];
-		if ( point_distance(x, y, e.x, e.y) < 40 )
+		if ( DistanceTo(p) < 40 )
 		{
 			var d = point_direction(x, y, e.x, e.y);
 			

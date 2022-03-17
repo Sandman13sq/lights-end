@@ -15,7 +15,7 @@ enum ST_Retina
 	aim_fire,
 }
 
-SetFlag(FL_Entity.hostile | FL_Entity.shootable);
+SetFlag(FL_Entity.shootable | FL_Entity.solid);
 SetState(ST_Retina.walk);
 
 walktime = 120;

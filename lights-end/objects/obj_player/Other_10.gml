@@ -239,12 +239,14 @@ function Update(ts)
 	// Take damage from enemies
 	if (healthpoints > 0)
 	{
-		var e;
+		var e, n;
 		
 		// Kick
-		e = collision_circle(x, y, radius, obj_enemy, false, true);
-		if (e)
+		n = EvaluateRadius(radius, obj_enemy);
+		for (var i = 0; i < n; i++)
 		{
+			e = hitlist[| i];
+			
 			if (cankick && e.HasFlag(FL_Entity.kickable))
 			{
 				e.DoKick(movedirection);
@@ -255,19 +257,36 @@ function Update(ts)
 		}
 		
 		// Take Damage
-		e = collision_circle(x, y, radius/2, obj_enemy, false, true);
-		if (e)
+		n = EvaluateRadius(radius/2, obj_enemy);
+		for (var i = 0; i < n; i++)
 		{
+			e = hitlist[| i];
+			
 			if (
-				iframes == 0 && 
-				kickstep == 0 && 
-				e.GetDamage() > 0 && 
-				e.HasFlag(FL_Entity.hostile)
+				iframes == 0 &&		// No i frames
+				kickstep == 0 &&	// Not currently kicking
+				e.HasFlag(FL_Entity.hostile)	// Entity deals contact damage
 				)
 			{
 				sprite_index = spriteset.hurt;
 				GFX_BloodSpray(x, y, 60, image_xscale);
-				DoDamage(e.GetDamage(), point_direction(e.x, e.y, x,y), 3);
+				DoDamage(1, DirectionFrom(e), 3);
+			}
+			// Bump
+			else if (
+				kickstep == 0 &&	// Not currently kicking
+				e.HasFlag(FL_Entity.solid) &&	// Entity is solid
+				!e.HasFlag(FL_Entity.kickable) &&	// Entity is not kickable
+				!e.HasFlag(FL_Entity.hostile)	// Entity does not deal contact damage
+			)
+			{
+				var dir = DirectionTo(e);
+				
+				xspeed -= lengthdir_x(3*ts, dir);
+				yspeed -= lengthdir_y(3*ts, dir);
+				
+				e.xspeed += lengthdir_y(1*ts, dir);
+				e.yspeed += lengthdir_y(1*ts, dir);
 			}
 		}
 	}

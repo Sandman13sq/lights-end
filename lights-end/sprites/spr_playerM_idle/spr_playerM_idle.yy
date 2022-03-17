@@ -97,8 +97,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Player",
-    "path": "folders/Sprites/Player.yy",
+    "name": "Lotus",
+    "path": "folders/Sprites/Player/Lotus.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_playerM_idle",

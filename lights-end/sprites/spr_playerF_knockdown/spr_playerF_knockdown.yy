@@ -81,8 +81,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Player",
-    "path": "folders/Sprites/Player.yy",
+    "name": "Amber",
+    "path": "folders/Sprites/Player/Amber.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_playerF_knockdown",

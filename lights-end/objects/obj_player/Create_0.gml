@@ -20,6 +20,7 @@ enum ST_Player
 spriteset = {
 	idle : spr_playerM_idle,
 	shoot : spr_playerM_shoot,
+	run : spr_playerM_run,
 	hurt : spr_playerM_hurt,
 	kick : spr_playerM_kick,
 	knockdown : spr_playerM_knockdown,
@@ -32,6 +33,7 @@ if choose(0, 1)
 spriteset = {
 	idle : spr_playerF_idle,
 	shoot : spr_playerF_shoot,
+	run : spr_playerF_run,
 	hurt : spr_playerF_hurt,
 	kick : spr_playerF_kick,
 	knockdown : spr_playerF_knockdown,

@@ -35,6 +35,14 @@ function Modulo(x, y)
 	return x;
 }
 
+function Wrap(value, x1, x2)
+{
+	var d = x2-x1;
+	while (value < x1) {value += d;}
+	while (value >= x2) {value -= d;}
+	return value;
+}
+
 function BoolStep(x, step)
 {
 	return (x mod step*2) > step;

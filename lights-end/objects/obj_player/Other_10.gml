@@ -83,6 +83,11 @@ function Update(ts)
 				sprite_index = spriteset.shoot;
 				image_index = aimdirindex*2 + (timesinceshot > 5);
 			}
+			else if (cankick)
+			{
+				sprite_index = spriteset.run;	
+				image_index = Wrap(image_index + 1/4, aimdirindex*8, aimdirindex*8+8);
+			}
 			else
 			{
 				sprite_index = spriteset.idle;	

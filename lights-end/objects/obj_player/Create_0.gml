@@ -41,6 +41,8 @@ spriteset = {
 	grab_ghost : spr_playerF_grab_ghost,
 }
 
+input = INPUTP1;
+
 radius = 64;
 
 direction = 0;

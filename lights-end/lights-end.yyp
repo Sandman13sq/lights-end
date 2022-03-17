@@ -1,6 +1,7 @@
 {
   "resources": [
     {"id":{"name":"obj_lvl_line","path":"objects/obj_lvl_line/obj_lvl_line.yy",},"order":4,},
+    {"id":{"name":"scr_input","path":"scripts/scr_input/scr_input.yy",},"order":8,},
     {"id":{"name":"obj_bloodspray","path":"objects/obj_bloodspray/obj_bloodspray.yy",},"order":1,},
     {"id":{"name":"scr_constants","path":"scripts/scr_constants/scr_constants.yy",},"order":3,},
     {"id":{"name":"obj_lvl_camerafollowY","path":"objects/obj_lvl_camerafollowY/obj_lvl_camerafollowY.yy",},"order":5,},
@@ -23,6 +24,7 @@
     {"id":{"name":"obj_enemy_ghostM","path":"objects/obj_enemy_ghostM/obj_enemy_ghostM.yy",},"order":0,},
     {"id":{"name":"spr_hp_heart","path":"sprites/spr_hp_heart/spr_hp_heart.yy",},"order":0,},
     {"id":{"name":"obj_scorepoints","path":"objects/obj_scorepoints/obj_scorepoints.yy",},"order":3,},
+    {"id":{"name":"scr_init","path":"scripts/scr_init/scr_init.yy",},"order":9,},
     {"id":{"name":"obj_enemy_retina","path":"objects/obj_enemy_retina/obj_enemy_retina.yy",},"order":1,},
     {"id":{"name":"spr_playerF_hurt","path":"sprites/spr_playerF_hurt/spr_playerF_hurt.yy",},"order":1,},
     {"id":{"name":"scr_vb","path":"scripts/scr_vb/scr_vb.yy",},"order":6,},

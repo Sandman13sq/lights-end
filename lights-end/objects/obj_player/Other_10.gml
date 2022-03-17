@@ -5,10 +5,17 @@ event_inherited();
 
 function Update(ts)
 {
-	var xlev = LevKeyHeld(vk_right, vk_left);
-	var ylev = LevKeyHeld(vk_down, vk_up);
+	var xlev = input.ILevHeld(InputIndex.right, InputIndex.left);
+	var ylev = input.ILevHeld(InputIndex.down, InputIndex.up);
 	
-	aimlock = keyboard_check( ord("Z") );
+	aimlock = input.IHeld(InputIndex.focus);
+	
+	// Fire button
+	if (firebuffer > 0) {firebuffer = Approach(firebuffer, 0, 1);}
+	if ( input.IHeld(InputIndex.fire) )
+	{
+		firebuffer = firebuffertime;	
+	}
 	
 	grabbed = false;
 	
@@ -136,12 +143,7 @@ function Update(ts)
 			}
 			else
 			{
-				var _mash = (
-					keyboard_check_pressed(vk_right) ||
-					keyboard_check_pressed(vk_left) ||
-					keyboard_check_pressed(vk_up) ||
-					keyboard_check_pressed(vk_down)
-					);
+				var _mash = input.IAnyPressed();
 				mashstep += _mash? 13: -1;
 				image_index += _mash;
 			}
@@ -231,13 +233,6 @@ function Update(ts)
 	x += xspeed * ts;
 	y += yspeed * ts;
 	z += zspeed * ts;
-	
-	// Fire button
-	if (firebuffer > 0) {firebuffer = Approach(firebuffer, 0, 1);}
-	if (keyboard_check(ord("X")))
-	{
-		firebuffer = firebuffertime;	
-	}
 	
 	// Progress invicibility frames
 	if (iframes > 0) {iframes = Approach(iframes, 0, ts);}

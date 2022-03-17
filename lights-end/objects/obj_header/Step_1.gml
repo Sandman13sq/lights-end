@@ -67,3 +67,10 @@ if (SCREEN_W != lastscreensize[0] || SCREEN_H != lastscreensize[1])
 	lastscreensize[1] = SCREEN_H;
 	surface_resize(application_surface, SCREEN_W, SCREEN_H);	
 }
+
+// Input
+if ( !INPUTP1.HasDevice() ) {INPUTP1.PollDevice();}
+else if ( !INPUTP2.HasDevice() ) {INPUTP2.PollDevice();}
+
+INPUTP1.Update();
+INPUTP2.Update();

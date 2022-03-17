@@ -271,6 +271,30 @@ function Update(ts)
 	}
 	
 	EvaluateLineCollision();
+	
+	// Damage Flash
+	SetDrawMatrix(0, 0, c_white, lastdamagestep/7);
+}
+
+P_Draw = Draw;
+function Draw()
+{
+	P_Draw();
+	
+	// Aim Arrow Direction
+	if (state == ST_Retina.aim_fire || state == ST_Retina.aim)
+	{
+		ShaderSet(shd_default);
+		matrix_set(matrix_world, Mat4Translate(x, y, 4));
+		
+		draw_sprite_ext(
+			spr_aimarrow, 1, 
+			lengthdir_x(ARROWDISTANCE, movedirection), 
+			lengthdir_y(ARROWDISTANCE, movedirection),
+			1, 1, movedirection, c_fuchsia, 1
+		);
+	}
+	
 }
 
 function OnKick(angle)

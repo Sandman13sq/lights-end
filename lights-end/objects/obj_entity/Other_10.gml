@@ -22,9 +22,11 @@ function Draw()
 	
 	if (shadowsprite >= 0)
 	{
+		U_DrawMatrixClear();
 		DrawBillboard(shadowsprite, 0, xx, yy, 0, LightsEndColor.dark);
 	}
 	
+	U_DrawMatrix(drawmatrix);
 	DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
 }
 
@@ -52,6 +54,8 @@ function DoDamage(value, angle=0, knockback=0)
 	lastdamageparams[0] = value;
 	lastdamageparams[1] = angle;
 	lastdamageparams[2] = knockback;
+	
+	lastdamagestep = 5;
 	
 	OnDamage(value, angle, knockback);
 	
@@ -224,4 +228,26 @@ function DirectionFrom(otherentity) {return point_direction(otherentity.x, other
 function NextState()
 {
 	SetState(state+1);	
+}
+
+function SetDrawMatrix(blend_col=0, blend_strength=0, fill_col=0, fill_strength=0)
+{
+	drawmatrix = [
+		color_get_red(blend_col), color_get_green(blend_col), color_get_blue(blend_col), blend_strength,
+		color_get_red(fill_col), color_get_green(fill_col), color_get_blue(fill_col), fill_strength,
+		0,0,0,0,
+		0,0,0,0,
+	];
+}
+
+function U_DrawMatrix(drawmatrix)
+{
+	shader_set_uniform_f_array(obj_header.shd_billboard_drawmatrix, drawmatrix);	
+}
+
+function U_DrawMatrixClear()
+{
+	shader_set_uniform_f(obj_header.shd_billboard_drawmatrix, 
+		0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
+		);	
 }

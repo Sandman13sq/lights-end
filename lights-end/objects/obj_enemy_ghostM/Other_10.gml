@@ -302,6 +302,9 @@ function Update(ts)
 	}
 	
 	EvaluateLineCollision();
+	
+	// Damage Flash
+	SetDrawMatrix(0, 0, c_white, lastdamagestep/7);
 }
 
 function OnKick(angle)

@@ -55,6 +55,7 @@ roommats = [
 ];
 
 shd_3d_campos = shader_get_uniform(shd_3d, "u_campos");
+shd_billboard_drawmatrix = shader_get_uniform(shd_billboard, "u_drawmatrix");
 
 firstcamerasync = true;
 playerboundsdimensions = [600, 300];

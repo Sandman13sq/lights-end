@@ -344,6 +344,8 @@ function Draw()
 		xx += 3 * Polarize(BoolStep(xshake, 4));
 	}
 	
+	U_DrawMatrixClear();
+	
 	// Skip draw on iframes
 	if (GetHitstop() > 0 || BoolStep(iframes, 10) == 0)
 	{

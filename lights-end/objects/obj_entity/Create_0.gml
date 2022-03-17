@@ -55,5 +55,6 @@ collisionfilter = 0;
 hitlist = ds_list_create();
 
 lastdamageparams = [0, 0, 0];
+lastdamagestep = 0;
 
-
+drawmatrix = array_create(16);

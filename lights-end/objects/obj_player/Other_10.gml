@@ -179,6 +179,9 @@ function Update(ts)
 					grabenemyinst = noone;
 				}
 				
+				xspeed += lengthdir_x(lastdamageparams[2], lastdamageparams[1]);
+				yspeed += lengthdir_y(lastdamageparams[2], lastdamageparams[1]);
+				
 				if (iframes < iframestime) {state = ST_Player.control;}
 			}
 			
@@ -268,7 +271,8 @@ function Update(ts)
 				)
 			{
 				sprite_index = spriteset.hurt;
-				DoDamage(e.GetDamage());
+				GFX_BloodSpray(x, y, 60, image_xscale);
+				DoDamage(e.GetDamage(), point_direction(e.x, e.y, x,y), 3);
 			}
 		}
 	}

@@ -10,7 +10,7 @@ movedirection = 0;
 
 radius = 10;
 
-z = 40;
+z = 50;
 
 SetHealthMax(1);
 

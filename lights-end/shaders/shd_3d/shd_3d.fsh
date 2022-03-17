@@ -30,7 +30,8 @@ void main()
 	
 	float dp = dot(v_vNormal, normalize(u_lightdir));
 	dp = 1.0-dp;
-	dp *= pow(mix(0.0, 1.0, distance(u_campos, vec3(v_vPosition.xy, 0.0))/2000.0), 1.0);
+	dp *= pow(mix(0.0, 1.2, distance(u_campos, vec3(v_vPosition.xy, 0.0))/2000.0), 1.5);
+	dp = min(dp, 1.0);
 	//dp = float(int(dp*5.0))/5.0;
 	//dp = max(dp, 0.0);
 	

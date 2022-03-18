@@ -58,7 +58,8 @@ matrix_set(matrix_view, matview);
 matrix_set(matrix_world, matrix_build_identity());
 
 var p = obj_player;
-shader_set_uniform_f_array(shd_3d_lightpos, [p.x, p.y, 0, p.GetHealth()/p.GetHealthMax()]);
+shader_set_uniform_f_array(shd_3d_lightpos, 
+	[p.x, p.y, 0, power(p.GetHealth()/p.GetHealthMax(), 4.0)]);
 
 // Draw all world vbs
 gpu_set_cullmode(cull_clockwise);

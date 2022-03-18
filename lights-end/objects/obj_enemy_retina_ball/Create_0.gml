@@ -12,7 +12,7 @@ radius = 10;
 
 z = 50;
 
-SetHealthMax(1);
+SetHealthMax(0);
 
 shadowsprite = spr_shadow32;
 

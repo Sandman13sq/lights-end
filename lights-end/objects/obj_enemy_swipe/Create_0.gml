@@ -7,7 +7,7 @@ SetFlag(FL_Entity.hostile);
 
 statestep = 20;
 
-radius = 40;
+radius = 64;
 
 shadowsprite = -1;
 

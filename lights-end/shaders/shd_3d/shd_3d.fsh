@@ -30,9 +30,11 @@ void main()
 	if (gl_FragColor.a <= 0.01) {discard;}
 	
 	float dp = dot(v_vNormal, normalize(u_lightdir));
+	dp = max(dp, 0.0);
+	dp /= distance(u_lightpos.xyz, v_vPosition.xyz)/200.0;
+	dp = min(pow(dp*u_lightpos.w, 0.1), 1.0);
 	
-	dp = max(0.0, 1.0-dp);
-	dp = distance(u_lightpos.xyz, vec3(v_vPosition.xy, 0.0))/3000.0;
+	//dp = max(0.0, 1.0-dp);
 	
 	//dp *= pow(mix(0.0, 1.2, distance(u_lightpos.xyz, vec3(v_vPosition.xy, 0.0))/3000.0), 1.5);
 	//dp = min((1.0-u_lightpos.w)*dp, 1.0);
@@ -40,7 +42,8 @@ void main()
 	//dp = max(dp, 0.0);
 	
 	vec3 colorburned = ColorBurn(gl_FragColor.rgb, BURNCOLOR, 1.0);
-	gl_FragColor.rgb = mix(gl_FragColor.rgb, colorburned, dp);
+	gl_FragColor.rgb = mix(colorburned, gl_FragColor.rgb, dp);
+	//gl_FragColor.rgb = vec3(dp);
 	
 	const float s = 64.0;
 	gl_FragColor.r = float(int(gl_FragColor.r*s))/s;

@@ -24,7 +24,7 @@ void main()
 	
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vertexposition;
     
-	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz * vec3(1.0, 1.0, 100.0);
+	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz;
 	
 	v_vNormal = (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz;
     v_vColour = in_Colour;

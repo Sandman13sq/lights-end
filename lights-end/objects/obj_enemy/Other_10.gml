@@ -16,7 +16,7 @@ function PushOtherEnemies()
 	{
 		e = hitlist[| i];
 		
-		if ( e.HasFlag(FL_Entity.shootable) )
+		if ( e.HasFlag(FL_Entity.shootable) && e.GetHealth() > 0 )
 		{
 			var d = DirectionTo(e);
 			

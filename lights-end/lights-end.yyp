@@ -88,6 +88,7 @@
     {"id":{"name":"obj_lvl_enemydefeated","path":"objects/obj_lvl_enemydefeated/obj_lvl_enemydefeated.yy",},"order":2,},
     {"id":{"name":"obj_kickpop","path":"objects/obj_kickpop/obj_kickpop.yy",},"order":4,},
     {"id":{"name":"spr_bloodspray","path":"sprites/spr_bloodspray/spr_bloodspray.yy",},"order":12,},
+    {"id":{"name":"rm_2_floor2","path":"rooms/rm_2_floor2/rm_2_floor2.yy",},"order":4,},
     {"id":{"name":"obj_lvl_camerafollowRight","path":"objects/obj_lvl_camerafollowRight/obj_lvl_camerafollowRight.yy",},"order":3,},
     {"id":{"name":"spr_mask_player","path":"sprites/spr_mask_player/spr_mask_player.yy",},"order":8,},
     {"id":{"name":"obj_battery","path":"objects/obj_battery/obj_battery.yy",},"order":1,},
@@ -140,6 +141,7 @@
     {"roomId":{"name":"rm_0_street","path":"rooms/rm_0_street/rm_0_street.yy",},},
     {"roomId":{"name":"rm_1_floor1","path":"rooms/rm_1_floor1/rm_1_floor1.yy",},},
     {"roomId":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},},
+    {"roomId":{"name":"rm_2_floor2","path":"rooms/rm_2_floor2/rm_2_floor2.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Sprites.yy","order":1,"resourceVersion":"1.0","name":"Sprites","tags":[],"resourceType":"GMFolder",},
@@ -191,6 +193,8 @@
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"floor1.vb","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"floor1.vba","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"street.vba","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"floor2.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"floor2.vba","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2022.2.1.618",

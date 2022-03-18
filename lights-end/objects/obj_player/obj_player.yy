@@ -9,7 +9,7 @@
     "name": "spr_mask_player",
     "path": "sprites/spr_mask_player/spr_mask_player.yy",
   },
-  "persistent": false,
+  "persistent": true,
   "parentObjectId": {
     "name": "obj_entity",
     "path": "objects/obj_entity/obj_entity.yy",

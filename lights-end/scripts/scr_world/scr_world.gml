@@ -10,6 +10,12 @@ function EntityFromTag(entry)
 		case("player1"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn1); break;
 		//case("player2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_playerspawn2); break;
 		
+		case("battery"): inst = instance_create_depth(entry.x, entry.y, 0, obj_battery); break;
+		case("batteryinf"): 
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_battery); 
+			inst.isinfinite = true;
+			break;
+		
 		// Controls
 		case("camerax"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowX); break;
 		case("cameray"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowY); break;
@@ -45,11 +51,19 @@ function EntityFromTag(entry)
 		case("darken"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_darken); break;
 		
 		case("tutorial"): inst = instance_create_depth(entry.x, entry.y, 0, obj_worldtutorial); break;
-		case("batteryinf"): inst = instance_create_depth(entry.x, entry.y, 0, obj_battery); break;
 		
-		case("goto1"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1); break;
-		case("goto2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1); break;
-		case("goto3"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1); break;
+		case("goto1"): 
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1);
+			inst.targetroom = rm_1_floor1;
+			break;
+		case("goto2"): 
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1);
+			inst.targetroom = rm_2_floor2;
+			break;
+		case("goto3"): 
+			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1);
+			inst.targetroom = rm_3_floor3;
+			break;
 		
 	}
 	

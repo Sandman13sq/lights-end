@@ -25,7 +25,7 @@ SetFlag(FL_Entity.shootable | FL_Entity.solid);
 SetState(ST_Ghost.walk);
 
 walktime = 100;
-movespeed = 2 + ORandom()/512;
+movespeed = 2.5 + ORandom()/512;
 chasespeed = 4 + ORandom()/256;
 movedirection = 0;
 

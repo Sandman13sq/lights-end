@@ -156,7 +156,7 @@ function Update(ts)
 		case(ST_Retina.kicked):
 			if (PopStateStart())
 			{
-				zspeed = 7;
+				zspeed = 10;
 				
 				sprite_index = darkened? spr_retinaD_kicked: spr_retina_kicked;
 				visible = true;
@@ -204,7 +204,7 @@ function Update(ts)
 				break;
 			}
 			
-			zspeed += -0.5;
+			zspeed += -0.5*ts;
 			
 			image_index += ts/4;
 			if (abs(xspeed) > 1) {image_xscale = Polarize(xspeed);}

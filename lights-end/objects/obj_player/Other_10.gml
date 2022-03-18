@@ -275,7 +275,7 @@ function Update(ts)
 			{
 				e.DoKick(movedirection);
 				kickingstep = kickingsteptime;
-				image_xscale = Polarize(e.x-x);
+				image_xscale = Polarize(e.x>x);
 				sprite_index = spriteset.kick;
 			}
 			else if ( e.HasFlag(FL_Entity.pickup) )

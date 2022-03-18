@@ -8,15 +8,18 @@ function Update(ts)
 	image_index = Modulo(image_index + ts/8, 8);
 	hoverstep = Modulo(hoverstep + ts, 360);
 	
-	z = 10 + dsin(hoverstep);
+	z = 10 + dsin(hoverstep)*4;
 }
 
 function OnPickup(player)
 {
-	player.batteries = player.batteriesmax;
-	
-	if (!isinfinite)
+	if (isinfinite)
 	{
+		player.batteries = player.batteriesmax;
+	}
+	else
+	{
+		player.batteries = min(player.batteries+1, player.batteriesmax);
 		instance_destroy();
 	}
 }

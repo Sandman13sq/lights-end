@@ -72,8 +72,8 @@ function Update(ts)
 				timesinceshot = 0;
 		
 				var inst = instance_create_depth(
-					x + lengthdir_x(ARROWDISTANCE, aimdirection), 
-					y + lengthdir_y(ARROWDISTANCE, aimdirection) - 16,
+					x + lengthdir_x(ARROWDISTANCE*0.5, aimdirection), 
+					y + lengthdir_y(ARROWDISTANCE*0.5, aimdirection) - 16,
 					depth, obj_projectile
 					);
 				inst.SetDirection(aimdirection);

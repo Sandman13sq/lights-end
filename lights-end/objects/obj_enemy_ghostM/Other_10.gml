@@ -122,7 +122,7 @@ function Update(ts)
 			{
 				zspeed = 16;
 				
-				sprite_index = spr_ghostM_defeat;
+				sprite_index = darkened? spr_ghostMD_defeat: spr_ghostM_defeat;
 				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
@@ -155,7 +155,7 @@ function Update(ts)
 				yspeed = lengthdir_y(4, lastdamageparams[1]);
 				zspeed = 10;
 				
-				sprite_index = spr_ghostM_defeat;
+				sprite_index = darkened? spr_ghostMD_defeat: spr_ghostM_defeat;
 				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
@@ -190,7 +190,7 @@ function Update(ts)
 				statestep = 300;
 				zspeed = 0;
 				z = 0;
-				sprite_index = spr_ghostM_down;
+				sprite_index = darkened? spr_ghostMD_down: spr_ghostM_down;
 				
 				SetHealthMax( max(healthmax/2, 1) );
 				SetFlag(FL_Entity.shootable | FL_Entity.kickable);
@@ -206,7 +206,7 @@ function Update(ts)
 			if (statestep > 0) {statestep = Approach(statestep, 0, ts);}
 			else
 			{
-				SetState(ST_Ghost.walk);
+				SetState(darkened? ST_Ghost.chase: ST_Ghost.walk);
 				break;
 			}
 			
@@ -313,22 +313,7 @@ function Update(ts)
 	}
 	
 	// Push away from other enemies
-	var e;
-	var n = EvaluateRadius(radius, obj_enemy);
-	for (var i = 0; i < n; i++)
-	{
-		e = hitlist[| i];
-		
-		if ( e.HasFlag(FL_Entity.solid) )
-		{
-			var d = DirectionTo(e);
-			
-			x -= lengthdir_x(1, d);
-			y -= lengthdir_y(1, d);
-			e.x += lengthdir_x(1, d);
-			e.y += lengthdir_y(1, d);
-		}
-	}
+	PushOtherEnemies();
 	
 	EvaluateLineCollision();
 	
@@ -345,7 +330,11 @@ function OnKick(angle)
 
 function OnDamage(damage, angle, knockback)
 {
-	if (healthpoints > 0 && state != ST_Ghost.down && ORandom(3) == 0)
+	if (
+		healthpoints > 0 && 
+		state != ST_Ghost.down && 
+		ORandom( ceil(max(1, healthpoints * (darkened+1)) ) ) == 0
+		)
 	{
 		SetState(ST_Ghost.knockback);	
 	}
@@ -371,6 +360,7 @@ function Darken()
 {
 	if (state == ST_Ghost.walk)
 	{
+		darkened = true;
 		SetState(ST_Ghost.darken);
 	}
 }

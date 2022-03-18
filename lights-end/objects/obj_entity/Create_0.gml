@@ -32,6 +32,8 @@ healthmax = 0;
 healthpoints = 0;
 damage = 0;
 scorevalue = 0;
+darkened = false;
+kicked = false;
 
 xshake = 0;
 

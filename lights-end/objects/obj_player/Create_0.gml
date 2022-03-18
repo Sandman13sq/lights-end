@@ -43,7 +43,7 @@ spriteset = {
 
 input = INPUTP1;
 
-radius = 64;
+radius = 32;
 
 direction = 0;
 aimdirection = 0;

@@ -32,6 +32,4 @@ chasespeed = 5 + ORandom()/512;
 
 radius = 64;
 
-darkened = false;
-
-SetHealthMax(20);
+SetHealthMax(30);

@@ -134,3 +134,7 @@ function Quantize(x, step) {return floor(x/step)*step;}
 function QuantizeCeil(x, step) {return ceil(x/step)*step;}
 function QuantizeRound(x, step) {return round(x/step)*step;}
 
+function Direction8(dir)
+{
+	return floor( Modulo(dir+45/2, 360) * 8/360 );
+}

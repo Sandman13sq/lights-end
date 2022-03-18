@@ -50,6 +50,8 @@ function PopStateStart()
 // Decrements health from entity
 function DoDamage(value, angle=0, knockback=0)
 {
+	value = max(1, darkened? value div 2: value);
+	
 	healthpoints = max(0, healthpoints-value);
 	lastdamageparams[0] = value;
 	lastdamageparams[1] = angle;

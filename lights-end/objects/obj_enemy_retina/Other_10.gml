@@ -158,7 +158,7 @@ function Update(ts)
 			{
 				zspeed = 13;
 				
-				sprite_index = spr_retina_kicked;
+				sprite_index = darkened? spr_retinaD_kicked: spr_retina_kicked;
 				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
@@ -196,7 +196,7 @@ function Update(ts)
 				yspeed = lengthdir_y(4, lastdamageparams[1]);
 				zspeed = 10;
 				
-				sprite_index = spr_retina_stagger;
+				sprite_index = darkened? spr_retinaD_stagger: spr_retina_stagger;
 				visible = true;
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
@@ -238,6 +238,7 @@ function Update(ts)
 		case(ST_Retina.stagger):
 			if (PopStateStart())
 			{
+				statestep = 300;
 				z = 0;
 				zspeed = 0;
 				SetFlag(FL_Entity.shootable | FL_Entity.kickable);
@@ -248,8 +249,25 @@ function Update(ts)
 			image_index += ts/4;
 			if (abs(xspeed) > 1) {image_xscale = Polarize(xspeed);}
 			
+			if (xshake == 0 && (statestep == 150 || statestep < 40))
+			{
+				xshake = 40;	
+			}
+			
+			// Stand back up
+			if (statestep > 0) {statestep = Approach(statestep, 0, ts);}
+			else
+			{
+				SetState(darkened? ST_Retina.chase: ST_Retina.walk);
+				break;
+			}
+			
 			xspeed = Approach(xspeed, 0, 0.2*ts);
 			yspeed = Approach(yspeed, 0, 0.2*ts);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
 			
 			break;
 		
@@ -299,7 +317,6 @@ function Update(ts)
 			{
 				// Add random shift to walk angle
 				movedirection = DirectionTo(p);
-				movedirection += random_range(-15, 15);
 			}
 			
 			xspeed = Approach(xspeed, lengthdir_x(chasespeed, movedirection), 0.2*ts);
@@ -309,27 +326,13 @@ function Update(ts)
 			x += xspeed * ts;
 			y += yspeed * ts;
 			
-			image_index = Modulo(image_index+random(2)*ts/4, image_number);
+			var o = Direction8(movedirection);
+			image_index = Wrap(image_index + 1/5*(irandom(64)>0), o*6, o*6+6);
 			break;
 	}
 	
 	// Push away from other enemies
-	ds_list_clear(hitlist);
-	var n = instance_place_list(x, y, obj_enemy, hitlist, false);
-	var e;
-	for (var i = 0; i < n; i++)
-	{
-		e = hitlist[| i];
-		if ( DistanceTo(p) < 40 )
-		{
-			var d = point_direction(x, y, e.x, e.y);
-			
-			x -= lengthdir_x(1, d);
-			y -= lengthdir_y(1, d);
-			e.x += lengthdir_x(1, d);
-			e.y += lengthdir_y(1, d);
-		}
-	}
+	PushOtherEnemies();
 	
 	EvaluateLineCollision();
 	
@@ -371,7 +374,8 @@ function OnDamage(damage, angle, knockback)
 		healthpoints > 0 && 
 		state != ST_Retina.stagger_fall && 
 		state != ST_Retina.stagger && 
-		ORandom(4) == 0)
+		ORandom( ceil( (darkened? 13: 7)/max(1, healthpoints) ) ) == 0
+		)
 	{
 		SetState(ST_Retina.stagger_fall);	
 	}

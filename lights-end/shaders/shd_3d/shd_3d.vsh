@@ -11,8 +11,6 @@ varying vec3 v_vNormal;
 varying vec4 v_vColour;
 varying vec2 v_vTexcoord;
 
-uniform vec3 u_campos;
-
 void main()
 {
     vec4 vertexposition = vec4(in_Position, 1.0);
@@ -26,7 +24,8 @@ void main()
 	
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vertexposition;
     
-	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz;
+	v_vPosition = (vertexposition * gm_Matrices[MATRIX_WORLD]).xyz * vec3(1.0, 1.0, 100.0);
+	
 	v_vNormal = (vertexnormal * gm_Matrices[MATRIX_WORLD]).xyz;
     v_vColour = in_Colour;
     v_vTexcoord = in_TextureCoord;

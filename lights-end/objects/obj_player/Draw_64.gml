@@ -41,3 +41,4 @@ if (DEBUG > 0)
 	draw_text(16, 240, [cankick, movingstep]);
 }
 
+draw_text(16, 200, GetHealth()/GetHealthMax());

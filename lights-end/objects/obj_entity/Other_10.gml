@@ -105,6 +105,7 @@ function UpdateFlags(activeflags, inertflags=0)
 }
 
 function GetHealth() {return healthpoints;}
+function GetHealthMax() {return healthmax;}
 function GetDamage() {return damage;}
 
 function SetTags(_tag="", _trigger="")

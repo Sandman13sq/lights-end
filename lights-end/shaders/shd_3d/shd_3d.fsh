@@ -8,6 +8,7 @@ varying vec4 v_vColour;
 varying vec2 v_vTexcoord;
 
 uniform vec3 u_campos;
+uniform vec4 u_lightpos;
 
 //[0.216667, -0.666667, 0.713170]
 const vec3 u_lightdir = vec3(0.21666, -0.667, 0.713);
@@ -29,9 +30,12 @@ void main()
 	if (gl_FragColor.a <= 0.01) {discard;}
 	
 	float dp = dot(v_vNormal, normalize(u_lightdir));
-	dp = 1.0-dp;
-	dp *= pow(mix(0.0, 1.2, distance(u_campos, vec3(v_vPosition.xy, 0.0))/2000.0), 1.5);
-	dp = min(dp, 1.0);
+	
+	dp = max(0.0, 1.0-dp);
+	dp = distance(u_lightpos.xyz, vec3(v_vPosition.xy, 0.0))/3000.0;
+	
+	//dp *= pow(mix(0.0, 1.2, distance(u_lightpos.xyz, vec3(v_vPosition.xy, 0.0))/3000.0), 1.5);
+	//dp = min((1.0-u_lightpos.w)*dp, 1.0);
 	//dp = float(int(dp*5.0))/5.0;
 	//dp = max(dp, 0.0);
 	

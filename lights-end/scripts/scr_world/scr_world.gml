@@ -43,6 +43,8 @@ function EntityFromTag(entry)
 		
 		case("darken"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_darken); break;
 		
+		case("tutorial"): inst = instance_create_depth(entry.x, entry.y, 0, obj_worldtutorial); break;
+		
 	}
 	
 	print(entry.entity)

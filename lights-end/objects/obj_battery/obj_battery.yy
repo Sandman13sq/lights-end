@@ -1,5 +1,8 @@
 {
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_battery",
+    "path": "sprites/spr_battery/spr_battery.yy",
+  },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,

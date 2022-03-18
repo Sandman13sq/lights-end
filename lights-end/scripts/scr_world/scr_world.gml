@@ -20,9 +20,9 @@ function EntityFromTag(entry)
 		case("cameraup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_camerafollowUp); break;
 		
 		case("cameraboundright"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundRight); break;
-		case("cameraboundup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundLeft); break;
+		case("cameraboundup"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundUp); break;
 		case("cameraboundleft"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundLeft); break;
-		case("camerabounddown"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundLeft); break;
+		case("camerabounddown"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_cameraboundDown); break;
 		
 		case("trigger"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_trigger)
@@ -37,6 +37,7 @@ function EntityFromTag(entry)
 		// Enemies
 		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_ghost); break;
 		case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_retina); break;
+		case("firefly"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_firefly); break;
 		
 		// Events
 		case("floor1flicker"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_floor1_flicker); break;
@@ -44,6 +45,11 @@ function EntityFromTag(entry)
 		case("darken"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_darken); break;
 		
 		case("tutorial"): inst = instance_create_depth(entry.x, entry.y, 0, obj_worldtutorial); break;
+		case("batteryinf"): inst = instance_create_depth(entry.x, entry.y, 0, obj_battery); break;
+		
+		case("goto1"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1); break;
+		case("goto2"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1); break;
+		case("goto3"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1); break;
 		
 	}
 	

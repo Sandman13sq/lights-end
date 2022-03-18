@@ -26,8 +26,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Control",
-    "path": "folders/Objects/Control.yy",
+    "name": "Enemies",
+    "path": "folders/Objects/Control/Enemies.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_lvl_ghost",

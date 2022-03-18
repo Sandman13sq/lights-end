@@ -37,7 +37,7 @@ function Update(ts)
 				}
 				
 				// Walk in another direction
-				if (walkcount < 3)
+				if (walkcount < 3 && ORandom(3) != 0)
 				{
 					walkcount++;
 					
@@ -156,7 +156,7 @@ function Update(ts)
 		case(ST_Retina.kicked):
 			if (PopStateStart())
 			{
-				zspeed = 13;
+				zspeed = 7;
 				
 				sprite_index = darkened? spr_retinaD_kicked: spr_retina_kicked;
 				visible = true;
@@ -374,7 +374,7 @@ function OnDamage(damage, angle, knockback)
 		healthpoints > 0 && 
 		state != ST_Retina.stagger_fall && 
 		state != ST_Retina.stagger && 
-		ORandom( ceil( (darkened? 13: 7)/max(1, healthpoints) ) ) == 0
+		ORandom( ceil(max(1, healthpoints * (darkened+1)) ) ) == 0
 		)
 	{
 		SetState(ST_Retina.stagger_fall);	

@@ -96,6 +96,4 @@ grabenemyinst = noone;
 
 grabbed = false;
 
-LoadLevel(choose("floor1", "street"));
-
 

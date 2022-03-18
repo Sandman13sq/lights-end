@@ -30,6 +30,7 @@ function Polarize(value)
 
 function Modulo(x, y)
 {
+	if (y == 0) {msg("Modulo ZERO error!"); return x;}
 	while (x > y) {x -= y;}
 	while (x < 0) {x += y;}
 	return x;

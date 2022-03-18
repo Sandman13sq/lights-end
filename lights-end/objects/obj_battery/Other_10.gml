@@ -5,7 +5,7 @@ event_inherited();
 
 function Update(ts)
 {
-	image_index = Modulo(image_index + ts/4, image_number);
+	image_index = Modulo(image_index + ts/8, 8);
 	hoverstep = Modulo(hoverstep + ts, 360);
 	
 	z = 10 + dsin(hoverstep);
@@ -13,12 +13,11 @@ function Update(ts)
 
 function OnPickup(player)
 {
-	player.AddCamera();
+	player.batteries = player.batteriesmax;
 	
 	if (!isinfinite)
 	{
 		instance_destroy();
 	}
-	
 }
 

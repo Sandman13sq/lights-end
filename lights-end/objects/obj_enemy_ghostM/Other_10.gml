@@ -120,7 +120,7 @@ function Update(ts)
 		case(ST_Ghost.kicked):
 			if (PopStateStart())
 			{
-				zspeed = 16;
+				zspeed = 10;
 				
 				sprite_index = darkened? spr_ghostMD_defeat: spr_ghostM_defeat;
 				visible = true;
@@ -255,7 +255,7 @@ function Update(ts)
 			{
 				sprite_index = spr_ghostMD_chase;
 				statestep = 0;
-				ClearFlag(FL_Entity.hostile | FL_Entity.solid);
+				ClearFlag(FL_Entity.hostile | FL_Entity.solid | FL_Entity.kickable);
 				break;
 			}
 			

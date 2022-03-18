@@ -6,4 +6,6 @@ event_inherited();
 SetFlag(FL_Entity.pickup);
 hoverstep = 0;
 
-isinfinite = false;
+isinfinite = true;
+
+radius = 64;

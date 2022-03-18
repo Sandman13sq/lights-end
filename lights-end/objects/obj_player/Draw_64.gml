@@ -15,8 +15,9 @@ for (var i = healthmax-1; i >= 0; i--)
 }
 
 // Pressure meter
-yy += 48;
+yy += 40;
 var pmeterw = 200, pmeterh = 16;
+DrawShapeRectWH(32-2, yy-2, pmeterw+4, pmeterh+4, c_white, 1);
 DrawShapeRectWH(32, yy, pmeterw, pmeterh, 0, 1);
 DrawShapeRectWH(32, yy, pmeterw * pressuremeter/pressuremetermax, pmeterh, c_purple, 1);
 
@@ -24,6 +25,14 @@ DrawShapeRectWH(32, yy, pmeterw * pressuremeter/pressuremetermax, pmeterh, c_pur
 if (pressuremeter/pressuremetermax >= 0.5 && BoolStep(pressuremeter, 10))
 {
 	draw_text(32, yy + pmeterh + 4, "DANGER!");
+}
+
+// Batteries
+yy += 20;
+xsep = 40;
+for (var i = batteriesmax-1; i >= 0; i--)
+{
+	draw_sprite(spr_batteryGUI, i < batteries, 32+xsep*i, yy);
 }
 
 

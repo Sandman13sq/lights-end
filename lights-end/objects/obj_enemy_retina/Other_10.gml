@@ -398,6 +398,17 @@ function OnDefeat()
 	instance_destroy();
 }
 
+function OnFlash(px, py)
+{
+	var dir = point_direction(px, py, x, y);
+	
+	DoDamage(1, dir, 10);
+	SetState(ST_Retina.stagger_fall);
+	
+	xspeed = lengthdir_x(10, dir);
+	yspeed = lengthdir_y(10, dir);
+}
+
 function Darken()
 {
 	if (!darkened)

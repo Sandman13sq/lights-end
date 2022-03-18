@@ -10,6 +10,8 @@ enum FL_Entity
 	hostile = 1<<2,
 	kickable = 1<<3,
 	wallbounce = 1<<4,
+	
+	pickup = 1<<5,
 }
 
 enum FL_Collision

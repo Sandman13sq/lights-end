@@ -47,8 +47,8 @@ function Update(ts)
 				break;
 			}
 			
-			xspeed = Approach(xspeed, lengthdir_x(movespeed, movedirection), 0.5);
-			yspeed = Approach(yspeed, lengthdir_y(movespeed, movedirection), 0.5);
+			xspeed = Approach(xspeed, lengthdir_x(movespeed, movedirection), 0.5*ts);
+			yspeed = Approach(yspeed, lengthdir_y(movespeed, movedirection), 0.5*ts);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -77,8 +77,8 @@ function Update(ts)
 				break;
 			}
 			
-			xspeed = Approach(xspeed, 0, 0.5);
-			yspeed = Approach(yspeed, 0, 0.5);
+			xspeed = Approach(xspeed, 0, 0.5*ts);
+			yspeed = Approach(yspeed, 0, 0.5*ts);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -107,8 +107,8 @@ function Update(ts)
 				break;
 			}
 			
-			xspeed = Approach(xspeed, 0, 0.5);
-			yspeed = Approach(yspeed, 0, 0.5);
+			xspeed = Approach(xspeed, 0, 0.5*ts);
+			yspeed = Approach(yspeed, 0, 0.5*ts);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -131,7 +131,7 @@ function Update(ts)
 				break;
 			}
 			
-			zspeed += -0.5;
+			zspeed += -0.5 * ts;
 			
 			// Add movement
 			x += xspeed * ts;
@@ -163,7 +163,7 @@ function Update(ts)
 				break;
 			}
 			
-			zspeed += -0.5;
+			zspeed += -0.5 * ts;
 			
 			// Add movement
 			x += xspeed * ts;
@@ -210,8 +210,8 @@ function Update(ts)
 				break;
 			}
 			
-			xspeed *= 0.9;
-			yspeed *= 0.9;
+			xspeed = Approach(xspeed, 0, 0.1*ts);
+			yspeed = Approach(yspeed, 0, 0.1*ts);
 			
 			// Add movement
 			x += xspeed * ts;
@@ -354,6 +354,17 @@ function OnDefeat()
 {
 	GFX_Onyxplode(x, y, 0);
 	instance_destroy();
+}
+
+function OnFlash(px, py)
+{
+	var dir = point_direction(px, py, x, y);
+	
+	DoDamage(1, dir, 10);
+	SetState(ST_Retina.stagger_fall);
+	
+	xspeed = lengthdir_x(10, dir);
+	yspeed = lengthdir_y(10, dir);
 }
 
 function Darken()

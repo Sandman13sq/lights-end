@@ -27,3 +27,13 @@ function PushOtherEnemies()
 		}
 	}
 }
+
+function Flashed(px, py)
+{
+	OnFlash(px, py);
+}
+
+function OnFlash(px, py)
+{
+	
+}

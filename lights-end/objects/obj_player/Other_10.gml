@@ -17,6 +17,23 @@ function Update(ts)
 		firebuffer = firebuffertime;	
 	}
 	
+	// Camera Flash
+	if (flashingstep > 0) {flashingstep = ApproachZero(flashingstep, ts);}
+	else if (batteries > 0 && kickingstep == 0)
+	{
+		if ( input.IPressed(InputIndex.flash) )
+		{
+			with ( obj_enemy )
+			{
+				SetHitstop(10);
+				Flashed(other.x, other.y);
+			}
+			flashingstep = flashingsteptime;
+			
+			batteries--;
+		}
+	}
+	
 	grabbed = false;
 	
 	switch(state)
@@ -64,7 +81,7 @@ function Update(ts)
 			
 			// Schut
 			if (refiredelay > 0) {refiredelay = Approach(refiredelay, 0, ts);}
-			else if ( firebuffer > 0 && kickstep == 0 )
+			else if ( firebuffer > 0 && kickingstep == 0 )
 			{
 				firebuffer = 0;
 				refiredelay = refiretime;
@@ -103,20 +120,27 @@ function Update(ts)
 			timesinceshot += ts;
 			
 			// Kick sprite
-			if (kickstep > 0)
+			if (kickingstep > 0)
 			{
-				kickstep = Approach(kickstep, 0, ts);
+				kickingstep = Approach(kickingstep, 0, ts);
 				
-				if (kickstep > 0)
+				if (kickingstep > 0)
 				{
 					sprite_index = spriteset.kick;
-					image_index = kickstep >= kicksteptime - 4;
-					image_index = kickstep <= 10? 2: image_index;
+					image_index = kickingstep >= kickingsteptime - 4;
+					image_index = kickingstep <= 10? 2: image_index;
 				}
 			}
 			else
 			{
 				image_xscale = 1;	
+			}
+			
+			// Flashstep
+			if (flashingstep > 0)
+			{
+				sprite_index = spriteset.flash;
+				image_xscale = 1;
 			}
 			
 			// Fill pressure meter
@@ -136,7 +160,7 @@ function Update(ts)
 				grabenemyinst.DoKick(movedirection);
 				grabenemyinst = noone;
 				
-				kickstep = kicksteptime;
+				kickingstep = kickingsteptime;
 				mashstep = 0;
 				SetState(ST_Player.control);
 				break;
@@ -242,7 +266,7 @@ function Update(ts)
 		var e, n;
 		
 		// Kick
-		n = EvaluateRadius(radius, obj_enemy);
+		n = EvaluateRadius(radius, obj_entity);
 		for (var i = 0; i < n; i++)
 		{
 			e = hitlist[| i];
@@ -250,9 +274,13 @@ function Update(ts)
 			if (cankick && e.HasFlag(FL_Entity.kickable))
 			{
 				e.DoKick(movedirection);
-				kickstep = kicksteptime;
+				kickingstep = kickingsteptime;
 				image_xscale = Polarize(e.x-x);
 				sprite_index = spriteset.kick;
+			}
+			else if ( e.HasFlag(FL_Entity.pickup) )
+			{
+				e.OnPickup(self);
 			}
 		}
 		
@@ -264,7 +292,7 @@ function Update(ts)
 			
 			if (
 				iframes == 0 &&		// No i frames
-				kickstep == 0 &&	// Not currently kicking
+				kickingstep == 0 &&	// Not currently kicking
 				e.HasFlag(FL_Entity.hostile)	// Entity deals contact damage
 				)
 			{
@@ -274,7 +302,7 @@ function Update(ts)
 			}
 			// Bump
 			else if (
-				kickstep == 0 &&	// Not currently kicking
+				kickingstep == 0 &&	// Not currently kicking
 				e.HasFlag(FL_Entity.solid) &&	// Entity is solid
 				!e.HasFlag(FL_Entity.kickable) &&	// Entity is not kickable
 				!e.HasFlag(FL_Entity.hostile)	// Entity does not deal contact damage
@@ -292,7 +320,8 @@ function Update(ts)
 	}
 	
 	// Running
-	cankick = movingstep == 0 && !aimlock;
+	cankick = movingstep == 0 && !aimlock && flashingstep == 0;
+	
 	if (aimlock || (xlev==0 && ylev==0)) {movingstep = movingsteptime;}
 	else
 	{
@@ -349,6 +378,11 @@ function Draw()
 	{
 		U_DrawMatrixClear();
 		DrawBillboard(shadowsprite, 0, xx, yy, 0, LightsEndColor.dark);
+		
+		if (flashingstep > 0)
+		{
+			DrawBillboard(spr_camera_flash, 3*(1.0-flashingstep/flashingsteptime), xx, yy, 0, c_white);
+		}
 		U_DrawMatrix(drawmatrix);
 		DrawBillboardExt(sprite_index, image_index, xx, yy, z, image_xscale, image_yscale);
 	}
@@ -382,5 +416,5 @@ function SetGrabInst(inst)
 
 function CanGrab()
 {
-	return iframes == 0 && healthpoints > 0 && grabenemyinst == noone && kickstep == 0;	
+	return iframes == 0 && healthpoints > 0 && grabenemyinst == noone && kickingstep == 0;	
 }

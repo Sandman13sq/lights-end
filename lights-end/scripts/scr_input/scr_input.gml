@@ -3,7 +3,7 @@
 enum InputIndex
 {
 	right, up, left, down,
-	fire, focus, credit,
+	fire, focus, flash, credit,
 	
 	_size
 }

@@ -20,6 +20,7 @@ enum ST_Player
 spriteset = {
 	idle : spr_playerM_idle,
 	shoot : spr_playerM_shoot,
+	flash : spr_playerM_flash,
 	run : spr_playerM_run,
 	hurt : spr_playerM_hurt,
 	kick : spr_playerM_kick,
@@ -33,6 +34,7 @@ if choose(0, 1)
 spriteset = {
 	idle : spr_playerF_idle,
 	shoot : spr_playerF_shoot,
+	flash : spr_playerF_flash,
 	run : spr_playerF_run,
 	hurt : spr_playerF_hurt,
 	kick : spr_playerF_kick,
@@ -67,9 +69,15 @@ iframestime = 180;
 healthmax = 3;
 healthpoints = healthmax;
 
+batteriesmax = 3;
+batteries = batteriesmax;
+
+flashingstep = 0;
+flashingsteptime = 30;
+
 cankick = false;
-kickstep = 0;
-kicksteptime = 40;
+kickingstep = 0;
+kickingsteptime = 40;
 
 movingstep = 0;
 movingsteptime = 30;

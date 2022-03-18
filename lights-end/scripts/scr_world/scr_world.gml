@@ -38,11 +38,14 @@ function EntityFromTag(entry)
 		case("linedestroy"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_linedestroy); break;
 		case("enemydefeat"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_enemydefeated); break;
 		
+		case("showworld"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_showworld); break;
 		case("hideworld"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_hideworld); break;
 		
 		// Enemies
 		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_ghost); break;
+		case("ghostd"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_ghost); inst.darkened = true; break;
 		case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_retina); break;
+		case("retinad"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_retina); inst.darkened = true; break;
 		case("firefly"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_firefly); break;
 		
 		// Events
@@ -62,7 +65,7 @@ function EntityFromTag(entry)
 			break;
 		case("goto3"): 
 			inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_goto_floor1);
-			inst.targetroom = rm_3_floor3;
+			inst.targetroom = rm_3_final;
 			break;
 		
 	}
@@ -140,6 +143,6 @@ function CallPoll(triggertag)
 function GetWorldByTag(_tag)
 {
 	var out = noone;
-	with obj_worldvb {if tag == _tag {out = id;}}
+	with obj_worldvb {if string_pos(_tag, tag) != 0 {out = id;}}
 	return out;
 }

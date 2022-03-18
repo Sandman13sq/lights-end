@@ -68,7 +68,7 @@ function ShowScore(x, y, value, usebonusmultiplier=true)
 	
 	obj_header.bonusstep = obj_header.bonussteptime;
 	
-	score += value;
+	score += value * (darkened+1);
 	with instance_create_depth(x, y, 0, obj_scorepoints)
 	{
 		scorevalue = value;

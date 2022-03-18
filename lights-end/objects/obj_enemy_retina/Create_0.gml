@@ -20,7 +20,6 @@ enum ST_Retina
 }
 
 SetFlag(FL_Entity.shootable | FL_Entity.solid);
-SetState(ST_Retina.walk);
 
 walktime = 120;
 walkcount = 0;
@@ -33,3 +32,4 @@ chasespeed = 5 + ORandom()/512;
 radius = 64;
 
 SetHealthMax(30);
+SetState(ST_Retina.walk);

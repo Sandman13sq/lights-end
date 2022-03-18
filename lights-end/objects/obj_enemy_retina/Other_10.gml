@@ -30,14 +30,8 @@ function Update(ts)
 			if (statestep > 0) {statestep = ApproachZero(statestep, ts);}
 			else if (p)
 			{
-				// Reset walk count if player is far away
-				if ( DistanceTo(p) >= 400 )
-				{
-					walkcount = 0;
-				}
-				
 				// Walk in another direction
-				if (walkcount < 3 && ORandom(3) != 0)
+				if (DistanceTo(p) >= 500 || (walkcount < 2 && ORandom(5) != 0) )
 				{
 					walkcount++;
 					
@@ -238,7 +232,7 @@ function Update(ts)
 		case(ST_Retina.stagger):
 			if (PopStateStart())
 			{
-				statestep = 300;
+				statestep = 300 + ORandom();
 				z = 0;
 				zspeed = 0;
 				SetFlag(FL_Entity.shootable | FL_Entity.kickable);
@@ -276,6 +270,7 @@ function Update(ts)
 			if (PopStateStart())
 			{
 				statestep = 200;
+				darkened = true;
 				sprite_index = spr_retina_darken;
 				break;
 			}
@@ -307,6 +302,7 @@ function Update(ts)
 				sprite_index = spr_retina_chase;
 				image_xscale = 1;
 				statestep = 0;
+				darkened = true;
 				ClearFlag(FL_Entity.solid | FL_Entity.kickable);
 				SetFlag(FL_Entity.hostile);
 				break;
@@ -374,7 +370,7 @@ function OnDamage(damage, angle, knockback)
 		healthpoints > 0 && 
 		state != ST_Retina.stagger_fall && 
 		state != ST_Retina.stagger && 
-		ORandom( ceil(max(1, healthpoints * (darkened+1)) ) ) == 0
+		ORandom( ceil(max(1, healthpoints * (darkened+0.5)) ) ) == 0
 		)
 	{
 		SetState(ST_Retina.stagger_fall);	

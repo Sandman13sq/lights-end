@@ -72,5 +72,9 @@ score = 0;
 bonusstep = 0;
 bonussteptime = 100;
 
-room_goto_next();
+if (keyboard_check_direct(ord("1"))) {room_goto(rm_0_street);}
+else if (keyboard_check_direct(ord("2"))) {room_goto(rm_1_floor1);}
+else if (keyboard_check_direct(ord("3"))) {room_goto(rm_2_floor2);}
+else {room_goto_next();}
+
 

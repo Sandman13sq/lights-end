@@ -187,7 +187,7 @@ function Update(ts)
 		case(ST_Ghost.down):
 			if (PopStateStart())
 			{
-				statestep = 300;
+				statestep = 300 + ORandom();
 				zspeed = 0;
 				z = 0;
 				sprite_index = darkened? spr_ghostMD_down: spr_ghostM_down;
@@ -224,6 +224,7 @@ function Update(ts)
 			if (PopStateStart())
 			{
 				statestep = 200;
+				darkened = true;
 				sprite_index = spr_ghostM_darken;
 				break;
 			}
@@ -255,6 +256,7 @@ function Update(ts)
 			{
 				sprite_index = spr_ghostMD_chase;
 				statestep = 0;
+				darkened = true;
 				ClearFlag(FL_Entity.hostile | FL_Entity.solid | FL_Entity.kickable);
 				break;
 			}
@@ -333,7 +335,7 @@ function OnDamage(damage, angle, knockback)
 	if (
 		healthpoints > 0 && 
 		state != ST_Ghost.down && 
-		ORandom( ceil(max(1, healthpoints * (darkened+1)) ) ) == 0
+		ORandom( ceil(max(1, healthpoints * (darkened+0.5)) ) ) == 0
 		)
 	{
 		SetState(ST_Ghost.knockback);	

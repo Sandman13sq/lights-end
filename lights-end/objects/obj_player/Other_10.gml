@@ -25,8 +25,11 @@ function Update(ts)
 		{
 			with ( obj_enemy )
 			{
-				SetHitstop(10);
-				Flashed(other.x, other.y);
+				if (point_distance(other.x, other.y, x, y) <= 500)
+				{
+					SetHitstop(10);
+					Flashed(other.x, other.y);
+				}
 			}
 			flashingstep = flashingsteptime;
 			

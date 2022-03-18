@@ -22,7 +22,6 @@ enum ST_Ghost
 }
 
 SetFlag(FL_Entity.shootable | FL_Entity.solid);
-SetState(ST_Ghost.walk);
 
 walktime = 100;
 movespeed = 2.5 + ORandom()/512;
@@ -33,4 +32,4 @@ radius = 32;
 
 SetHealthMax(20);
 
-
+SetState(ST_Ghost.walk);

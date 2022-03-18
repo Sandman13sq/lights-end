@@ -292,7 +292,6 @@ function Update(ts)
 			y += yspeed * ts;
 			
 			image_index = Modulo(image_index+random(2)*ts/4, image_number);
-			
 			break;
 		
 		// ===============================================================

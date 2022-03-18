@@ -26,7 +26,7 @@ SetState(ST_Ghost.walk);
 
 walktime = 100;
 movespeed = 2 + ORandom()/512;
-chasespeed = 5 + ORandom()/512;
+chasespeed = 4 + ORandom()/256;
 movedirection = 0;
 
 radius = 32;

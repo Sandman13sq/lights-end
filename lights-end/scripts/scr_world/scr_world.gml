@@ -35,8 +35,8 @@ function EntityFromTag(entry)
 		case("hideworld"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_hideworld); break;
 		
 		// Enemies
-		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_ghostM); break;
-		case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_enemy_retina); break;
+		case("ghost"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_ghost); break;
+		case("retina"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_retina); break;
 		
 		// Events
 		case("floor1flicker"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_floor1_flicker); break;

@@ -14,6 +14,9 @@ enum ST_Retina
 	
 	aim,
 	aim_fire,
+	
+	darken,
+	chase,
 }
 
 SetFlag(FL_Entity.shootable | FL_Entity.solid);
@@ -25,6 +28,10 @@ walkcount = 0;
 movespeed = 2 + ORandom()/512;
 movedirection = 0;
 
+chasespeed = 5 + ORandom()/512;
+
 radius = 64;
+
+darkened = false;
 
 SetHealthMax(20);

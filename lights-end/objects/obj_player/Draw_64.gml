@@ -41,7 +41,3 @@ if (DEBUG > 0)
 	draw_text(16, 240, [cankick, movingstep]);
 }
 
-for (var i = 0; i < 8; i++)
-{
-	draw_text(16+i*20, 400, (input.iheld & (1 << i))? "1": "0");	
-}

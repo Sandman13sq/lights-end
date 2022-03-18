@@ -184,7 +184,8 @@ function Update(ts)
 				return;
 			}
 			break;
-			
+		
+		// =========================================================================
 		case(ST_Retina.stagger_fall):
 			if (PopStateStart())
 			{
@@ -233,6 +234,7 @@ function Update(ts)
 			}
 			break;
 		
+		// =====================================================================
 		case(ST_Retina.stagger):
 			if (PopStateStart())
 			{
@@ -249,6 +251,65 @@ function Update(ts)
 			xspeed = Approach(xspeed, 0, 0.2*ts);
 			yspeed = Approach(yspeed, 0, 0.2*ts);
 			
+			break;
+		
+		// ===========================================================
+		case(ST_Retina.darken):
+			if (PopStateStart())
+			{
+				statestep = 200;
+				sprite_index = spr_retina_darken;
+				break;
+			}
+			
+			xshake = Wrap(xshake, 4, 10);
+			
+			image_index = BoolStep(statestep, 16);
+			
+			// Stand back up
+			if (statestep > 0) {statestep = ApproachZero(statestep, ts);}
+			else
+			{
+				SetState(ST_Retina.chase);
+				break;
+			}
+			
+			xspeed = Approach(xspeed, 0, 0.1*ts);
+			yspeed = Approach(yspeed, 0, 0.1*ts);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+			break;
+		
+		// =========================================================
+		case(ST_Retina.chase):
+			if (PopStateStart())
+			{
+				sprite_index = spr_retina_chase;
+				image_xscale = 1;
+				statestep = 0;
+				ClearFlag(FL_Entity.solid | FL_Entity.kickable);
+				SetFlag(FL_Entity.hostile);
+				break;
+			}
+			
+			// Run towards player
+			if (p)
+			{
+				// Add random shift to walk angle
+				movedirection = DirectionTo(p);
+				movedirection += random_range(-15, 15);
+			}
+			
+			xspeed = Approach(xspeed, lengthdir_x(chasespeed, movedirection), 0.2*ts);
+			yspeed = Approach(yspeed, lengthdir_y(chasespeed, movedirection), 0.2*ts);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
+			
+			image_index = Modulo(image_index+random(2)*ts/4, image_number);
 			break;
 	}
 	
@@ -333,3 +394,11 @@ function OnDefeat()
 	instance_destroy();
 }
 
+function Darken()
+{
+	if (!darkened)
+	{
+		darkened = true;
+		SetState(ST_Retina.darken);
+	}
+}

@@ -1,5 +1,7 @@
 /// @desc
 
+if (!active) {return;}
+
 DrawSetAlign(0, 0);
 
 var xx = 64, yy = 64, xsep = 64;
@@ -42,12 +44,9 @@ var _s = string(score);
 _s = string_repeat("0", 8-string_length(_s)) + _s;
 draw_text(GUI_W/2, 40, "SCORE: " + _s);
 
-
 if (DEBUG > 0)
 {
 	draw_text(16, 200, [x, y]);
 	draw_text(16, 220, image_index);
 	draw_text(16, 240, [cankick, movingstep]);
 }
-
-draw_text(16, 200, GetHealth()/GetHealthMax());

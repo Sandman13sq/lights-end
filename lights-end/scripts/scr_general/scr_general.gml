@@ -24,6 +24,11 @@ function msg()
 	show_message(s);
 }
 
+function SetTimeStep(ts)
+{
+	obj_header.nexttimestep = ts;
+}
+
 function SetHitstop(frames)
 {
 	obj_header.hitstop = max(obj_header.hitstop, frames);

@@ -244,7 +244,7 @@ function Update(ts)
 			else
 			{
 				zspeed = 4;
-				state = ST_Player.defeat2;
+				SetState(ST_Player.defeat2);
 			}
 			break;
 		
@@ -254,6 +254,11 @@ function Update(ts)
 			zspeed = 0;
 			xspeed = Approach(xspeed, 0, 0.1*ts);
 			yspeed = Approach(yspeed, 0, 0.1*ts);
+			
+			if !instance_exists(obj_gameover)
+			{
+				instance_create_depth(x, y, 0, obj_gameover);
+			}
 			break;
 	}
 	

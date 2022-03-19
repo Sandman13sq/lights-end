@@ -12,11 +12,11 @@ function Update(ts)
 	switch(state)
 	{
 		// ===========================================================
-		case(ST_Retina.walk):
+		case(ST_Firefly.hover):
 			if (PopStateStart())
 			{
 				visible = true;
-				sprite_index = spr_retina_walk;
+				sprite_index = spr_firefly_float;
 				statestep = 0;
 				walkcount = 0;
 				
@@ -30,12 +30,6 @@ function Update(ts)
 			if (statestep > 0) {statestep = ApproachZero(statestep, ts);}
 			else if (p)
 			{
-				// Reset walk count if player is far away
-				if ( DistanceTo(p) >= 400 )
-				{
-					walkcount = 0;
-				}
-				
 				// Walk in another direction
 				if (walkcount < 3)
 				{
@@ -46,16 +40,11 @@ function Update(ts)
 					// Add random shift to walk angle
 					movedirection = DirectionTo(p);
 					movedirection += 100.0*(ORandom() / ORANDOMMAX - 0.5);
-				
-					// Face player
-					if abs( dcos(movedirection) ) > 0.1
-					{
-						image_xscale = sign( dcos(movedirection) );
-					}
+					image_xscale = sign( dcos(movedirection) );
 				}
 				else
 				{
-					SetState(ST_Retina.aim);
+					SetState(ST_Firefly.hover);
 					break;
 				}
 				
@@ -68,12 +57,15 @@ function Update(ts)
 			x += xspeed * ts;
 			y += yspeed * ts;
 			
-			image_index += random(2)*ts/13;
+			image_index += random(2)*ts/3;
+			
+			z = 4 * (1.0+sin(hoverstep))*0.5;
+			hoverstep = Modulo(hoverstep+0.1, 2*pi);
 	
 			break;
 		
 		// ===========================================================
-		case(ST_Retina.aim):
+		case(ST_Firefly.aim):
 			if (PopStateStart())
 			{
 				sprite_index = spr_retina_aim;
@@ -98,7 +90,7 @@ function Update(ts)
 			}
 			else
 			{
-				SetState(ST_Retina.aim_fire);
+				SetState(ST_Firefly.aim_fire);
 			}
 			
 			xspeed = Approach(xspeed, 0, 0.5*ts);
@@ -111,7 +103,7 @@ function Update(ts)
 			break;
 		
 		// ===========================================================
-		case(ST_Retina.aim_fire):
+		case(ST_Firefly.aim_fire):
 			if (PopStateStart())
 			{
 				statestep = 10;
@@ -139,7 +131,7 @@ function Update(ts)
 				}
 				else
 				{
-					SetState(ST_Retina.walk);
+					SetState(ST_Firefly.hover);
 				}
 			}
 			
@@ -153,18 +145,24 @@ function Update(ts)
 			break;
 		
 		// ===========================================================
-		case(ST_Retina.kicked):
+		case(ST_Firefly.kicked):
 			if (PopStateStart())
 			{
-				zspeed = 13;
+				zspeed = 10;
 				
-				sprite_index = spr_retina_kicked;
+				sprite_index = spr_firefly_kicked;
 				visible = true;
 				
-				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				SetFlag(FL_Entity.wallbounce);
 				
-				ShowScore(x, y, 200, true);
+				ShowScore(x, y, 10000, true);
+				SetTimeStep(0.2);
+				
+				if ( !instance_exists(obj_fireflydefeat) ) 
+				{
+					instance_create_depth(0, 0, 0, obj_fireflydefeat);
+				}
 				break;
 			}
 			
@@ -184,8 +182,9 @@ function Update(ts)
 				return;
 			}
 			break;
-			
-		case(ST_Retina.stagger_fall):
+		
+		// =========================================================================
+		case(ST_Firefly.stagger_fall):
 			if (PopStateStart())
 			{
 				statestep = 0;
@@ -195,15 +194,15 @@ function Update(ts)
 				yspeed = lengthdir_y(4, lastdamageparams[1]);
 				zspeed = 10;
 				
-				sprite_index = spr_retina_stagger;
+				sprite_index = spr_firefly_knockback;
 				visible = true;
 				
-				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable);
+				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				SetFlag(FL_Entity.wallbounce);
 				break;
 			}
 			
-			zspeed += -0.5;
+			zspeed += -0.5*ts;
 			
 			image_index += ts/4;
 			if (abs(xspeed) > 1) {image_xscale = Polarize(xspeed);}
@@ -215,7 +214,7 @@ function Update(ts)
 			
 			if (z <= 0 && zspeed < 0)
 			{
-				SetCameraShake(abs(zspeed));
+				SetCameraShake(abs(zspeed * 2));
 				
 				z = 0;
 				
@@ -228,84 +227,71 @@ function Update(ts)
 				}
 				else
 				{
-					SetState(ST_Retina.stagger);
+					SetState(ST_Firefly.stagger);
 				}
 			}
 			break;
 		
-		case(ST_Retina.stagger):
+		// =====================================================================
+		case(ST_Firefly.stagger):
 			if (PopStateStart())
 			{
+				statestep = 300 + ORandom();
 				z = 0;
 				zspeed = 0;
+				sprite_index = spr_firefly_stagger;
 				SetFlag(FL_Entity.shootable | FL_Entity.kickable);
-				ClearFlag(FL_Entity.hostile | FL_Entity.wallbounce);
+				ClearFlag(FL_Entity.hostile | FL_Entity.wallbounce | FL_Entity.solid);
 				break;
 			}
 			
 			image_index += ts/4;
 			if (abs(xspeed) > 1) {image_xscale = Polarize(xspeed);}
 			
+			if (xshake == 0 && (statestep == 150 || statestep < 40))
+			{
+				xshake = 40;	
+			}
+			
+			// Stand back up
+			if (statestep > 0) {statestep = Approach(statestep, 0, ts);}
+			else
+			{
+				SetState(ST_Firefly.hover);
+				SetHealthMax(40);
+				break;
+			}
+			
 			xspeed = Approach(xspeed, 0, 0.2*ts);
 			yspeed = Approach(yspeed, 0, 0.2*ts);
+			
+			// Add movement
+			x += xspeed * ts;
+			y += yspeed * ts;
 			
 			break;
 	}
 	
-	// Push away from other enemies
-	ds_list_clear(hitlist);
-	var n = instance_place_list(x, y, obj_enemy, hitlist, false);
-	var e;
-	for (var i = 0; i < n; i++)
-	{
-		e = hitlist[| i];
-		if ( DistanceTo(p) < 40 )
-		{
-			var d = point_direction(x, y, e.x, e.y);
-			
-			x -= lengthdir_x(1, d);
-			y -= lengthdir_y(1, d);
-			e.x += lengthdir_x(1, d);
-			e.y += lengthdir_y(1, d);
-		}
-	}
-	
 	EvaluateLineCollision();
+	
+	// Damage Flash
+	SetDrawMatrix(0, 0, c_white, lastdamagestep/7);
 }
 
 function OnKick(angle)
 {
 	xspeed = lengthdir_x(10, angle);
 	yspeed = lengthdir_y(10, angle);
-	SetState(ST_Retina.kicked);
+	SetState(ST_Firefly.kicked);
 }
 
 function OnDamage(damage, angle, knockback)
 {
-	if (
-		healthpoints > 0 && 
-		state != ST_Retina.stagger_fall && 
-		state != ST_Retina.stagger && 
-		ORandom(4) == 0)
-	{
-		SetState(ST_Retina.stagger_fall);	
-	}
-	else
-	{
-		xspeed = lengthdir_x(knockback, angle);
-		yspeed = lengthdir_y(knockback, angle);
-	}
 	
-	if (healthpoints == 0)
-	{
-		ShowScore(x, y, 100);	
-	}
 }
 
 function OnDefeat()
 {
-	//PartParticlesCircle(PARTSYS, PType.onyxdebris, x, y, 64, 32, 0x200010, 20);
-	GFX_Onyxplode(x, y, 0);
-	instance_destroy();
+	SetState(ST_Firefly.stagger_fall);
 }
 

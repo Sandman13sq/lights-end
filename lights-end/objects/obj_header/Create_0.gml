@@ -17,7 +17,7 @@ DEBUG = 0;
 hitstop = 0;
 nexttimestep = 1;
 
-debugoverlay = true;
+debugoverlay = false;
 show_debug_overlay(debugoverlay);
 
 draw_set_font(fnt_main);
@@ -75,6 +75,7 @@ bonussteptime = 100;
 if (keyboard_check_direct(ord("1"))) {room_goto(rm_0_street);}
 else if (keyboard_check_direct(ord("2"))) {room_goto(rm_1_floor1);}
 else if (keyboard_check_direct(ord("3"))) {room_goto(rm_2_floor2);}
+else if (keyboard_check_direct(ord("4"))) {room_goto(rm_3_final);}
 else {room_goto_next();}
 
 

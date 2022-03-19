@@ -178,3 +178,13 @@ function DrawSetAlign(halign, valign)
 	draw_set_valign(valign);
 }
 
+function DrawText(x, y, text, color, alpha)
+{
+	draw_text_color(x, y, text, color, color, color, color, alpha);
+}
+
+function DrawTextExt(x, y, text, xscale, yscale, angle, color, alpha)
+{
+	draw_text_transformed_color(
+		x, y, text, xscale, yscale, angle, color, color, color, color, alpha);
+}

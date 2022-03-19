@@ -7,21 +7,27 @@ enum ST_Firefly
 {
 	hover = 1,
 	
-	defeat,
-	
 	aim,
 	aim_fire,
+	
+	darken,
+	
+	stagger_fall,
+	stagger,
+	kicked,
 }
 
-SetFlag(FL_Entity.hostile | FL_Entity.shootable);
-SetState(ST_Retina.walk);
+SetFlag(FL_Entity.hostile | FL_Entity.shootable | FL_Entity.solid);
 
 walktime = 120;
 walkcount = 0;
 
-movespeed = 2 + ORandom()/512;
+movespeed = 3;
 movedirection = 0;
 
 radius = 64;
 
-SetHealthMax(20);
+hoverstep = 0;
+
+SetHealthMax(100);
+SetState(ST_Firefly.hover);

@@ -52,6 +52,8 @@ function DoDamage(value, angle=0, knockback=0)
 {
 	value = max(1, darkened? value div 2: value);
 	
+	SFXPlayAt(snd_hit, x, y);
+	
 	healthpoints = max(0, healthpoints-value);
 	lastdamageparams[0] = value;
 	lastdamageparams[1] = angle;
@@ -71,6 +73,8 @@ function DoKick(angle)
 {
 	SetHitstop(KICKFRAMES);
 	SetCameraShake(KICKFRAMES + 5);
+	
+	SFXPlayAt(snd_defeat, x, y);
 	
 	GFX_Kickpop(x, y, z);
 	OnKick(angle);

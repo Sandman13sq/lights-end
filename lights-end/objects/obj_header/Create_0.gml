@@ -78,4 +78,6 @@ else if (keyboard_check_direct(ord("3"))) {room_goto(rm_2_floor2);}
 else if (keyboard_check_direct(ord("4"))) {room_goto(rm_3_final);}
 else {room_goto_next();}
 
+audiobgm = audio_play_sound(mus_bgm, 0, 1);
+audio_sound_gain(audiobgm, 0.8, 0);
 

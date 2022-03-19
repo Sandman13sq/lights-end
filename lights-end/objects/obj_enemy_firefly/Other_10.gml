@@ -148,7 +148,7 @@ function Update(ts)
 		case(ST_Firefly.kicked):
 			if (PopStateStart())
 			{
-				zspeed = 10;
+				zspeed = 16;
 				
 				sprite_index = spr_firefly_kicked;
 				visible = true;
@@ -199,6 +199,8 @@ function Update(ts)
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				SetFlag(FL_Entity.wallbounce);
+				
+				SFXPlayAt(snd_stagger, x, y);
 				break;
 			}
 			

@@ -27,9 +27,11 @@ walkcount = 0;
 movespeed = 2 + ORandom()/512;
 movedirection = 0;
 
-chasespeed = 5 + ORandom()/512;
+chasespeed = 3.5 + ORandom()/512;
 
 radius = 64;
 
 SetHealthMax(30);
 SetState(ST_Retina.walk);
+
+audiocharge = -1;

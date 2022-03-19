@@ -160,6 +160,8 @@ function Update(ts)
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				SetFlag(FL_Entity.wallbounce);
+				
+				SFXPlayAt(snd_stagger, x, y);
 				break;
 			}
 			
@@ -178,6 +180,7 @@ function Update(ts)
 					return;
 				}
 				
+				SFXPlayAt(snd_door, x, y);
 				SetCameraShake(7);
 				SetState(ST_Ghost.down);
 			}
@@ -283,6 +286,8 @@ function Update(ts)
 					p.xspeed = xspeed;
 					p.yspeed = yspeed;
 					p.image_xscale = Polarize(xspeed);
+					
+					SFXPlayAt(snd_hit, x, y);
 				}
 			}
 			

@@ -6,4 +6,4 @@ event_inherited();
 darkened = false;
 
 timer = 300;
-timertime = 400;
+timertime = 300;

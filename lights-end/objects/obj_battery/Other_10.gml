@@ -15,10 +15,16 @@ function OnPickup(player)
 {
 	if (isinfinite)
 	{
-		player.batteries = player.batteriesmax;
+		if (player.batteries < player.batteriesmax)
+		{
+			player.batteries = player.batteriesmax;
+			SFXPlayAt(snd_battery);
+		}
+		
 	}
 	else
 	{
+		SFXPlayAt(snd_battery);
 		player.batteries = min(player.batteries+1, player.batteriesmax);
 		instance_destroy();
 	}

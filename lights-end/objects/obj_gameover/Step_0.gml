@@ -10,5 +10,6 @@ else if (alpha2 < 2)
 }
 else
 {
+	global.g_playercharacter ^= 1;
 	game_restart();
 }

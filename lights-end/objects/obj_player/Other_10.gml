@@ -33,6 +33,8 @@ function Update(ts)
 			}
 			flashingstep = flashingsteptime;
 			
+			SFXPlayAt(snd_defeat, x, y);
+			
 			batteries--;
 		}
 	}
@@ -97,6 +99,8 @@ function Update(ts)
 					depth, obj_projectile
 					);
 				inst.SetDirection(aimdirection);
+				
+				SFXPlayAt(snd_flashshot, x, y);
 			}
 			
 			// Aim Sprite
@@ -233,6 +237,7 @@ function Update(ts)
 				statestep = 5;
 				
 				SetCameraShake(10);
+				SFXPlayAt(snd_door, x, y);
 			}
 			
 			SetFlag(FL_Entity.wallbounce);
@@ -245,6 +250,7 @@ function Update(ts)
 			{
 				zspeed = 4;
 				SetState(ST_Player.defeat2);
+				SFXPlayAt(snd_door, x, y);
 			}
 			break;
 		
@@ -361,6 +367,7 @@ function OnDamage(damage, angle, knockback)
 
 function OnDefeat()
 {
+	SFXPlayAt(snd_defeat, x, y);
 	SetState(ST_Player.defeat0);
 	zspeed = 7;
 	xspeed = -lengthdir_x(4, movedirection);

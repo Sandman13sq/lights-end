@@ -29,5 +29,5 @@ radius = 64;
 
 hoverstep = 0;
 
-SetHealthMax(100);
+SetHealthMax(250);
 SetState(ST_Firefly.hover);

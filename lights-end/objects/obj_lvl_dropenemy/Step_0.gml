@@ -15,8 +15,8 @@ if (active)
 		
 			while ( point_distance(xx, yy, p.x, p.y) <= 40 )
 			{
-				xx = lerp(x-200, x+200, random(100)/100);
-				yy = lerp(y-200, y+200, random(100)/100);
+				xx = lerp(x-300, x+200, random(100)/100);
+				yy = lerp(y-300, y+200, random(100)/100);
 			}
 		
 			if ( choose(0, 1) == 0 )

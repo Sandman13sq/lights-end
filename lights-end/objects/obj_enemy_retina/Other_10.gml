@@ -85,6 +85,11 @@ function Update(ts)
 				break;
 			}
 			
+			if ( !audio_is_playing(audiocharge) )
+			{
+				audiocharge = SFXPlayAt(snd_retinacharge, x, y);
+			}
+			
 			if (statestep > 0)
 			{
 				statestep = ApproachZero(statestep, ts);
@@ -94,6 +99,8 @@ function Update(ts)
 			{
 				SetState(ST_Retina.aim_fire);
 			}
+			
+			
 			
 			xspeed = Approach(xspeed, 0, 0.5*ts);
 			yspeed = Approach(yspeed, 0, 0.5*ts);
@@ -130,6 +137,8 @@ function Update(ts)
 						x + lengthdir_x(radius, movedirection), 
 						y + lengthdir_y(radius, movedirection), 
 						depth, obj_enemy_retina_ball).SetDirection(movedirection);
+					
+					SFXPlayAt(snd_shot1, x, y);
 				}
 				else
 				{
@@ -195,6 +204,8 @@ function Update(ts)
 				
 				ClearFlag(FL_Entity.shootable | FL_Entity.hostile | FL_Entity.kickable | FL_Entity.solid);
 				SetFlag(FL_Entity.wallbounce);
+				
+				SFXPlayAt(snd_stagger, x, y);
 				break;
 			}
 			
@@ -216,6 +227,8 @@ function Update(ts)
 				
 				xspeed = Approach(xspeed, 0, 0.5*ts);
 				yspeed = Approach(yspeed, 0, 0.5*ts);
+				
+				SFXPlayAt(snd_door, x, y);
 				
 				if (zspeed < -1)
 				{

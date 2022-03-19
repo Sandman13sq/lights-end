@@ -9,6 +9,11 @@ if (active)
 	with GetWorldByTag("tile-light") {visible = on;}
 	with GetWorldByTag("tile-dim") {visible = !on;}
 	
+	if irandom(4) > 0
+	{
+		SFXPlayAt(snd_flicker);
+	}
+	
 	if (step == 0)
 	{
 		CallPoll(tag);

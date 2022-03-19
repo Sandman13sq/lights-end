@@ -12,7 +12,7 @@ projdirection = 0;
 lifemax = 16;
 life = lifemax;
 
-z = 64;
+z = 54;
 
 autodepth = true;
 depthoffset = 0;

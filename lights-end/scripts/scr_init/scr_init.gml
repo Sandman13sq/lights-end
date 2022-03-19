@@ -3,6 +3,8 @@
 #macro INPUTP1 global.g_inputplayer1
 #macro INPUTP2 global.g_inputplayer2
 
+global.g_playercharacter = 0;
+
 function scr_init()
 {
 	INPUTP1 = new InputManager();

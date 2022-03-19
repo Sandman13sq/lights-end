@@ -54,6 +54,7 @@ function EntityFromTag(entry)
 		case("darken"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_darken); break;
 		
 		case("tutorial"): inst = instance_create_depth(entry.x, entry.y, 0, obj_worldtutorial); break;
+		case("changechar"): inst = instance_create_depth(entry.x, entry.y, 0, obj_changechar); break;
 		case("dropenemy"): inst = instance_create_depth(entry.x, entry.y, 0, obj_lvl_dropenemy)
 				.SetBounds(entry.bounds[0], -entry.bounds[1], entry.bounds[2], -entry.bounds[3]);
 			break;
